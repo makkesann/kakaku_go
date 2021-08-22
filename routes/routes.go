@@ -1,27 +1,18 @@
-package routes
+package server
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/makkesann/kakaku_go/controller"
 )
 
-func Hello(c *gin.Context) {
-	name := c.DefaultQuery("name", "HOGE") // HOGEはデフォルト値?
-	//name := c.Query("lastname") // デフォルトがない場合
-	c.HTML(http.StatusOK, "layout", gin.H{
-		"name": name,
-	})
-}
+func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
+	router := gin.Default()
+	router.LoadHTMLGlob("view/*.html")
 
-func HelloParam(c *gin.Context) {
-	name := c.Param("name")
-	c.HTML(http.StatusOK, "layout", gin.H{
-		"name": name,
-	})
-}
+	router.GET("/", controller.IndexDisplayAction)
+	router.GET("/user", controller.UserListDisplayAction)
+	router.GET("/user/add", controller.UserAddDisplayAction)
+	router.GET("/user/edit/:id", controller.UserEditDisplayAction)
 
-func NoRoute(c *gin.Context) {
-	// helloに飛ばす
-	c.Redirect(http.StatusMovedPermanently, "../hello")
+	return router
 }
