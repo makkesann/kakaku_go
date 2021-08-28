@@ -2,7 +2,7 @@ module github.com/makkesann/kakaku_go/server
 
 go 1.17
 
-require github.com/makkesann/kakaku_go/server/router v0.0.0-20210828075630-5597b4b53534
+require github.com/makkesann/kakaku_go/server/router v0.0.0-20210828103729-506cb866b628
 
 require (
 	github.com/gin-contrib/cors v1.3.1 // indirect
@@ -16,15 +16,15 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
-	github.com/lib/pq v1.1.1 // indirect
-	github.com/makkesann/kakaku_go/server/controller v0.0.0-20210828100640-1ce34a2fc63c // indirect
+	github.com/lib/pq v1.10.2 // indirect
+	github.com/makkesann/kakaku_go/server/controller v0.0.0-20210828103901-834a3f261b48 // indirect
 	github.com/mattn/go-isatty v0.0.13 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/ugorji/go/codec v1.2.6 // indirect
-	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
-	golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069 // indirect
-	golang.org/x/text v0.3.6 // indirect
+	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
+	golang.org/x/sys v0.0.0-20210823070655-63515b42dcdf // indirect
+	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
