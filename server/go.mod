@@ -1,4 +1,4 @@
-module github.com/makkesann/kakaku_go/server
+module main
 
 go 1.17
 

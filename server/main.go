@@ -9,7 +9,7 @@
 // 	r.Run(":8081")
 // }
 
-package server // import "server"
+package main // import "server"
 
 import (
 	"github.com/makkesann/kakaku_go/server/router"
