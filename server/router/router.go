@@ -7,7 +7,6 @@ import (
 )
 
 func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
-	con := controller.Default()
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		// アクセスを許可したいアクセス元
@@ -22,8 +21,8 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 			"OPTIONS",
 		},
 	}))
-	r.GET("/", con.IndexDisplayAction)
-	r.GET("/:massage", con.ShowMassage)
+	r.GET("/", controller.IndexDisplayAction)
+	r.GET("/:massage", controller.ShowMassage)
 
 	return r
 }
