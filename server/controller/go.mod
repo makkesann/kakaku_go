@@ -1,3 +1,3 @@
-module github.com/makkesann/kakaku_go/server/controller
+module go_dbtest/server/controller
 
 go 1.17

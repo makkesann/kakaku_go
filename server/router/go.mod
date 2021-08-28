@@ -1,3 +1,3 @@
-module github.com/makkesann/kakaku_go/server/router
+module go_dbtest/server/router
 
 go 1.17
