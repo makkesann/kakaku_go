@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    {{ users.message }}
+    {{ users.massage }}
     <p>sdfssddfsadf</p>
   </div>
 </template>

@@ -1,13 +1,26 @@
 package router
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/makkesann/kakaku_go/controller"
+	"github.com/makkesann/kakaku_go/server/controller"
 )
 
 func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
-	router := gin.Default()
-	router.GET("/", controller.IndexDisplayAction)
+	r := gin.Default()
+	r.Use(cors.New(cors.Config{
+		// アクセスを許可したいアクセス元
+		AllowOrigins: []string{
+			"http://localhost:8083",
+		},
+		// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
+		AllowMethods: []string{
+			"POST",
+			"GET",
+			"OPTIONS",
+		},
+	}))
+	r.GET("/", controller.IndexDisplayAction)
 
-	return router
+	return r
 }
