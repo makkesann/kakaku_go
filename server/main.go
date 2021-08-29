@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/makkesann/kakaku_go/server/others"
+	"server/others"
 )
 
 func main() {

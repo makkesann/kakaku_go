@@ -1,9 +1,10 @@
 package others
 
 import (
+	"server/controller"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/makkesann/kakaku_go/server/controller"
 )
 
 func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
