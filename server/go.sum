@@ -74,6 +74,8 @@ github.com/makkesann/kakaku_go/server/controller v0.0.0-20210829072019-a4284eed3
 github.com/makkesann/kakaku_go/server/controller v0.0.0-20210829072019-a4284eed3442/go.mod h1:f5DHKZO8uavzfurbAyt6+JY5FjWXZzxU4MPNpUBmzkE=
 github.com/makkesann/kakaku_go/server/controller v0.0.0-20210829101053-13eb7bd6c147 h1:o34/OW8ZBm9S19ecibwoQHDGp5kNvD0uOJlP/ibgtb0=
 github.com/makkesann/kakaku_go/server/controller v0.0.0-20210829101053-13eb7bd6c147/go.mod h1:f5DHKZO8uavzfurbAyt6+JY5FjWXZzxU4MPNpUBmzkE=
+github.com/makkesann/kakaku_go/server/others v0.0.0-20210829110128-193d30ea2a1e h1:WJi+Pp1Kplw6FZ3EPxpmLmO/bmhiweQ/RAfnnxvT6gU=
+github.com/makkesann/kakaku_go/server/others v0.0.0-20210829110128-193d30ea2a1e/go.mod h1:W8LxpRQe5wBJnDCVCOS8CFrrsaMXL/lqg/gqyZw9TnI=
 github.com/makkesann/kakaku_go/server/router v0.0.0-20210828074024-c0b81050dfd9 h1:j8znEiNCliM+udjWiHHHK23TgBJlhVkICjh/YJNAS1o=
 github.com/makkesann/kakaku_go/server/router v0.0.0-20210828074024-c0b81050dfd9/go.mod h1:XES43cn4NEYyMEQ6qMDvgy25xm1oIv5CO8wqmTNmYh0=
 github.com/makkesann/kakaku_go/server/router v0.0.0-20210828075630-5597b4b53534 h1:CBaZfjFsskS+Ms8Ju+XaDhLUjqdLMlwKG9UaNR7IkIc=

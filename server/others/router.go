@@ -3,8 +3,7 @@ package others
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/makkesann/kakaku_go/server/controller/top"
-	// "github.com/makkesann/kakaku_go/server/controller/user"
+	"github.com/makkesann/kakaku_go/server/controller"
 )
 
 func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
@@ -22,8 +21,8 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 			"OPTIONS",
 		},
 	}))
-	r.GET("/", top.IndexDisplayAction)
-	r.GET("/:massage", top.ShowMassage)
+	r.GET("/", controller.IndexDisplayAction)
+	r.GET("/:massage", controller.ShowMassage)
 
 	return r
 }

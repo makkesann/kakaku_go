@@ -18,6 +18,7 @@ require (
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/lib/pq v1.10.2 // indirect
 	github.com/makkesann/kakaku_go/server/controller v0.0.0-20210829101053-13eb7bd6c147 // indirect
+	github.com/makkesann/kakaku_go/server/others v0.0.0-20210829110128-193d30ea2a1e // indirect
 	github.com/mattn/go-isatty v0.0.13 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
