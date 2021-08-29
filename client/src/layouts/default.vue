@@ -2,7 +2,6 @@
   <div>
     <Header/>
     <router-view/>
-    <p>This is a default layout</p>
     <Footer/>
   </div>
 </template>

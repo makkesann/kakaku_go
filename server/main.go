@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/makkesann/kakaku_go/server/router"
+	"github.com/makkesann/kakaku_go/server/controller"
 )
 
 func main() {
-	route := router.GetRouter()
+	route := controller.GetRouter()
 	route.Run(":8081")
 }
