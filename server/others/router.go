@@ -23,7 +23,7 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 		},
 	}))
 	r.GET("/", controller.IndexDisplayAction)
-	r.GET("/:massage", controller.ShowMassage)
+	r.GET("/:genre", controller.ShowMassage)
 
 	return r
 }

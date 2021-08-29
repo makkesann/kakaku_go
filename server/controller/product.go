@@ -20,3 +20,10 @@ func IndexDisplayAction(c *gin.Context) {
 		"massage": "ping",
 	})
 }
+
+func ShowMassage(c *gin.Context) {
+	genre := c.Param("genre")
+	c.JSON(200, gin.H{
+		"massage": genre,
+	})
+}
