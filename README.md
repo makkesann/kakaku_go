@@ -14,3 +14,5 @@ https://bootstrap-vue.org/docs/components
 
 ## GORMについて
   https://qiita.com/gold-kou/items/45a95d61d253184b0f33
+  
+  https://qiita.com/daitasu/items/9428220810816972b5d5
