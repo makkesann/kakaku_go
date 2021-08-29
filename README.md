@@ -12,5 +12,5 @@ https://qiita.com/fetaro/items/31b02b940ce9ec579baf
 ## BootstrapVue
 https://bootstrap-vue.org/docs/components
 
-##GORMについて
+## GORMについて
   https://qiita.com/gold-kou/items/45a95d61d253184b0f33
