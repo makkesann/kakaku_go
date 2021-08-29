@@ -1,4 +1,4 @@
-package controller
+package others
 
 import (
 	"github.com/gin-contrib/cors"
