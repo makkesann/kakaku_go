@@ -5,10 +5,10 @@ services:
     # command: /bin/bash -c "go run app/main.go"
     tty: true
     ports:
-      - "8081:8081"
+      - "8082:8082"
     build: ./server
     volumes:
-      - ./server:/go/src
+      - ./server:/app
     depends_on: 
       - "db"
 
@@ -42,7 +42,7 @@ services:
     image: sosedoff/pgweb
     container_name: pgweb
     ports: 
-      - "8082:8082"
+      - "8081:8081"
     environment:
       - DATABASE_URL=postgres://root:root@postgres:5432/test2?sslmode=disable
     restart: always

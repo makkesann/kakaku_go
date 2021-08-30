@@ -1,10 +1,10 @@
 package main
 
 import (
-	"server/others"
+	"server/router"
 )
 
 func main() {
-	route := others.GetRouter()
-	route.Run(":8081")
+	route := router.GetRouter()
+	route.Run(":8082")
 }

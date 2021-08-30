@@ -1,24 +1,29 @@
 package controller
 
 import (
-	"time"
+	"server/dbmod"
+	"server/model"
 
 	"github.com/gin-gonic/gin"
-
-	"github.com/jinzhu/gorm"
 )
 
-type Product struct {
-	gorm.Model
-	Name     string    `json:"name"`
-	Age      int       `json:age`
-	Birthday time.Time `json:birthday`
+// MVCにおけるmodel部分
+
+func FindAllProducts() []model.Product {
+	db := dbmod.SqlConnect()
+	products := []model.Product{}
+
+	// select文
+	db.Order("ID asc").Find(&products)
+	defer db.Close()
+	return products
 }
 
-func IndexDisplayAction(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"massage": "ping",
-	})
+func InsertProduct(registerProduct *model.Product) {
+	db := dbmod.SqlConnect()
+	// insert
+	db.Create(&registerProduct)
+	defer db.Close()
 }
 
 func ShowMassage(c *gin.Context) {
@@ -26,4 +31,23 @@ func ShowMassage(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"massage": genre,
 	})
+}
+
+//MVCにおけるcontroller部分
+
+func FetchAllProducts(c *gin.Context) {
+	resultProducts := FindAllProducts()
+
+	// URLへのアクセスに対してJSONを返す
+	c.JSON(200, resultProducts)
+}
+
+func AddProduct(c *gin.Context) {
+	productName := c.PostForm("productName")
+
+	var product = model.Product{
+		Name: productName,
+	}
+
+	InsertProduct(&product)
 }
