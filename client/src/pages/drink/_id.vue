@@ -2,16 +2,14 @@
   <div class="home">
     <b-container>
       <b-row>
-        <b-col cols="2">
-          <b-table striped hover :items="drink_genres" :fields="genre_fields"></b-table>
-        </b-col>
-        <b-col cols="10">
-          <b-table striped hover :items="drinks" :fields="drink_fields">
-            <template v-slot:cell(name)="{item}">
-              <a :href="'drink/' + item.ID" >{{ item.name }}</a>
-            </template>
-          </b-table>
-        </b-col>
+        <b-table striped hover :items="drinks" :fields="drink_fields"></b-table>
+      </b-row>
+      <b-row>
+        <b-table striped hover :items="prices">
+          <!-- <template v-slot:cell(name)="{item}">
+            <a :href="'drink/' + item.ID" >{{ item.name }}</a>
+          </template> -->
+        </b-table>
       </b-row>
     </b-container>
   </div>
@@ -28,21 +26,21 @@ export default {
     return {
       drink_fields: ["name", "ID", "DrinkGenreID"],
       drinks: [],
-      genre_fields: ["name"],
-      drink_genres: []
+      prices: []
     }
   },
 
   // インスタンス作成時の処理
   created: function() {
-      this.doFetchAllDrink()
-      this.doFetchAllDrinkGenre()
+      this.doFetchDrink()
+      this.doFetchPrices()
   },
 
   methods: {
     // 全ての商品情報を取得する
-    doFetchAllDrink() {
-        axios.get('http://localhost:8082/drinks')
+    doFetchDrink() {
+      let id = this.$route.params.id
+        axios.get('http://localhost:8082/drinks/' + id)
         .then(response => {
             if (response.status != 200) {
                 throw new Error('レスポンスエラー')
@@ -54,17 +52,17 @@ export default {
             }
         })
     },
-    // 全てのジャンル情報を取得する
-    doFetchAllDrinkGenre() {
-        axios.get('http://localhost:8082/drink/genres')
+    doFetchPrices() {
+      let drink_id = this.$route.params.id
+        axios.get('http://localhost:8082/drinks/' + drink_id + '/prices')
         .then(response => {
             if (response.status != 200) {
                 throw new Error('レスポンスエラー')
             } else {
-                var resultDrinkGenres = response.data
+                var resultDrinkPrices = response.data
 
                 // サーバから取得した商品情報をdataに設定する
-                this.drink_genres = resultDrinkGenres
+                this.prices = resultDrinkPrices
             }
         })
     },

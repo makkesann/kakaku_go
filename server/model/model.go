@@ -6,35 +6,36 @@ import (
 
 type DrinkPrice struct {
 	gorm.Model
-	Price   uint `json:"price"`
-	DrinkID uint
-	ShopID  uint
+	Price   uint `gorm:"not null" json:"price"`
+	DrinkID uint `gorm:"not null"`
+	ShopID  uint `gorm:"not null"`
 }
 
 type Shop struct {
 	gorm.Model
-	Google string
+	Name string `gorm:"not null"`
 }
 
 type Product struct {
 	gorm.Model
-	Name string `json:"name"`
+	Name string `json:"name" gorm:"not null"`
 }
 
 type Drink struct {
 	gorm.Model
-	Name         string `json:"name"`
+	Name         string `json:"name" gorm:"not null"`
 	DrinkGenreID uint
+	DrinkPrices  []DrinkPrice
 }
 
 type DrinkGenre struct {
 	gorm.Model
-	Name   string `json:"name"`
+	Name   string `json:"name" gorm:"not null"`
 	Drinks []Drink
 }
 
 type User struct {
 	gorm.Model
-	Name string `json:"name"`
-	Pass string
+	Name string `json:"name" gorm:"not null"`
+	Pass string `gorm:"not null"`
 }

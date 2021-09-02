@@ -3,6 +3,7 @@ package controller
 import (
 	"server/dbmod"
 	"server/model"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -36,6 +37,17 @@ func InsertDrink(registerProduct *model.Drink) {
 	defer db.Close()
 }
 
+func FindDrink(drinkID int) []model.Drink {
+	drink := []model.Drink{}
+
+	db := dbmod.SqlConnect()
+	// select
+	db.First(&drink, drinkID)
+	defer db.Close()
+
+	return drink
+}
+
 //MVCにおけるcontroller部分
 
 func FetchAllDrinkGenres(c *gin.Context) {
@@ -60,4 +72,14 @@ func AddDrink(c *gin.Context) {
 	}
 
 	InsertDrink(&drink)
+}
+
+func FetchDrink(c *gin.Context) {
+	var id int
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	resultDrink := FindDrink(id)
+
+	// URLへのアクセスに対してJSONを返す
+	c.JSON(200, resultDrink)
 }
