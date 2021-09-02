@@ -42,7 +42,11 @@ func SqlConnect() (database *gorm.DB) {
 	db.SingularTable(true)
 	db.AutoMigrate(
 		&model.Product{},
+		&model.Drink{},
+		&model.DrinkGenre{},
 		&model.User{},
+		&model.DrinkPrice{},
+		&model.Shop{},
 	)
 	return db
 }

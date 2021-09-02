@@ -1,5 +1,5 @@
 <template>
-  <h1>へっだー</h1>
+  <h1>飲み物の価格</h1>
 </template>
 
 <script>

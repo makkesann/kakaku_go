@@ -2,7 +2,7 @@
   <div class="home">
     <b-container>
       <b-row>
-        <h1>くそわろた</h1>
+        <router-link to="/drink">飲み物</router-link>
       </b-row>
     </b-container>
   </div>
@@ -10,20 +10,11 @@
 
 <script>
 // @ is an alias to /src
-import axios from 'axios'
 export default {
   name: 'home',
-  components: {
+  // インスタンス作成時の処理
+  created: function() {
+    this.$router.push('/drink')
   },
-  data: function(){
-    return {
-      users: []
-    }
-  },
-  mounted :function(){
-    axios.get('http://localhost:8081')
-          .then(response => this.users = response.data)
-          .catch(error => console.log(error))
-  }
 }
 </script>

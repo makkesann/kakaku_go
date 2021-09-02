@@ -4,4 +4,4 @@ WORKDIR /app
 COPY . .
 ENV GO111MODULE=on
 
-RUN go get
+# RUN go get

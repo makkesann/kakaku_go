@@ -43,10 +43,10 @@ func FetchAllProducts(c *gin.Context) {
 }
 
 func AddProduct(c *gin.Context) {
-	productName := c.PostForm("productName")
+	product_name := c.PostForm("product_name")
 
 	var product = model.Product{
-		Name: productName,
+		Name: product_name,
 	}
 
 	InsertProduct(&product)
