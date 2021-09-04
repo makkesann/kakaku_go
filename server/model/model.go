@@ -39,3 +39,13 @@ type User struct {
 	Name string `json:"name" gorm:"not null"`
 	Pass string `gorm:"not null"`
 }
+
+type FavoriteDrink struct {
+	UserID  uint `gorm:"not null"`
+	DrinkID uint `gorm:"not null"`
+}
+
+type FavoriteShop struct {
+	UserID uint `gorm:"not null"`
+	ShopID uint `gorm:"not null"`
+}
