@@ -1,33 +1,53 @@
 import axios from 'axios'
-
 export default {
-  namespaced: true, // 追加
+  namespaced: true,
+  // 初期値
   state: {
-    drink: []
+    drinks: [],
+    drink_genres: []
   },
   getters: {
-    getDrink: (state) => {
-      return state.drink
-   } 
+    getDrinks(state) {
+      return state.drinks
+    },
+    getDrinkGenres(state) {
+      return state.drink_genres
+    }
   },
+
   actions: {
-    // 全ての商品情報を取得する
-    async doFetchAllDrink() {
-      await axios.get('http://localhost:8082/drinks')
+    doFetchAllDrink(context) {
+      return axios.get('http://localhost:8082/drinks')
       .then(response => {
-        if (response.status != 200) {
-            throw new Error('レスポンスエラー')
-        } else {
-            var resultDrinks = response.data
-            return resultDrinks
+          if (response.status != 200) {
+              throw new Error('レスポンスエラー')
+          } else {
+              // let resultDrinks = response.data
+              context.commit('setDrinks', response.data)
           }
       })
-      
     },
+    // 全てのジャンル情報を取得する
+    doFetchAllDrinkGenre(context) {
+      axios.get('http://localhost:8082/drink/genres')
+      .then(response => {
+          if (response.status != 200) {
+              throw new Error('レスポンスエラー')
+          } else {
+             context.commit('setDrinkGenre', response.data)
+          }
+      })
   },
+    
+  },
+
   mutations: {
-    SetDrinks(state, payload) {
-      state.drink = payload
+    // 初期化処理
+    setDrinks(state, resultDrinks) {
+      state.drinks = resultDrinks
+    },
+    setDrinkGenre(state, resultDrinks) {
+      state.drink_genres = resultDrinks
     }
   }
 }

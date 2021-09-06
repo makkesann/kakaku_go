@@ -19,55 +19,27 @@
 
 <script>
 // @ is an alias to /src
-import axios from 'axios'
 export default {
   name: 'home',
   components: {
   },
-  data: function(){
+  data(){
     return {
       drink_fields: ["name", "ID", "DrinkGenreID"],
-      drinks: [],
+      // drinks: [],
       genre_fields: ["name"],
-      drink_genres: []
+      // drink_genres: []
     }
   },
 
-  // インスタンス作成時の処理
-  created: function() {
-      this.doFetchAllDrink()
-      this.doFetchAllDrinkGenre()
+
+  computed: {
+    drinks() {
+      return this.$store.getters["drink/getDrinks"];
+    },
+    drink_genres() {
+      return this.$store.getters["drink/getDrinkGenres"];
+    }
   },
-
-  methods: {
-    // 全ての商品情報を取得する
-    doFetchAllDrink() {
-        axios.get('http://localhost:8082/drinks')
-        .then(response => {
-            if (response.status != 200) {
-                throw new Error('レスポンスエラー')
-            } else {
-                var resultDrinks = response.data
-
-                // サーバから取得した商品情報をdataに設定する
-                this.drinks = resultDrinks
-            }
-        })
-    },
-    // 全てのジャンル情報を取得する
-    doFetchAllDrinkGenre() {
-        axios.get('http://localhost:8082/drink/genres')
-        .then(response => {
-            if (response.status != 200) {
-                throw new Error('レスポンスエラー')
-            } else {
-                var resultDrinkGenres = response.data
-
-                // サーバから取得した商品情報をdataに設定する
-                this.drink_genres = resultDrinkGenres
-            }
-        })
-    },
-  }
 }
 </script>
