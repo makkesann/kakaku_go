@@ -1,3 +1,4 @@
+import axios from 'axios'
 
 export default {
   namespaced: true, // 追加
@@ -10,15 +11,17 @@ export default {
     }
   },
   actions: {
-    // 全ての商品情報を取得する
-    async doFetchAllDrink({ commit }) {
-      await axios.get('https://....com/todos')
+    // ユーザー情報の取得
+    doFetchUser(context, id) {
+      return axios.get('http://localhost:8082/user/'+ id)
       .then(response => {
-        if (response.status != 200) {
-            throw new Error('レスポンスエラー')
-        } 
+          if (response.status != 200) {
+              throw new Error('レスポンスエラー')
+          } else {
+              // let resultDrinks = response.data
+              context.commit('setDrinks', response.data)
+          }
       })
-      commit('SetDrinks', response.data)
     },
   },
   mutations: {

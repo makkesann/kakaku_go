@@ -10,6 +10,12 @@ export default {
     getDrinks(state) {
       return state.drinks
     },
+    getDrink: (state) => (id) => {
+      return state.drinks.filter((drink) => drink.ID == id)
+    },
+    // getDrink(state){
+    //   return state.drinks.filter(drink => drink.ID == 1)
+    // },
     getDrinkGenres(state) {
       return state.drink_genres
     }
@@ -37,8 +43,7 @@ export default {
              context.commit('setDrinkGenre', response.data)
           }
       })
-  },
-    
+    },
   },
 
   mutations: {
