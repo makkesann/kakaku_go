@@ -6,9 +6,6 @@
       </b-row>
       <b-row>
         <b-table striped hover :items="prices">
-          <!-- <template v-slot:cell(name)="{item}">
-            <a :href="'drink/' + item.ID" >{{ item.name }}</a>
-          </template> -->
         </b-table>
       </b-row>
     </b-container>
@@ -49,21 +46,6 @@ export default {
   },
 
   methods: {
-  //   // 全ての商品情報を取得する
-  //   doFetchDrink() {
-  //     let id = this.$route.params.id
-  //       axios.get('http://localhost:8082/drinks/' + id)
-  //       .then(response => {
-  //           if (response.status != 200) {
-  //               throw new Error('レスポンスエラー')
-  //           } else {
-  //               var resultDrinks = response.data
-
-  //               // サーバから取得した商品情報をdataに設定する
-  //               this.drinks = resultDrinks
-  //           }
-  //       })
-  //   },
     doFetchPrices() {
       let drink_id = this.$route.params.id
         axios.get('http://localhost:8082/drinks/' + drink_id + '/prices')

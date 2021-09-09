@@ -19,6 +19,6 @@ export default new Router({
       path: '/',
       component: RouterLayout,
       children: routes
-    }
+    },
   ]
 })

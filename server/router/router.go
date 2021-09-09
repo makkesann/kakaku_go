@@ -26,13 +26,11 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.GET("/:genre", controller.ShowMassage)
 	r.POST("/user/new", controller.NewUser)
 	r.GET("/user/show", controller.ShowUser)
-	r.GET("/products", controller.FetchAllProducts)
-	r.POST("/product/add", controller.AddProduct)
 	r.GET("/drinks", controller.FetchAllDrinks)
 	r.GET("/drink/genres", controller.FetchAllDrinkGenres)
 	r.GET("/drinks/:id", controller.FetchDrink)
 	r.POST("/drink/add", controller.AddDrink)
 	r.GET("/drinks/:id/prices", controller.FetchPrices)
-
+	r.POST("/login", controller.UserLogin)
 	return r
 }

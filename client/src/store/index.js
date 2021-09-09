@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import createPersistedState from 'vuex-persistedstate'
+// import createPersistedState from 'vuex-persistedstate'
 import drink from '@/store/modules/drink.js'
 import login from '@/store/modules/login.js'
 
@@ -18,8 +18,8 @@ export default new Vuex.Store({
  },
 
 
-  plugins: [
-    createPersistedState({
-      paths: ['login']
-  })],
+  // plugins: [
+  //   createPersistedState({
+  //     paths: ['login']
+  // })],
 })

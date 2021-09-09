@@ -8,7 +8,7 @@
         <b-col cols="10">
           <b-table striped hover :items="drinks" :fields="drink_fields">
             <template v-slot:cell(name)="{item}">
-              <a :href="'drink/' + item.ID" >{{ item.name }}</a>
+              <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link>
             </template>
           </b-table>
         </b-col>

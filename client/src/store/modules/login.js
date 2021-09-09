@@ -3,23 +3,26 @@ import axios from 'axios'
 export default {
   namespaced: true, // 追加
   state: {
-    user: []
+    id: 0,
+    // user: ["test"]
   },
   getters: {
-    user(state) {
+    getUser(state) {
       return state.user
-    }
+    },
+    getID(state) {
+      return state.id
+    },
   },
   actions: {
     // ユーザー情報の取得
-    doFetchUser(context, id) {
-      return axios.get('http://localhost:8082/user/'+ id)
+    doFetchUser(context) {
+      return axios.get('http://localhost:8082/user/'+ this.state.id)
       .then(response => {
           if (response.status != 200) {
               throw new Error('レスポンスエラー')
           } else {
-              // let resultDrinks = response.data
-              context.commit('setDrinks', response.data)
+              context.commit('setUser', response.data)
           }
       })
     },
