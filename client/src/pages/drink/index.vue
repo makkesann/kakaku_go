@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <b-container>
+      <b-button pill v-on:click="idplus">くさ</b-button>
       <b-row>
         <b-col cols="2">
           <b-table striped hover :items="drink_genres" :fields="genre_fields"></b-table>
@@ -41,5 +42,10 @@ export default {
       return this.$store.getters["drink/getDrinkGenres"];
     }
   },
+  methods: {
+    idplus() {
+      this.$store.dispatch('login/idplus')
+    }
+  }
 }
 </script>

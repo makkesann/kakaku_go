@@ -44,6 +44,7 @@ export default {
           }
       })
     },
+
   },
 
   mutations: {
@@ -53,6 +54,7 @@ export default {
     },
     setDrinkGenre(state, resultDrinks) {
       state.drink_genres = resultDrinks
-    }
+    },
+
   }
 }

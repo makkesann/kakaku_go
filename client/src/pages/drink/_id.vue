@@ -29,20 +29,13 @@ export default {
 
   // インスタンス作成時の処理
   created: function() {
-  //     this.doFetchDrink()
       this.doFetchPrices()
   },
 
   computed: {
-    // drinks() {
-    //   return this.$store.getters["drink/getDrinks"];
-    // },
     drink() {
       return this.$store.getters["drink/getDrink"](this.$route.params.id);
     },
-    // drink_genres() {
-    //   return this.$store.getters["drink/getDrinkGenres"];
-    // }
   },
 
   methods: {

@@ -1,6 +1,13 @@
 <template>
   <div class="home">
-    <p>個別ページ</p>
+    <b-container>
+      <b-row>
+        <b-table striped hover :items="favorite_drinks"></b-table>
+      </b-row>
+      <b-row>
+        <b-table striped hover :items="favorite_shops"></b-table>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -8,6 +15,13 @@
 // @ is an alias to /src
 export default {
   name: 'home',
-  
+  computed: {
+    favorite_drinks() {
+      return this.$store.getters["login/getFavoriteDrink"];
+    },
+    favorite_shops() {
+      return this.$store.getters["login/getFavoriteShop"];
+    }
+  },
 }
 </script>

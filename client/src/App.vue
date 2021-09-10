@@ -11,7 +11,23 @@ export default {
   created(){
     this.$store.dispatch('drink/doFetchAllDrink')
     this.$store.dispatch('drink/doFetchAllDrinkGenre')
+    if (this.login_id != 0){
+      this.$store.dispatch('login/doFetchFavoriteDrinks',this.login_id)
+      this.$store.dispatch('login/doFetchFavoriteShops',this.login_id)
+    }
   },
+  computed: {
+    login_id() {
+      return this.$store.getters["login/getID"]
+    },
+
+  },
+  watch: {
+    login_id(id) {
+      this.$store.dispatch('login/doFetchFavoriteDrinks',id)
+      this.$store.dispatch('login/doFetchFavoriteShops',id)
+    }
+  }
 }
 </script>
 

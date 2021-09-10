@@ -13,7 +13,7 @@ func FindPrices(drinkID int) []model.DrinkPrice {
 
 	db := dbmod.SqlConnect()
 	// select
-	db.Order("price").Where("drink_id = ?", drinkID).Find(&drinkprice)
+	db.Order("price ASC").Where("drink_id = ?", drinkID).Find(&drinkprice)
 	defer db.Close()
 
 	return drinkprice
