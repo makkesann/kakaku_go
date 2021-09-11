@@ -83,29 +83,18 @@ export default {
   watch: {
     favorite_drinks_id:{
       immediate: true,
+      // deep: true,
       handler(favorite){
-        let result = []
-        // const favorite = this.favorite_drinks_id
-        console.log(favorite)
-        for (const i in favorite){
-          console.log("いえい")
-          console.log(favorite[i].DrinkID)
-          console.log(this.drinks)
-          console.log(this.drinks.filter((drink) => drink.ID == favorite[i].DrinkID)[0])
-          if (this.drinks.some((drink) => drink.ID == favorite[i].DrinkID)){
-            let name = this.drinks.filter((drink) => drink.ID == favorite[i].DrinkID)[0].name
-            // console.log(name)
-            // console.log(favorite[i].DrinkID)
-            result.push({id: favorite[i].DrinkID, name: name})
-            console.log("くそわろた" + JSON.stringify(result))
-          }
-
-        }
-        this.favorite_drinks = result
-        console.log("ぶちのめす")
-        console.log(result)
+        this.ReloadFavoriteDrink(favorite)
       }
-    }
+    },
+    drinks:{
+      // deep: true,
+      immediate: true,
+      handler(){
+        this.ReloadFavoriteDrink(this.favorite_drinks_id)
+      }
+    },
   },
   methods: {
     idplus() {
@@ -114,20 +103,27 @@ export default {
     ChangeGenreID(genre_id) {
       this.genre_id = genre_id
     },
-    ReloadFavoriteDrink(){
+    ReloadFavoriteDrink(favorite){
       let result = []
-      const favorite = this.$store.getters["login/getFavoriteDrink"]
+      // const favorite = this.favorite_drinks_id
+      console.log(favorite)
       for (const i in favorite){
+        console.log("いえい")
+        console.log(favorite[i].DrinkID)
+        console.log(this.drinks)
+        console.log(this.drinks.filter((drink) => drink.ID == favorite[i].DrinkID)[0])
         if (this.drinks.some((drink) => drink.ID == favorite[i].DrinkID)){
           let name = this.drinks.filter((drink) => drink.ID == favorite[i].DrinkID)[0].name
           // console.log(name)
           // console.log(favorite[i].DrinkID)
           result.push({id: favorite[i].DrinkID, name: name})
-          // console.log("くそわろた" + JSON.stringify(result))
+          console.log("くそわろた" + JSON.stringify(result))
         }
+
       }
       this.favorite_drinks = result
-      // console.log("ぶちのめす")
+      console.log("ぶちのめす")
+      console.log(result)
     }
   },
 }
