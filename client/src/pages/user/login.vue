@@ -38,15 +38,15 @@ export default {
       params.append('username', this.username)
       params.append('pass', this.user_pass)
       axios.post('http://localhost:8082/login', params)
-      .then(response => {
-          if (response.status != 200) {
-            this.$router.push('/drink/1')
-            throw new Error('レスポンスエラー')
-            
-          } else {
-            //一覧ページに遷移する
-            this.$router.push('/drink')
-          }
+      .then(function(response) {
+        console.log(response.data)
+          //一覧ページに遷移する
+        this.$router.push('/drink')
+      })
+      .catch(function (error) {
+          // handle error
+        console.log(error);
+        console.log("わろた")
       })
     },
   }

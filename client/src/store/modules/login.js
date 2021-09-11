@@ -5,11 +5,15 @@ export default {
   state: {
     id: 1,
     favorite_drink: [],
+    favorite_drink_triger: 0,
     favorite_shop: []
   },
   getters: {
     getFavoriteDrink(state) {
       return state.favorite_drink
+    },
+    getFavoriteDrinkTriger(state) {
+      return state.favorite_drink_triger
     },
     getFavoriteShop(state) {
       return state.favorite_shop
@@ -45,7 +49,10 @@ export default {
     }
   },
   mutations: {
-    setFavoriteDrinks: (state, favorite_drinks) => (state.favorite_drink = favorite_drinks),
+    setFavoriteDrinks: function(state, favorite_drinks) {
+      state.favorite_drink = favorite_drinks
+      state.favorite_drink_triger++ 
+    },
     setFavoriteShops: (state, favorite_shops) => (state.favorite_shop = favorite_shops),
     setID: (state, id) => (state.id = id),
     idplus(state){

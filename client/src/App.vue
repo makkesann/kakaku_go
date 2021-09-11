@@ -8,12 +8,12 @@
 
 export default {
   name: 'App',
-  created(){
+  beforeCreate(){
     this.$store.dispatch('drink/doFetchAllDrink')
     this.$store.dispatch('drink/doFetchAllDrinkGenre')
     if (this.login_id != 0){
-      this.$store.dispatch('login/doFetchFavoriteDrinks',this.login_id)
-      this.$store.dispatch('login/doFetchFavoriteShops',this.login_id)
+      this.$store.dispatch('login/doFetchFavoriteDrinks',this.$store.state.login.id)
+      this.$store.dispatch('login/doFetchFavoriteShops',this.$store.state.login.id)
     }
   },
   computed: {

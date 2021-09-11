@@ -42,15 +42,16 @@ export default {
     doFetchPrices() {
       let drink_id = this.$route.params.id
         axios.get('http://localhost:8082/drinks/' + drink_id + '/prices')
-        .then(response => {
-            if (response.status != 200) {
-                throw new Error('レスポンスエラー')
-            } else {
-                var resultDrinkPrices = response.data
+        .then(function(response)  {
+          console.log(response);
+          var resultDrinkPrices = response.data
 
-                // サーバから取得した商品情報をdataに設定する
-                this.prices = resultDrinkPrices
-            }
+          // サーバから取得した商品情報をdataに設定する
+          this.prices = resultDrinkPrices
+        })
+        .catch(function (error) {
+            // handle error
+          console.log(error);
         })
     },
   }
