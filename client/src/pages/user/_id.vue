@@ -17,10 +17,10 @@ export default {
   name: 'home',
   computed: {
     favorite_drinks() {
-      return this.$store.getters["login/getFavoriteDrink"];
+      return this.$store.getters["login/getFavoriteDrink"]
     },
     favorite_shops() {
-      return this.$store.getters["login/getFavoriteShop"];
+      return this.$store.getters["login/getFavoriteShop"]
     }
   },
 }

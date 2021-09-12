@@ -30,22 +30,26 @@ import axios from 'axios'
 
 export default {
   name: 'home',
+  beforeCreate() {
+    if(this.$store.state.login.id != 0){
+      this.$router.push('/drink')
+    }
+  },
   methods: {
-    // 商品情報を登録する
     doLogin() {
       // サーバへ送信するパラメータ
-      const params = new URLSearchParams();
+      const params = new URLSearchParams()
       params.append('username', this.username)
       params.append('pass', this.user_pass)
       axios.post('http://localhost:8082/login', params)
-      .then(function(response) {
-        console.log(response.data)
+      .then(response => {
+        this.$store.dispatch('login/doSetID',response.data.Value.ID)
           //一覧ページに遷移する
         this.$router.push('/drink')
       })
       .catch(function (error) {
           // handle error
-        console.log(error);
+        console.log(error)
         console.log("わろた")
       })
     },

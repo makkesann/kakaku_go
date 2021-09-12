@@ -33,7 +33,7 @@ export default {
     // 商品情報を登録する
     doAddDrink() {
       // サーバへ送信するパラメータ
-      const params = new URLSearchParams();
+      const params = new URLSearchParams()
       params.append('drink_name', this.drink_name)
       axios.post('http://localhost:8082/drink/add', params)
       .then(response => {

@@ -15,12 +15,15 @@ func UserLogin(c *gin.Context) {
 	fmt.Println(username)
 	user := model.User{}
 	db := dbmod.SqlConnect()
-	err := db.Where("name = ? AND pass = ?", username, pass).First(&user).Error
+	found := db.Where("name = ? AND pass = ?", username, pass).First(&user)
+	err := found.Error
 	fmt.Print(err)
 	// fmt.Print(user)
 	if err != nil {
 		c.Status(400)
 	}
+	fmt.Println(found)
+	c.JSON(200, found)
 	defer db.Close()
 	// c.Status(400)
 

@@ -6,7 +6,7 @@ import store from './store/index.js'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import BootstrapVue from 'bootstrap-vue'
-import "./assets/style/global.scss";
+import "./assets/style/global.scss"
 Vue.use(BootstrapVue)
 
 
@@ -23,5 +23,5 @@ module.exports = {
   devServer: {
       proxy: 'http://localhost:8081/',
       disableHostCheck: true,
-     }
-   };
+  }
+}

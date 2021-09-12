@@ -2,6 +2,7 @@
   <div class="home">
     <b-container>
       <b-button pill v-on:click="idplus">くさ</b-button>
+      <h2>お気に入りの商品</h2>
       <b-row>
         <b-col cols="2">
           <b-table striped hover :items="drink_genres" :fields="genre_fields">
@@ -11,8 +12,7 @@
           </b-table>
         </b-col>
         <b-col cols="10">
-          <!-- <h2>お気に入りの商品</h2> -->
-          <b-table striped hover :items="favorite_drinks">
+          <b-table v-if="serched_favorite_drinks.length != 0" striped hover :items="serched_favorite_drinks">
           </b-table>
           <b-table striped hover :items="serched_drinks" :fields="drink_fields">
             <template v-slot:cell(name)="{item}">
@@ -39,7 +39,6 @@ export default {
       genre_id: 0,
       // drink_genres: []
       favorite_drinks: [],
-      favorite_drink_triger: 0,
       // serched_drinks: []
     }
   },
@@ -58,26 +57,15 @@ export default {
       }
     },
     favorite_drinks_id() {
-      // this.favorite_drink_triger=1;
       return this.$store.getters["login/getFavoriteDrink"]
     },
-
-    favorite_shops_id() {
-      return this.$store.getters["login/getFavoriteShop"]
+    serched_favorite_drinks(){
+      if (this.genre_id == 0){
+        return this.favorite_drinks
+      } else {
+        return this.favorite_drinks.filter((drink) => drink.id == this.genre_id)
+      }
     },
-  //   favorite_drinks() {
-  //     let result = []
-  //     // this.favorite_drink_triger = 0
-  //     const favorite = this.favorite_drinks_id
-  //     for (const i in favorite){
-  //       let name = this.drinks.filter((drink) => drink.ID == favorite[i].DrinkID)[0].name
-  //       // console.log(name)
-  //       // console.log(favorite[i].DrinkID)
-  //       result.push({id: favorite[i].DrinkID, name: name})
-  //       console.log(result)
-  //     }
-  //     return result
-  //   }
   },
 
   watch: {
@@ -106,24 +94,13 @@ export default {
     ReloadFavoriteDrink(favorite){
       let result = []
       // const favorite = this.favorite_drinks_id
-      console.log(favorite)
       for (const i in favorite){
-        console.log("いえい")
-        console.log(favorite[i].DrinkID)
-        console.log(this.drinks)
-        console.log(this.drinks.filter((drink) => drink.ID == favorite[i].DrinkID)[0])
         if (this.drinks.some((drink) => drink.ID == favorite[i].DrinkID)){
           let name = this.drinks.filter((drink) => drink.ID == favorite[i].DrinkID)[0].name
-          // console.log(name)
-          // console.log(favorite[i].DrinkID)
           result.push({id: favorite[i].DrinkID, name: name})
-          console.log("くそわろた" + JSON.stringify(result))
         }
-
       }
       this.favorite_drinks = result
-      console.log("ぶちのめす")
-      console.log(result)
     }
   },
 }

@@ -3,9 +3,8 @@ import axios from 'axios'
 export default {
   namespaced: true, // 追加
   state: {
-    id: 1,
+    id: 0,
     favorite_drink: [],
-    favorite_drink_triger: 0,
     favorite_shop: []
   },
   getters: {
@@ -23,25 +22,28 @@ export default {
     },
   },
   actions: {
+    doSetID(context, user_id) {
+      context.commit('setID', user_id)
+    },
     // ユーザー情報の取得
     doFetchFavoriteDrinks(context, user_id) {
       return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_drink')
       .then(response => {
-          if (response.status != 200) {
-              throw new Error('レスポンスエラー')
-          } else {
               context.commit('setFavoriteDrinks', response.data)
-          }
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
       })
     },
     doFetchFavoriteShops(context, user_id) {
       return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_shop')
       .then(response => {
-          if (response.status != 200) {
-              throw new Error('レスポンスエラー')
-          } else {
-              context.commit('setFavoriteShops', response.data)
-          }
+        context.commit('setFavoriteShops', response.data)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
       })
     },
     idplus(context) {
@@ -51,7 +53,6 @@ export default {
   mutations: {
     setFavoriteDrinks: function(state, favorite_drinks) {
       state.favorite_drink = favorite_drinks
-      state.favorite_drink_triger++ 
     },
     setFavoriteShops: (state, favorite_shops) => (state.favorite_shop = favorite_shops),
     setID: (state, id) => (state.id = id),
