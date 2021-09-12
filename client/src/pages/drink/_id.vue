@@ -82,8 +82,7 @@ export default {
         if (this.prices.some((price) => price.ShopID == favorite[i].ShopID)){
           let arr = this.prices.filter((price) => price.ShopID == favorite[i].ShopID)
           for (const j in arr){
-            let price = arr[j].price
-            result.push({shop_id: favorite[i].ShopID, price: price})
+            result.push(arr[j])
           }
         }
       }

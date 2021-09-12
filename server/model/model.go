@@ -11,6 +11,12 @@ type DrinkPrice struct {
 	ShopID  uint `gorm:"not null"`
 }
 
+type DrinkPriceName struct {
+	ShopID uint
+	Name   string // name
+	Price  uint   // email
+}
+
 type Shop struct {
 	gorm.Model
 	Name string `gorm:"not null"`
