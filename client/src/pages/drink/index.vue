@@ -2,6 +2,7 @@
   <div class="home">
     <b-container>
       <b-button pill v-on:click="idplus">くさ</b-button>
+      <div class ="hover" @click="ChangeGenreID(0)">ジャンルリセット</div>
       <h2>お気に入りの商品</h2>
       <b-row>
         <b-col cols="2">
@@ -18,6 +19,10 @@
             <template v-slot:cell(name)="{item}">
               <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link>
             </template>
+            <template v-slot:cell(お気に入り)="{item}">
+              <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+              <b-icon v-else @click="doAddFavoriteDrink(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+            </template>
           </b-table>
         </b-col>
       </b-row>
@@ -33,7 +38,7 @@ export default {
   },
   data(){
     return {
-      drink_fields: ["name", "ID", "DrinkGenreID"],
+      drink_fields: ["name", "ID", "DrinkGenreID", "お気に入り"],
       // drinks: [],
       genre_fields: ["name"],
       genre_id: 0,
@@ -93,14 +98,23 @@ export default {
     },
     ReloadFavoriteDrink(favorite){
       let result = []
-      // const favorite = this.favorite_drinks_id
       for (const i in favorite){
-        if (this.drinks.some((drink) => drink.ID == favorite[i].DrinkID)){
-          let name = this.drinks.filter((drink) => drink.ID == favorite[i].DrinkID)[0].name
+        const drink = (drink) => drink.ID == favorite[i].DrinkID
+        if (this.drinks.some(drink)){
+          let name = this.drinks.find(drink).name
           result.push({id: favorite[i].DrinkID, name: name})
+          this.$set(this.drinks.find(drink), "favorite" , true)
         }
       }
       this.favorite_drinks = result
+    },
+    doAddFavoriteDrink(item){
+      // item.favorite = true
+      this.$store.dispatch('login/doAddFavoriteDrink',item)
+    },
+    doDeleteFavoriteDrink(item){
+      // item.favorite = false
+      this.$store.dispatch('login/doDeleteFavoriteDrink',item)
     }
   },
 }

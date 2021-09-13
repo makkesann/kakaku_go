@@ -4,7 +4,7 @@
     <router-link to="/user/login" v-if="id == 0">ログイン</router-link>
     <div v-else>
       <router-link :to="{name:'user-id',params:{id: id}}">マイページ</router-link>
-      <div @click="doLogOut">ログアウト</div>
+      <div class="hover" @click="doLogOut">ログアウト</div>
     </div>
   </div>
 </template>

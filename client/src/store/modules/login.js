@@ -29,7 +29,7 @@ export default {
     doFetchFavoriteDrinks(context, user_id) {
       return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_drink')
       .then(response => {
-              context.commit('setFavoriteDrinks', response.data)
+        context.commit('setFavoriteDrinks', response.data)
       })
       .catch(function (error) {
         // handle error
@@ -46,6 +46,14 @@ export default {
         console.log(error)
       })
     },
+    doAddFavoriteDrink(context, item){
+      context.commit('addFavoriteDrink', item)
+      context.commit("drink/addFavoriteDrink",item.ID,{root:true})
+    },
+    doDeleteFavoriteDrink(context, item){
+      context.commit('deleteFavoriteDrink', item)
+      context.commit("drink/deleteFavoriteDrink",item.ID,{root:true})
+    },
     idplus(context) {
       context.commit('idplus')
     }
@@ -55,6 +63,14 @@ export default {
       state.favorite_drink = favorite_drinks
     },
     setFavoriteShops: (state, favorite_shops) => (state.favorite_shop = favorite_shops),
+    addFavoriteDrink: function(state, item){
+      state.favorite_drink.push({"DrinkID": item.ID, "UserID": state.id})
+    },
+    deleteFavoriteDrink: function(state, item){
+      state.favorite_drink = state.favorite_drink.filter(function(value){
+        return value.DrinkID != item.ID || value.UserID != state.id
+      })
+    },
     setID: (state, id) => (state.id = id),
     idplus(state){
       state.id++

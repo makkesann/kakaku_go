@@ -69,6 +69,9 @@ export default {
         const resultDrinkPrices = response.data
         // console.log(resultDrinkPrices)
         // サーバから取得した商品情報をdataに設定する
+      for (const i in resultDrinkPrices){
+        this.$set(resultDrinkPrices[i], 'favorite', false)
+      }
         this.prices = resultDrinkPrices
       })
       .catch(function (error) {
@@ -82,6 +85,7 @@ export default {
         if (this.prices.some((price) => price.ShopID == favorite[i].ShopID)){
           let arr = this.prices.filter((price) => price.ShopID == favorite[i].ShopID)
           for (const j in arr){
+            this.$set(arr[j], 'favorite', true)
             result.push(arr[j])
           }
         }

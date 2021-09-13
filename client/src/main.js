@@ -5,10 +5,10 @@ import router from './router/index.js'
 import store from './store/index.js'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import "./assets/style/global.scss"
 Vue.use(BootstrapVue)
-
+Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios

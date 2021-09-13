@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Vue from 'vue'
 export default {
   namespaced: true,
   // 初期値
@@ -8,14 +9,12 @@ export default {
   },
   getters: {
     getDrinks(state) {
-      return state.drinks
+      let arr = state.drinks
+      return arr
     },
     getDrink: (state) => (id) => {
       return state.drinks.filter((drink) => drink.ID == id)
     },
-    // getDrink(state){
-    //   return state.drinks.filter(drink => drink.ID == 1)
-    // },
     getDrinkGenres(state) {
       return state.drink_genres
     }
@@ -25,23 +24,22 @@ export default {
     doFetchAllDrink(context) {
       return axios.get('http://localhost:8082/drinks')
       .then(response => {
-          if (response.status != 200) {
-              throw new Error('レスポンスエラー')
-          } else {
-              // let resultDrinks = response.data
-              context.commit('setDrinks', response.data)
-          }
+        context.commit('setDrinks', response.data)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
       })
     },
     // 全てのジャンル情報を取得する
     doFetchAllDrinkGenre(context) {
       axios.get('http://localhost:8082/drink/genres')
       .then(response => {
-          if (response.status != 200) {
-              throw new Error('レスポンスエラー')
-          } else {
-             context.commit('setDrinkGenre', response.data)
-          }
+        context.commit('setDrinkGenre', response.data)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error)
       })
     },
 
@@ -50,11 +48,19 @@ export default {
   mutations: {
     // 初期化処理
     setDrinks(state, resultDrinks) {
+      for (const i in resultDrinks){
+        Vue.set(resultDrinks[i], 'favorite', false)
+      }
       state.drinks = resultDrinks
     },
     setDrinkGenre(state, resultDrinks) {
       state.drink_genres = resultDrinks
     },
-
+    addFavoriteDrink: function(state, ID){
+      state.drinks.find((drink) => drink.ID == ID).favorite = true
+    },
+    deleteFavoriteDrink: function(state, ID){
+      state.drinks.find((drink) => drink.ID == ID).favorite = false
+    },
   }
 }
