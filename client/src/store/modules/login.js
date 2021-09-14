@@ -31,7 +31,7 @@ export default {
       .then(response => {
         context.commit('setFavoriteDrinks', response.data)
       })
-      .catch(function (error) {
+      .catch(error => {
         // handle error
         console.log(error)
       })
@@ -41,7 +41,7 @@ export default {
       .then(response => {
         context.commit('setFavoriteShops', response.data)
       })
-      .catch(function (error) {
+      .catch(error => {
         // handle error
         console.log(error)
       })

@@ -30,10 +30,10 @@ func FindAllDrinkGenres() []model.DrinkGenre {
 	return drink_genres
 }
 
-func InsertDrink(registerProduct *model.Drink) {
+func InsertDrink(registerDrink *model.Drink) {
 	db := dbmod.SqlConnect()
 	// insert
-	db.Create(&registerProduct)
+	db.Create(&registerDrink)
 	defer db.Close()
 }
 

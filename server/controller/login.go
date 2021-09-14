@@ -29,7 +29,7 @@ func UserLogin(c *gin.Context) {
 
 }
 
-//favoritedrink
+//getfavoritedrink
 func FindFavoriteDrink(userID int) []model.FavoriteDrink {
 	favorite_drinks := []model.FavoriteDrink{}
 
@@ -51,7 +51,45 @@ func FetchFavoriteDrink(c *gin.Context) {
 	c.JSON(200, result)
 }
 
-//favoriteshop
+//addfavoritedrink
+func InsertFavoriteDrink(registerFavoriteDrink *model.FavoriteDrink) {
+	db := dbmod.SqlConnect()
+	// insert
+	db.Create(&registerFavoriteDrink)
+	defer db.Close()
+}
+
+func AddFavoriteDrink(c *gin.Context) {
+	drink_id_str := c.PostForm("drink_id")
+	user_id_str := c.PostForm("user_id")
+	drink_id64, _ := strconv.ParseUint(drink_id_str, 10, 64)
+	user_id64, _ := strconv.ParseUint(user_id_str, 10, 64)
+	drink_id := uint(drink_id64)
+	user_id := uint(user_id64)
+
+	var favorite_drink = model.FavoriteDrink{
+		UserID:  user_id,
+		DrinkID: drink_id,
+	}
+	InsertFavoriteDrink(&favorite_drink)
+}
+
+//deletefavoritedrink
+func DeleteFavoriteDrink(c *gin.Context) {
+	db := dbmod.SqlConnect()
+	favorite_drink := []model.FavoriteDrink{}
+	drink_id_str := c.PostForm("drink_id")
+	user_id_str := c.PostForm("user_id")
+	drink_id64, _ := strconv.ParseUint(drink_id_str, 10, 64)
+	user_id64, _ := strconv.ParseUint(user_id_str, 10, 64)
+	drink_id := uint(drink_id64)
+	user_id := uint(user_id64)
+
+	db.Where("user_id = ? AND drink_id = ?", user_id, drink_id).Delete(&favorite_drink)
+	defer db.Close()
+}
+
+//getfavoriteshop
 
 func FindFavoriteShop(userID int) []model.FavoriteShop {
 	favorite_shops := []model.FavoriteShop{}

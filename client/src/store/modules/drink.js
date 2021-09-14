@@ -26,7 +26,7 @@ export default {
       .then(response => {
         context.commit('setDrinks', response.data)
       })
-      .catch(function (error) {
+      .catch(error => {
         // handle error
         console.log(error)
       })
@@ -37,7 +37,7 @@ export default {
       .then(response => {
         context.commit('setDrinkGenre', response.data)
       })
-      .catch(function (error) {
+      .catch(error => {
         // handle error
         console.log(error)
       })

@@ -74,8 +74,8 @@ export default {
       }
         this.prices = resultDrinkPrices
       })
-      .catch(function (error) {
-          // handle error
+      .catch(error => {
+        // handle error
         console.log(error)
       })
     },

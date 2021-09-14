@@ -47,10 +47,9 @@ export default {
           //一覧ページに遷移する
         this.$router.push('/drink')
       })
-      .catch(function (error) {
-          // handle error
+      .catch(error => {
+        // handle error
         console.log(error)
-        console.log("わろた")
       })
     },
   }

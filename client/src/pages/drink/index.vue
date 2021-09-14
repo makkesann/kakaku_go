@@ -32,6 +32,7 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios'
 export default {
   name: 'home',
   components: {
@@ -111,10 +112,32 @@ export default {
     doAddFavoriteDrink(item){
       // item.favorite = true
       this.$store.dispatch('login/doAddFavoriteDrink',item)
+      if (this.$store.state.login.id != 0){
+        // サーバへ送信するパラメータ
+        const params = new URLSearchParams()
+        params.append('drink_id', item.ID)
+        params.append('user_id', this.$store.state.login.id)
+        axios.post('http://localhost:8082/favorite_drink/add', params)
+        .catch(error => {
+          // handle error
+          console.log(error)
+        })
+      }
+
     },
     doDeleteFavoriteDrink(item){
       // item.favorite = false
       this.$store.dispatch('login/doDeleteFavoriteDrink',item)
+      if (this.$store.state.login.id != 0){
+        const params = new URLSearchParams()
+        params.append('drink_id', item.ID)
+        params.append('user_id', this.$store.state.login.id)
+        axios.post('http://localhost:8082/favorite_drink/delete', params)
+        .catch(error => {
+          // handle error
+          console.log(error)
+        })
+      }
     }
   },
 }
