@@ -17,7 +17,7 @@ services:
     build: ./client
     volumes: 
       - ./client:/app
-      - node-modules:/app/node_modules
+      - ./node-modules:/app/node_modules
     ports:
       - 8080:8080
     tty: true
