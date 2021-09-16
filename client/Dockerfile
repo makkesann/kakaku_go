@@ -1,8 +1,10 @@
-FROM node:latest as build-stage
+FROM node:latest
 
 WORKDIR /app
 COPY . .
 
-RUN yarn add yarn
+# RUN apk update
+# RUN yarn add yarn
+# RUN yarn add @vue/cli
 RUN yarn install
 CMD [ "yarn", "serve" ]
