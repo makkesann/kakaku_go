@@ -13,9 +13,9 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.Use(cors.New(cors.Config{
 		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
-			"http://localhost:8083",
-			"http://localhost:8080",
-			"http://localhost:80",
+			"http://54.65.204.164:8083",
+			"http://54.65.204.164:8080",
+			"http://54.65.204.164:80",
 		},
 		// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
 		AllowMethods: []string{
