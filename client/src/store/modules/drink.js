@@ -22,7 +22,7 @@ export default {
 
   actions: {
     doFetchAllDrink(context) {
-      return axios.get('http://localhost:8082/drinks')
+      return axios.get('/drinks')
       .then(response => {
         context.commit('setDrinks', response.data)
       })
