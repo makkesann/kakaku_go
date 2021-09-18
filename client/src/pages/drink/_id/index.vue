@@ -8,7 +8,12 @@
         <h2>お気に入りの店</h2>
         <b-table v-if="favorite_shops.length != 0" striped hover :items="favorite_shops">
         </b-table>
+        <router-link :to="{path: this.$route.path +'/add'}">価格の追加</router-link>
         <b-table striped hover :items="prices">
+          <template v-slot:cell(favorite)="{item}">
+            <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+            <b-icon v-else @click="doAddFavoriteDrink(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+          </template>
         </b-table>
       </b-row>
     </b-container>
@@ -43,6 +48,13 @@ export default {
     favorite_shops_id() {
       return this.$store.getters["login/getFavoriteShop"]
     },
+    serched_favorite_shops(){
+      if (this.genre_id == 0){
+        return this.favorite_shops
+      } else {
+        return this.favorite_shops.filter((shop) => shop.id == this.genre_id)
+      }
+    },
   },
   watch: {
     favorite_shops_id:{
@@ -62,6 +74,7 @@ export default {
   },
 
   methods: {
+
     doFetchPrices() {
       let drink_id = this.$route.params.id
       axios.get('http://54.65.204.164:8082/drinks/' + drink_id + '/prices')

@@ -5,7 +5,7 @@ export default {
   // 初期値
   state: {
     drinks: [],
-    drink_genres: []
+    drink_genres: [],
   },
   getters: {
     getDrinks(state) {
@@ -17,12 +17,12 @@ export default {
     },
     getDrinkGenres(state) {
       return state.drink_genres
-    }
+    },
   },
 
   actions: {
     doFetchAllDrink(context) {
-      return axios.get('http://54.65.204.164:8082/drinks')
+      axios.get('http://54.65.204.164:8082/drinks')
       .then(response => {
         context.commit('setDrinks', response.data)
       })

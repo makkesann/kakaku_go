@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <b-container>
-      <b-button pill v-on:click="idplus">くさ</b-button>
       <div class ="hover" @click="ChangeGenreID(0)">ジャンルリセット</div>
       <h2>お気に入りの商品</h2>
       <b-row>
@@ -91,9 +90,6 @@ export default {
     },
   },
   methods: {
-    idplus() {
-      this.$store.dispatch('login/idplus')
-    },
     ChangeGenreID(genre_id) {
       this.genre_id = genre_id
     },

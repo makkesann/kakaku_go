@@ -5,7 +5,8 @@ export default {
   state: {
     id: 0,
     favorite_drink: [],
-    favorite_shop: []
+    favorite_shop: [],
+    admin: false
   },
   getters: {
     getFavoriteDrink(state) {
@@ -25,26 +26,33 @@ export default {
     doSetID(context, user_id) {
       context.commit('setID', user_id)
     },
+    doAdminLogIn(context, admin_state) {
+      context.commit('AdminLogIn', admin_state)
+    },
     // ユーザー情報の取得
     doFetchFavoriteDrinks(context, user_id) {
-      return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_drink')
-      .then(response => {
-        context.commit('setFavoriteDrinks', response.data)
-      })
-      .catch(error => {
-        // handle error
-        console.log(error)
-      })
+      if (user_id != 0){
+        return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_drink')
+        .then(response => {
+          context.commit('setFavoriteDrinks', response.data)
+        })
+        .catch(error => {
+          // handle error
+          console.log(error)
+        })
+      }
     },
     doFetchFavoriteShops(context, user_id) {
-      return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_shop')
-      .then(response => {
-        context.commit('setFavoriteShops', response.data)
-      })
-      .catch(error => {
-        // handle error
-        console.log(error)
-      })
+      if (user_id != 0){
+        return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_shop')
+        .then(response => {
+          context.commit('setFavoriteShops', response.data)
+        })
+        .catch(error => {
+          // handle error
+          console.log(error)
+        })
+      }
     },
     doAddFavoriteDrink(context, item){
       context.commit('addFavoriteDrink', item)
@@ -72,8 +80,6 @@ export default {
       })
     },
     setID: (state, id) => (state.id = id),
-    idplus(state){
-      state.id++
-    }
+    AdminLogIn: (state, admin_state) => (state.admin = admin_state),
   }
 }

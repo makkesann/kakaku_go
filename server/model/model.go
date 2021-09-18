@@ -12,14 +12,13 @@ type DrinkPrice struct {
 }
 
 type DrinkPriceName struct {
-	ShopID uint
-	Name   string // name
-	Price  uint   // email
+	Name  string // name
+	Price uint   // email
 }
 
 type Shop struct {
 	gorm.Model
-	Name string `gorm:"not null"`
+	Name string `gorm:"unique;not null"`
 }
 
 type Product struct {
@@ -29,35 +28,29 @@ type Product struct {
 
 type Drink struct {
 	gorm.Model
-	Name         string `json:"name" gorm:"not null"`
+	Name         string `json:"name" gorm:"unique;not null"`
 	DrinkGenreID uint
 	DrinkPrices  []DrinkPrice
 }
 
 type DrinkGenre struct {
 	gorm.Model
-	Name   string `json:"name" gorm:"not null"`
+	Name   string `json:"name" gorm:"unique;not null"`
 	Drinks []Drink
 }
 
 type User struct {
 	gorm.Model
-	Name string `json:"name" gorm:"not null"`
-	Pass string `gorm:"not null"`
-}
-
-type Test struct {
-	gorm.Model
-	Name string `json:"name" gorm:"not null"`
+	Name string `json:"name" gorm:"primary_key"`
 	Pass string `gorm:"not null"`
 }
 
 type FavoriteDrink struct {
-	UserID  uint `gorm:"not null"`
-	DrinkID uint `gorm:"not null"`
+	UserID  uint `gorm:"not null;primary_key"`
+	DrinkID uint `gorm:"not null;primary_key"`
 }
 
 type FavoriteShop struct {
-	UserID uint `gorm:"not null"`
-	ShopID uint `gorm:"not null"`
+	UserID uint `gorm:"not null;primary_key"`
+	ShopID uint `gorm:"not null;primary_key"`
 }
