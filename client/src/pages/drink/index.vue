@@ -62,7 +62,7 @@ export default {
       if (this.genre_id == 0){
         return this.drinks
       } else {
-        return this.drinks.filter((drink) => drink.ID == this.genre_id)
+        return this.drinks.filter((drink) => drink.DrinkGenreID == this.genre_id)
       }
     },
     favorite_drinks_id() {
@@ -72,7 +72,7 @@ export default {
       if (this.genre_id == 0){
         return this.favorite_drinks
       } else {
-        return this.favorite_drinks.filter((drink) => drink.genre_id == this.genre_id)
+        return this.favorite_drinks.filter((drink) => drink.DrinkGenreID == this.genre_id)
       }
     },
   },
@@ -117,7 +117,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_drink/add', params)
+        axios.post('http://localhost:8082/favorite_drink/add', params)
         .catch(error => {
           // handle error
           console.log(error)
@@ -132,7 +132,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_drink/delete', params)
+        axios.post('http://localhost:8082/favorite_drink/delete', params)
         .catch(error => {
           // handle error
           console.log(error)
