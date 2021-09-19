@@ -16,6 +16,11 @@
           </template>
         </b-table>
       </b-row>
+      <b-row>
+        <h2>楽天での価格</h2>
+        <b-table striped hover :items="rakuten.Items"></b-table>
+      </b-row>
+      <img :src="rakuten.Items[0].smallImageUrls[0]" alt="">
     </b-container>
   </div>
 </template>
@@ -32,13 +37,16 @@ export default {
       drink_fields: ["name", "ID", "DrinkGenreID"],
       // drinks: [],
       prices: [],
-      favorite_shops: []
+      favorite_shops: [],
+      rakuten: [],
+      rakuten_fields:["商品名", "価格", "画像"]
     }
   },
 
   // インスタンス作成時の処理
   created: function() {
     this.doFetchPrices()
+    this.rakutenapi()
   },
 
   computed: {
@@ -74,7 +82,17 @@ export default {
   },
 
   methods: {
-
+    rakutenapi(){
+      axios.get('https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=1053675093689591225&formatVersion=2&keyword=4901004006714&sort=%2BitemPrice&hits=1')
+      .then(response => {
+        // console.log(response.data)
+        this.rakuten = response.data
+      })
+      .catch(error => {
+        // handle error
+        console.log(error)
+      })
+    },
     doFetchPrices() {
       let drink_id = this.$route.params.id
       axios.get('http://54.65.204.164:8082/drinks/' + drink_id + '/prices')
