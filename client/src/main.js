@@ -7,12 +7,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import "./assets/style/global.css"
+
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
-// axios.defaults.baseURL = 'http://54.65.204.164:8082'
+// axios.defaults.baseURL = 'http://localhost:8082'
 
 new Vue({
   router,
@@ -22,7 +23,7 @@ new Vue({
 
 module.exports = {
   devServer: {
-      proxy: 'http://54.65.204.164:8081/',
+      proxy: 'http://localhost:8081/',
       disableHostCheck: true,
   }
 }

@@ -111,3 +111,40 @@ func FetchFavoriteShop(c *gin.Context) {
 	// URLへのアクセスに対してJSONを返す
 	c.JSON(200, result)
 }
+
+func InsertFavoriteShop(registerFavoriteShop *model.FavoriteShop) {
+	db := dbmod.SqlConnect()
+	// insert
+	db.Create(&registerFavoriteShop)
+	defer db.Close()
+}
+
+func AddFavoriteShop(c *gin.Context) {
+	shop_id_str := c.PostForm("shop_id")
+	user_id_str := c.PostForm("user_id")
+	shop_id64, _ := strconv.ParseUint(shop_id_str, 10, 64)
+	user_id64, _ := strconv.ParseUint(user_id_str, 10, 64)
+	shop_id := uint(shop_id64)
+	user_id := uint(user_id64)
+
+	var favorite_shop = model.FavoriteShop{
+		UserID: user_id,
+		ShopID: shop_id,
+	}
+	InsertFavoriteShop(&favorite_shop)
+}
+
+//deletefavoriteshop
+func DeleteFavoriteShop(c *gin.Context) {
+	db := dbmod.SqlConnect()
+	favorite_shop := []model.FavoriteShop{}
+	shop_id_str := c.PostForm("shop_id")
+	user_id_str := c.PostForm("user_id")
+	shop_id64, _ := strconv.ParseUint(shop_id_str, 10, 64)
+	user_id64, _ := strconv.ParseUint(user_id_str, 10, 64)
+	shop_id := uint(shop_id64)
+	user_id := uint(user_id64)
+
+	db.Where("user_id = ? AND shop_id = ?", user_id, shop_id).Delete(&favorite_shop)
+	defer db.Close()
+}

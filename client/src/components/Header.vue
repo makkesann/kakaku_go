@@ -1,10 +1,12 @@
 <template>
   <div id="header">
     <h1>飲み物の価格</h1>
-    <div v-if="this.$store.state.login.admin" @click="doAdminLogIn(false)">管理者ログアウト</div>
+    <div v-if="this.$store.state.login.admin">
+      <p @click="doAdminLogIn(false)">管理者ログアウト</p>
+      <router-link :to="{path: 'admin'}">管理者ページ</router-link>
+    </div>
     <div v-else>
       <p @click="doAdminLogIn(true)">管理者ログイン</p>
-      
     </div>
     <router-link to="/user/login" v-if="id == 0">ログイン</router-link>
     <router-link to="/user/new" v-if="id == 0">アカウント作成</router-link>

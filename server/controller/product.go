@@ -26,13 +26,6 @@ func InsertProduct(registerProduct *model.Product) {
 	defer db.Close()
 }
 
-func ShowMassage(c *gin.Context) {
-	genre := c.Param("genre")
-	c.JSON(200, gin.H{
-		"massage": genre,
-	})
-}
-
 //MVCにおけるcontroller部分
 
 func FetchAllProducts(c *gin.Context) {

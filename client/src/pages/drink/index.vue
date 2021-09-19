@@ -12,11 +12,12 @@
           </b-table>
         </b-col>
         <b-col cols="10">
+          <p v-if="admin">商品追加</p>
           <b-table v-if="serched_favorite_drinks.length != 0" striped hover :items="serched_favorite_drinks">
           </b-table>
           <b-table striped hover :items="serched_drinks" :fields="drink_fields">
             <template v-slot:cell(name)="{item}">
-              <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link>
+              <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link><p v-if="admin">削除</p>
             </template>
             <template v-slot:cell(お気に入り)="{item}">
               <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
@@ -50,6 +51,9 @@ export default {
   computed: {
     drinks() {
       return this.$store.getters["drink/getDrinks"]
+    },
+    admin(){
+      return this.$store.getters["login/getAdmin"]
     },
     drink_genres() {
       return this.$store.getters["drink/getDrinkGenres"]
@@ -113,7 +117,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_drink/add', params)
+        axios.post('http://localhost:8082/favorite_drink/add', params)
         .catch(error => {
           // handle error
           console.log(error)
@@ -128,7 +132,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_drink/delete', params)
+        axios.post('http://localhost:8082/favorite_drink/delete', params)
         .catch(error => {
           // handle error
           console.log(error)

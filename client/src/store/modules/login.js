@@ -21,6 +21,9 @@ export default {
     getID(state) {
       return state.id
     },
+    getAdmin(state) {
+      return state.admin
+    },
   },
   actions: {
     doSetID(context, user_id) {
@@ -32,7 +35,7 @@ export default {
     // ユーザー情報の取得
     doFetchFavoriteDrinks(context, user_id) {
       if (user_id != 0){
-        return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_drink')
+        return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_drink')
         .then(response => {
           context.commit('setFavoriteDrinks', response.data)
         })
@@ -44,7 +47,7 @@ export default {
     },
     doFetchFavoriteShops(context, user_id) {
       if (user_id != 0){
-        return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_shop')
+        return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_shop')
         .then(response => {
           context.commit('setFavoriteShops', response.data)
         })
@@ -62,9 +65,14 @@ export default {
       context.commit('deleteFavoriteDrink', item)
       context.commit("drink/deleteFavoriteDrink",item.ID,{root:true})
     },
-    idplus(context) {
-      context.commit('idplus')
-    }
+    doAddFavoriteShop(context, item){
+      context.commit('addFavoriteShop', item)
+      // context.commit("shop/addFavoriteShop",item.ID,{root:true})
+    },
+    doDeleteFavoriteShop(context, item){
+      context.commit('deleteFavoriteShop', item)
+      // context.commit("shop/deleteFavoriteShop",item.ID,{root:true})
+    },
   },
   mutations: {
     setFavoriteDrinks: function(state, favorite_drinks) {
@@ -77,6 +85,14 @@ export default {
     deleteFavoriteDrink: function(state, item){
       state.favorite_drink = state.favorite_drink.filter(function(value){
         return value.DrinkID != item.ID || value.UserID != state.id
+      })
+    },
+    addFavoriteShop: function(state, item){
+      state.favorite_shop.push({"ShopID": item.ShopID, "UserID": state.id})
+    },
+    deleteFavoriteShop: function(state, item){
+      state.favorite_shop = state.favorite_shop.filter(function(value){
+        return value.ShopID != item.ShopID || value.UserID != state.id
       })
     },
     setID: (state, id) => (state.id = id),

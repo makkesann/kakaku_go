@@ -12,8 +12,9 @@ type DrinkPrice struct {
 }
 
 type DrinkPriceName struct {
-	Name  string // name
-	Price uint   // email
+	ShopID uint
+	Name   string // name
+	Price  uint
 }
 
 type Shop struct {
@@ -31,6 +32,7 @@ type Drink struct {
 	Name         string `json:"name" gorm:"unique;not null"`
 	DrinkGenreID uint
 	DrinkPrices  []DrinkPrice
+	Jan          uint
 }
 
 type DrinkGenre struct {
@@ -41,7 +43,7 @@ type DrinkGenre struct {
 
 type User struct {
 	gorm.Model
-	Name string `json:"name" gorm:"primary_key"`
+	Name string `json:"name" gorm:"unique"`
 	Pass string `gorm:"not null"`
 }
 

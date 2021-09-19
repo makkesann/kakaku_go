@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <b-alert v-if="error" variant="danger" show>
+      {{error}}
+    </b-alert>
     <b-container>
       <b-row class="my-1">
         <b-col sm="3">
@@ -29,21 +32,27 @@
 import axios from 'axios'
 export default {
   name: 'home',
+  data(){
+    return {
+      error: ""
+    }
+  },
   methods: {
     doLogin() {
       // サーバへ送信するパラメータ
       const params = new URLSearchParams()
       params.append('username', this.username)
       params.append('pass', this.user_pass)
-      axios.post('http://54.65.204.164:8082/user/new', params)
+      axios.post('http://localhost:8082/user/new', params)
       .then(response => {
-        this.$store.dispatch('login/doSetID',response.data.Value.ID)
+        console.log(response)
+        // this.$store.dispatch('login/doSetID',response.data.Value.ID)
           //一覧ページに遷移する
         this.$router.push('/drink')
       })
       .catch(error => {
         // handle error
-        console.log(error)
+        this.error = error.response.data.Message
       })
     },
   }
