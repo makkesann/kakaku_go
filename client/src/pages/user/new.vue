@@ -43,7 +43,7 @@ export default {
       const params = new URLSearchParams()
       params.append('username', this.username)
       params.append('pass', this.user_pass)
-      axios.post('http://localhost:8082/user/new', params)
+      axios.post('http://54.65.204.164:8082/user/new', params)
       .then(response => {
         console.log(response)
         // this.$store.dispatch('login/doSetID',response.data.Value.ID)
