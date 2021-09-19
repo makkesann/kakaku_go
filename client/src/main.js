@@ -13,7 +13,7 @@ Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
-// axios.defaults.baseURL = 'http://54.65.204.164.164:8082'
+// axios.defaults.baseURL = 'http://54.65.204.164:8082'
 
 new Vue({
   router,
@@ -23,7 +23,7 @@ new Vue({
 
 module.exports = {
   devServer: {
-      proxy: 'http://54.65.204.164.164:8081/',
+      proxy: 'http://54.65.204.164:8081/',
       disableHostCheck: true,
   }
 }

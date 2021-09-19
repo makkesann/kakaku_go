@@ -32,7 +32,7 @@ export default {
 
   methods: {
     GetShops(){
-      axios.get('http://54.65.204.164:8082/shops')
+      axios.get('http://54.65.204:8082/shops')
       .then(response => {
         this.shops = response.data
       })
@@ -50,7 +50,7 @@ export default {
       params.append('price', this.price_input)
       params.append('shop_id', this.shop_input)
       console.log(params)
-      axios.post('http://54.65.204.164:8082/price/add', params)
+      axios.post('http://54.65.204:8082/price/add', params)
       .then(response => {
           if (response.status != 200) {
               throw new Error('レスポンスエラー')
