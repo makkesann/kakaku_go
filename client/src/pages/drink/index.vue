@@ -72,7 +72,7 @@ export default {
       if (this.genre_id == 0){
         return this.favorite_drinks
       } else {
-        return this.favorite_drinks.filter((drink) => drink.id == this.genre_id)
+        return this.favorite_drinks.filter((drink) => drink.genre_id == this.genre_id)
       }
     },
   },
