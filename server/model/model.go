@@ -43,7 +43,7 @@ type DrinkGenre struct {
 
 type User struct {
 	gorm.Model
-	Name string `json:"name" gorm:"unique"`
+	Name string `json:"name" gorm:"unique;not null"`
 	Pass string `gorm:"not null"`
 }
 

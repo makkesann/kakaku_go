@@ -20,10 +20,11 @@ func UserLogin(c *gin.Context) {
 	fmt.Print(err)
 	// fmt.Print(user)
 	if err != nil {
-		c.Status(400)
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, found)
 	}
 	fmt.Println(found)
-	c.JSON(200, found)
 	defer db.Close()
 	// c.Status(400)
 
