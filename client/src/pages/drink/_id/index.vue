@@ -82,6 +82,13 @@ export default {
         this.ReloadFavoriteShop(favorite)
       }
     },
+    prices:{
+      immediate: true,
+      // deep: true,
+      handler(){
+        this.ReloadFavoriteShop(this.favorite_shops_id)
+      }
+    },
     drink:{
       // deep: true,
       immediate: true,
