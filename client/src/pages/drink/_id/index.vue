@@ -162,7 +162,7 @@ export default {
       if (this.$store.state.login.id != 0){
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
-        params.append('shop_id', item.ID)
+        params.append('shop_id', item.ShopID)
         params.append('user_id', this.$store.state.login.id)
         axios.post('http://54.65.204.164:8082/favorite_shop/add', params)
         .catch(error => {
@@ -177,7 +177,7 @@ export default {
       this.$store.dispatch('login/doDeleteFavoriteShop',item)
       if (this.$store.state.login.id != 0){
         const params = new URLSearchParams()
-        params.append('shop_id', item.ID)
+        params.append('shop_id', item.ShopID)
         params.append('user_id', this.$store.state.login.id)
         axios.post('http://54.65.204.164:8082/favorite_shop/delete', params)
         .catch(error => {
