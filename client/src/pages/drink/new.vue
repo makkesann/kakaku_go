@@ -35,7 +35,7 @@ export default {
       // サーバへ送信するパラメータ
       const params = new URLSearchParams()
       params.append('drink_name', this.drink_name)
-      axios.post('http://localhost:8082/drink/add', params)
+      axios.post('http://54.65.204.164:8082/drink/add', params)
       .then(response => {
           if (response.status != 200) {
               throw new Error('レスポンスエラー')

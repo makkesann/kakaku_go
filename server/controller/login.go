@@ -132,7 +132,6 @@ func AddFavoriteShop(c *gin.Context) {
 		UserID: user_id,
 		ShopID: shop_id,
 	}
-	fmt.Print(favorite_shop)
 	InsertFavoriteShop(&favorite_shop)
 }
 
