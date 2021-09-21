@@ -1,18 +1,25 @@
 
 
-## goパッケージについて
-goのパッケージを一斉更新したいとき： go get -u all,  go get <repository>@HEAD or @latest
+## このアプリケーションについて
+このアプリは実店舗版価格.comの様なもので、飲み物の各店舗での販売価格を表すものです。
+  
+## 使用技術、機能
+  
+ クライアントサイド：Vue.js, scss サーバーサイド：gin(golang)　RDBMS：PostgreSQL O/Rマッパー： GORM　サーバー：Amazon EC2 その他：Docker
+ 
+  *製品追加、削除、編集機能（管理者のみ）
+  
+  *店舗追加、削除、編集機能（管理者のみ）
+  
+  *価格情報の追加
+  
+  *価格情報の削除、編集機能（管理者のみ）
+  
+  *製品一覧ページでのページネーション機能（予定）
+  
+  *各フォームでのバリデーション機能（予定）
+  
+  *レスポンシブデザイン対応（予定）
+ 
+## 使い方について
 
-基本的にディレクトリにつきパッケージは一つ？
-  
-## go.modとimportの挙動
-  
-https://qiita.com/fetaro/items/31b02b940ce9ec579baf
-  
-## BootstrapVue
-https://bootstrap-vue.org/docs/components
-
-## GORMについて
-  https://qiita.com/gold-kou/items/45a95d61d253184b0f33
-  
-  https://qiita.com/daitasu/items/9428220810816972b5d5
