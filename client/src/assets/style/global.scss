@@ -1,0 +1,64 @@
+@charset "utf-8";
+.hover{
+  cursor : pointer;
+}
+.row{
+  margin-left: 0;
+  margin-right: 0;
+}
+.kusa{
+  // background-color: red;
+  width: 128px;
+  height: 128px;
+}
+// img {
+//   width: auto;
+//   height: auto;
+// }
+
+.test2{
+  width: 64px;
+  height: 64px;
+}
+.w-60{
+  width: 60%;
+}
+.w-40{
+  width: 40%;
+}
+
+#test{
+  max-width: 100%;
+  
+  max-height: 100%;
+}
+
+.product_detail{
+  .out-img{
+    margin-left: -24px;
+  }
+  #Imgbox{
+    width: 150px;
+    height: 150px;
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+  .box{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    background: #FFF;
+    border: solid 5px #EBEAEA;/*線*/
+    border-radius: 10px;/*角の丸み*/
+  }
+  .rakuten{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    // color: #5989cf;
+    background: #c6e4ff;
+    border-bottom: solid 6px #aac5de;
+    border-radius: 9px;
+  }
+}

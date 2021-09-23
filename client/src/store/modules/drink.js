@@ -18,6 +18,9 @@ export default {
     getDrinkGenres(state) {
       return state.drink_genres
     },
+    getGenre: (state) => (drink_genre_id) => {
+      return state.drink_genres.filter((drink_genre) => drink_genre.ID == drink_genre_id)
+    },
   },
 
   actions: {

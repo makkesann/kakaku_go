@@ -1,9 +1,49 @@
 <template>
-  <div class="home">
+  <div class="product_detail">
     <b-container>
-      <b-row>
-        <b-table striped hover :items="drink"></b-table>
-      </b-row>
+      <div class="text-left">
+        <router-link to="/drink">商品一覧に戻る</router-link>
+      </div>
+      <div class="box">
+        <h2 class="text-left">{{drink[0].name}}</h2><hr>
+        <b-row>
+          <b-col cols="4" class="py-4 px-2 out-img">
+            <div id="Imgbox" class="mx-auto">
+              <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/large/' + drink[0].Image">
+            </div>
+          </b-col>
+          <b-col cols="8" class="py-2 px-2 w-100">
+            <b-row>
+              <b-col cols="4" v-if="prices.length !=0">
+                <h4 class="text-left mb-3">最安価格：{{ prices[0].Price }}円</h4>
+              </b-col>
+              <b-col cols="8">
+                <div class="pr-2 w-60 d-inline-block">
+                  <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
+                </div>
+                <div class="w-40 d-inline-block">
+                  <b-button>このショップを探す</b-button>
+                </div>
+              </b-col>
+            </b-row>
+            <a :href="rakuten.Items[0].itemUrl" target="_blank">
+              <div class="rakuten">
+                <h4 class="text-left">楽天の参考価格:</h4>
+                <b-row>
+                  <b-col cols="2">
+                    <img :src="rakuten.Items[0].smallImageUrls[0]">
+                  </b-col>
+                  <b-col cols="10">
+                    <h6 class="text-left">{{ rakuten.Items[0].itemName }}</h6>
+                    <h4 class="text-left">{{ rakuten.Items[0].itemPrice }}円</h4>
+                  </b-col>
+                </b-row>
+              </div>
+            </a>
+          </b-col>
+        </b-row>
+
+      </div>
       <b-row>
         <h2>お気に入りの店</h2>
         <b-table v-if="favorite_shops.length != 0" striped hover :items="favorite_shops">
@@ -72,7 +112,6 @@ export default {
     admin(){
       return this.$store.getters["login/getAdmin"]
     },
-  
   },
   watch: {
     favorite_shops_id:{

@@ -16,6 +16,12 @@
           <b-table v-if="serched_favorite_drinks.length != 0" striped hover :items="serched_favorite_drinks">
           </b-table>
           <b-table striped hover :items="serched_drinks" :fields="drink_fields">
+            <template v-slot:cell(画像)="{item}">
+              <div class="test2 mx-auto">
+                <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
+
+              </div>
+            </template>
             <template v-slot:cell(name)="{item}">
               <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link><p v-if="admin">削除</p>
             </template>
@@ -27,7 +33,11 @@
         </b-col>
       </b-row>
     </b-container>
+    <div class="kusa">
+      <img id="test" v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/81ar297PF7L._AC_SY741_ (S3).jpg'">
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -39,7 +49,7 @@ export default {
   },
   data(){
     return {
-      drink_fields: ["name", "ID", "DrinkGenreID", "お気に入り"],
+      drink_fields: ["画像", "name", "ID", "DrinkGenreID", "お気に入り"],
       // drinks: [],
       genre_fields: ["name"],
       genre_id: 0,
@@ -138,7 +148,10 @@ export default {
           console.log(error)
         })
       }
-    }
+    },
+    noImage(element){
+      element.target.src = 'https://placehold.jp/600x300.png'
+    },
   },
 }
 </script>

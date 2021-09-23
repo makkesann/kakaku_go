@@ -6,7 +6,8 @@ import store from './store/index.js'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
-import "./assets/style/global.css"
+import "@/assets/style/global.scss"
+import VueLazyload from 'vue-lazyload'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
@@ -14,6 +15,13 @@ Vue.use(BootstrapVueIcons)
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
 // axios.defaults.baseURL = 'http://54.65.204.164:8082'
+ 
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'https://dummyimage.com/64x64/ccc/999.png&text=Not+Found',
+  loading: 'https://dummyimage.com/64x64/dcdcdc/999.png&text=Now loading',
+  attempt: 1
+})
 
 new Vue({
   router,

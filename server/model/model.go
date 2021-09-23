@@ -32,7 +32,8 @@ type Drink struct {
 	Name         string `json:"name" gorm:"unique;not null"`
 	DrinkGenreID uint
 	DrinkPrices  []DrinkPrice
-	Jan          uint
+	Jan          uint64
+	Image        string
 }
 
 type DrinkGenre struct {
