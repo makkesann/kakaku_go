@@ -44,7 +44,7 @@ Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
-// axios.defaults.baseURL = 'http://54.65.204.164:8082'
+// axios.defaults.baseURL = 'http://localhost:8082'
  
 Vue.use(VueLazyload, {
   preLoad: 1.3,
@@ -61,7 +61,7 @@ new Vue({
 
 module.exports = {
   devServer: {
-      proxy: 'http://54.65.204.164:8081/',
+      proxy: 'http://localhost:8081/',
       disableHostCheck: true,
   }
 }
