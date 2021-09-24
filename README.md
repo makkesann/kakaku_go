@@ -5,7 +5,7 @@
   
 ## 使用技術、機能
   
- クライアントサイド：Vue.js, scss サーバーサイド：gin(golang)　RDBMS：PostgreSQL O/Rマッパー： GORM　サーバー：Amazon EC2 外部API:楽天市場商品検索API その他：Docker
+ クライアントサイド：Vue.js, scss サーバーサイド：gin(golang)　RDBMS：PostgreSQL O/Rマッパー： GORM　サーバー：Amazon EC2, S3 外部API:楽天市場商品検索API その他：Docker
  
   *製品追加、削除、編集機能（管理者のみ）
   
