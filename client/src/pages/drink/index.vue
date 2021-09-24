@@ -1,29 +1,34 @@
 <template>
-  <div class="home">
+  <div class="drink">
     <b-container>
-      <div class ="hover" @click="ChangeGenreID(0)">ジャンルリセット</div>
+      
       <h2>お気に入りの商品</h2>
       <b-row>
         <b-col cols="2">
-          <b-table striped hover :items="drink_genres" :fields="genre_fields">
-            <template v-slot:cell(name)="{item}">
-              <div class ="hover" @click="ChangeGenreID(item.ID)">{{ item.name }}</div>
-            </template>
-          </b-table>
+          <div class="text-left genre_box">
+            <h6 class="mb-0">ジャンルで絞る</h6><hr class="mb-3 mt-2">
+            <p class="hover mb-2" @click="ChangeGenreID(0)">リセット</p>
+            <div v-for="genre in drink_genres" v-bind:key="genre.id">
+              <p @click="ChangeGenreID(genre.ID)" class="hover mb-2">{{ genre.name }}</p>
+            </div>
+          </div>
         </b-col>
         <b-col cols="10">
           <p v-if="admin">商品追加</p>
           <b-table v-if="serched_favorite_drinks.length != 0" striped hover :items="serched_favorite_drinks">
           </b-table>
-          <b-table striped hover :items="serched_drinks" :fields="drink_fields">
+          <b-table hover :items="serched_drinks" :fields="drink_fields">
             <template v-slot:cell(画像)="{item}">
               <div class="test2 mx-auto">
                 <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
-
               </div>
             </template>
-            <template v-slot:cell(name)="{item}">
+            <template v-slot:cell(商品名)="{item}">
               <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link><p v-if="admin">削除</p>
+            </template>
+            <template v-slot:cell(内容量) ="{item}">
+              <p v-if="item.Quantity!=0">{{ item.Quantity }}ml</p>
+              <p v-else>- ml</p>
             </template>
             <template v-slot:cell(お気に入り)="{item}">
               <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
@@ -33,9 +38,6 @@
         </b-col>
       </b-row>
     </b-container>
-    <div class="kusa">
-      <img id="test" v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/81ar297PF7L._AC_SY741_ (S3).jpg'">
-    </div>
   </div>
 
 </template>
@@ -49,13 +51,9 @@ export default {
   },
   data(){
     return {
-      drink_fields: ["画像", "name", "ID", "DrinkGenreID", "お気に入り"],
-      // drinks: [],
-      genre_fields: ["name"],
+      drink_fields: ["画像", "商品名", "内容量", "お気に入り"],
       genre_id: 0,
-      // drink_genres: []
       favorite_drinks: [],
-      // serched_drinks: []
     }
   },
   computed: {
@@ -127,7 +125,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_drink/add', params)
+        axios.post('http://localhost:8082/favorite_drink/add', params)
         .catch(error => {
           // handle error
           console.log(error)
@@ -142,7 +140,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_drink/delete', params)
+        axios.post('http://localhost:8082/favorite_drink/delete', params)
         .catch(error => {
           // handle error
           console.log(error)

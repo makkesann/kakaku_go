@@ -34,6 +34,7 @@ type Drink struct {
 	DrinkPrices  []DrinkPrice
 	Jan          uint64
 	Image        string
+	Quantity     uint
 }
 
 type DrinkGenre struct {
