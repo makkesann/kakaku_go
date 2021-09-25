@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Vue from 'vue'
+// import Vue from 'vue'
 export default {
   namespaced: true,
   // 初期値
@@ -25,18 +25,23 @@ export default {
 
   actions: {
     doFetchAllDrink(context) {
-      axios.get('http://localhost:8082/drinks')
+      axios.get('http://54.65.204.164:8082/drinks')
       .then(response => {
         context.commit('setDrinks', response.data)
+        console.log(response.data)
+
       })
       .catch(error => {
         // handle error
         console.log(error)
       })
     },
+    ReloadDrinks(context){
+      context.commit('LogoutDrink')
+    },
     // 全てのジャンル情報を取得する
     doFetchAllDrinkGenre(context) {
-      axios.get('http://localhost:8082/drink/genres')
+      axios.get('http://54.65.204.164:8082/drink/genres')
       .then(response => {
         context.commit('setDrinkGenre', response.data)
       })
@@ -51,19 +56,19 @@ export default {
   mutations: {
     // 初期化処理
     setDrinks(state, resultDrinks) {
-      for (const i in resultDrinks){
-        Vue.set(resultDrinks[i], 'favorite', false)
-      }
+      // for (const i in resultDrinks){
+      //   Vue.set(resultDrinks[i], 'favorite', false)
+      // }
       state.drinks = resultDrinks
     },
     setDrinkGenre(state, resultDrinks) {
       state.drink_genres = resultDrinks
     },
-    addFavoriteDrink: function(state, ID){
-      state.drinks.find((drink) => drink.ID == ID).favorite = true
-    },
-    deleteFavoriteDrink: function(state, ID){
-      state.drinks.find((drink) => drink.ID == ID).favorite = false
-    },
+    // addFavoriteDrink: function(state, ID){
+    //   state.drinks.find((drink) => drink.ID == ID).favorite = true
+    // },
+    // deleteFavoriteDrink: function(state, ID){
+    //   state.drinks.find((drink) => drink.ID == ID).favorite = false
+    // },
   }
 }

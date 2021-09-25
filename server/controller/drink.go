@@ -66,9 +66,13 @@ func FetchAllDrinks(c *gin.Context) {
 
 func AddDrink(c *gin.Context) {
 	drink_name := c.PostForm("drink_name")
+	genre_id_str := c.PostForm("genre_id")
+	genre_id64, _ := strconv.ParseUint(genre_id_str, 10, 64)
+	genre_id := uint(genre_id64)
 
 	var drink = model.Drink{
-		Name: drink_name,
+		Name:         drink_name,
+		DrinkGenreID: genre_id,
 	}
 
 	InsertDrink(&drink)

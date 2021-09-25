@@ -5,12 +5,20 @@
       <h2>お気に入りの商品</h2>
       <b-row>
         <b-col cols="2">
-          <div class="text-left genre_box">
+          <div class="text-left genre_box mb-4">
             <h6 class="mb-0">ジャンルで絞る</h6><hr class="mb-3 mt-2">
             <p class="hover mb-2" @click="ChangeGenreID(0)">リセット</p>
             <div v-for="genre in drink_genres" v-bind:key="genre.id">
               <p @click="ChangeGenreID(genre.ID)" class="hover mb-2">{{ genre.name }}</p>
             </div>
+          </div>
+          <div class="text-left genre_box">
+            <h6 class="mb-0">内容量で絞る</h6><hr class="mb-3 mt-2">
+            <p class="hover mb-2" @click="ChangeGenreID(0)">リセット</p>
+            <p class="hover mb-2">~200ml</p>
+            <p class="hover mb-2">200ml~700ml</p>
+            <p class="hover mb-2">700ml~1L</p>
+            <p class="hover mb-2">1L~</p>
           </div>
         </b-col>
         <b-col cols="10">
@@ -100,12 +108,22 @@ export default {
         this.ReloadFavoriteDrink(this.favorite_drinks_id)
       }
     },
+    // login_id:{
+    //   immediate: true,
+    //   // deep: true,
+    //   handler(new_id, old_id){
+    //     this.LogOutFavoriteDrink(new_id, old_id)
+    //   }
+    // },
   },
   methods: {
     ChangeGenreID(genre_id) {
       this.genre_id = genre_id
     },
     ReloadFavoriteDrink(favorite){
+      for (const i in this.drinks){
+        this.$set(this.drinks[i], "favorite" , false)
+      }
       let result = []
       for (const i in favorite){
         const drink = (drink) => drink.ID == favorite[i].DrinkID
@@ -125,7 +143,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://localhost:8082/favorite_drink/add', params)
+        axios.post('http://54.65.204.164:8082/favorite_drink/add', params)
         .catch(error => {
           // handle error
           console.log(error)
@@ -140,7 +158,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://localhost:8082/favorite_drink/delete', params)
+        axios.post('http://54.65.204.164:8082/favorite_drink/delete', params)
         .catch(error => {
           // handle error
           console.log(error)

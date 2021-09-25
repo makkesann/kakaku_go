@@ -3,7 +3,7 @@
     <h1>飲み物の価格</h1>
     <div v-if="this.$store.state.login.admin">
       <p @click="doAdminLogIn(false)">管理者ログアウト</p>
-      <router-link :to="{path: 'admin'}">管理者ページ</router-link>
+      <router-link to="/admin">管理者ページ</router-link>
     </div>
     <div v-else>
       <p @click="doAdminLogIn(true)">管理者ログイン</p>
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     doLogOut(){
-      this.$store.dispatch('login/doSetID',0)
+      this.$store.dispatch('login/doLogout', this.id)
     },
     doAdminLogIn(ad_state){
       this.$store.dispatch('login/doAdminLogIn',ad_state)

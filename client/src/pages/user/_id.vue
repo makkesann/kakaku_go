@@ -10,11 +10,15 @@
     </b-container>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 export default {
   name: 'home',
+  beforeCreate() {
+    if(this.$store.state.login.id != this.$route.params.id){
+      this.$router.push('/drink')
+    }
+  },
   computed: {
     favorite_drinks() {
       return this.$store.getters["login/getFavoriteDrink"]

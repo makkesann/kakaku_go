@@ -29,13 +29,17 @@ export default {
     doSetID(context, user_id) {
       context.commit('setID', user_id)
     },
+    doLogout(context, user_id) {
+      context.commit('setID', 0)
+      context.commit('LogoutFavorite', user_id)
+    },
     doAdminLogIn(context, admin_state) {
       context.commit('AdminLogIn', admin_state)
     },
     // ユーザー情報の取得
     doFetchFavoriteDrinks(context, user_id) {
       if (user_id != 0){
-        return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_drink')
+        return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_drink')
         .then(response => {
           context.commit('setFavoriteDrinks', response.data)
         })
@@ -47,7 +51,7 @@ export default {
     },
     doFetchFavoriteShops(context, user_id) {
       if (user_id != 0){
-        return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_shop')
+        return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_shop')
         .then(response => {
           context.commit('setFavoriteShops', response.data)
         })
@@ -59,11 +63,11 @@ export default {
     },
     doAddFavoriteDrink(context, item){
       context.commit('addFavoriteDrink', item)
-      context.commit("drink/addFavoriteDrink",item.ID,{root:true})
+      // context.commit("drink/addFavoriteDrink",item.ID,{root:true})
     },
     doDeleteFavoriteDrink(context, item){
       context.commit('deleteFavoriteDrink', item)
-      context.commit("drink/deleteFavoriteDrink",item.ID,{root:true})
+      // context.commit("drink/deleteFavoriteDrink",item.ID,{root:true})
     },
     doAddFavoriteShop(context, item){
       context.commit('addFavoriteShop', item)
@@ -93,6 +97,14 @@ export default {
     deleteFavoriteShop: function(state, item){
       state.favorite_shop = state.favorite_shop.filter(function(value){
         return value.ShopID != item.ShopID || value.UserID != state.id
+      })
+    },
+    LogoutFavorite: function(state, user_id){
+      state.favorite_shop = state.favorite_shop.filter(function(value){
+        return  value.UserID != user_id
+      })
+      state.favorite_drink = state.favorite_drink.filter(function(value){
+        return value.UserID != user_id
       })
     },
     setID: (state, id) => (state.id = id),
