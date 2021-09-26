@@ -7,7 +7,7 @@
       <div>
         <validation-observer ref="observer" v-slot="handleSubmit">
           <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
-            <validation-provider name="商品名" v-slot="validationContext">
+            <validation-provider name="商品名" :rules="{ required: true }" v-slot="validationContext">
               <b-form-group id="drink_id" label="商品名" label-for="drink_id">
                 <b-form-select
                   id="drink_id"
@@ -59,15 +59,15 @@ export default {
       })
     },
     // 商品情報を削除する
-    doAddDrink() {
+    doDeleteDrink() {
       // サーバへ送信するパラメータ
-      axios.post('http://54.65.204.164:8082/drink/' + this.drink_id + 'delete')
+      axios.post('http://54.65.204.164:8082/drink/' + this.drink_id + '/delete')
       .then(response => {
           if (response.status != 200) {
               throw new Error('レスポンスエラー')
           } else {
             //一覧ページに遷移する
-            this.$router.push('/drink')
+            this.$router.go('/drink')
           }
       })
     },

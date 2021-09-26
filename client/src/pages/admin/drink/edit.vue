@@ -78,6 +78,51 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
+            <validation-provider
+              name="Janコード"
+              :rules="{ numeric, length: 3, length: 13 }"
+              v-slot="validationContext"
+            >
+              <b-form-group id="Jancode">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="Jancode">Janコード：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-input
+                      id="Jancode"
+                      name="Jancode"
+                      v-model="Jancode"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="Jancode-live-feedback"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="Jancode-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
+            <validation-provider
+              name="画像ファイル名"
+              v-slot="validationContext"
+            >
+              <b-form-group id="img_file_name">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="img_file_name">画像ファイル名：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-input
+                      id="img_file_name"
+                      name="img_file_name"
+                      v-model="img_file_name"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="img_file_name-live-feedback"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="img_file_name-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
             <b-button type="submit" variant="warning" @click="doDeleteDrink" :disabled="handleSubmit.invalid || !handleSubmit.validated">変更</b-button>
           </b-form>
         </validation-observer>
@@ -100,6 +145,8 @@ export default {
       productname: null,
       genre_id: null,
       genres: [],
+      Jancode: null,
+      img_file_name: null,
     }
   },
   created: function() {
@@ -134,6 +181,8 @@ export default {
       const params = new URLSearchParams()
       params.append('drink_name', this.productname)
       params.append('genre_id', this.genre_id)
+      params.append('jan', this.Jancode)
+      params.append('image', this.img_file_name)
       axios.post('http://54.65.204.164:8082/drink/' + this.drink_id + 'change')
       .then(response => {
           if (response.status != 200) {

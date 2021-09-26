@@ -28,7 +28,7 @@ export default {
       axios.get('http://54.65.204.164:8082/drinks')
       .then(response => {
         context.commit('setDrinks', response.data)
-        console.log(response.data)
+        // console.log(response.data)
 
       })
       .catch(error => {

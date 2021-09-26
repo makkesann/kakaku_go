@@ -29,9 +29,9 @@ export default {
     doSetID(context, user_id) {
       context.commit('setID', user_id)
     },
-    doLogout(context, user_id) {
-      context.commit('setID', 0)
-      context.commit('LogoutFavorite', user_id)
+    doLogout(context, {old_id, new_id}) {
+      context.commit('setID', new_id)
+      context.commit('LogoutFavorite', old_id)
     },
     doAdminLogIn(context, admin_state) {
       context.commit('AdminLogIn', admin_state)
@@ -107,7 +107,7 @@ export default {
         return value.UserID != user_id
       })
     },
-    setID: (state, id) => (state.id = id),
+    setID: (state, user_id) => (state.id = user_id),
     AdminLogIn: (state, admin_state) => (state.admin = admin_state),
   }
 }

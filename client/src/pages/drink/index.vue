@@ -22,7 +22,7 @@
           </div>
         </b-col>
         <b-col cols="10">
-          <p v-if="admin">商品追加</p>
+          <!-- <p v-if="admin">商品追加</p> -->
           <b-table v-if="serched_favorite_drinks.length != 0" striped hover :items="serched_favorite_drinks">
           </b-table>
           <b-table hover :items="serched_drinks" :fields="drink_fields">
@@ -32,7 +32,8 @@
               </div>
             </template>
             <template v-slot:cell(商品名)="{item}">
-              <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link><p v-if="admin">削除</p>
+              <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link>
+              <!-- <p v-if="admin">削除</p> -->
             </template>
             <template v-slot:cell(内容量) ="{item}">
               <p v-if="item.Quantity!=0">{{ item.Quantity }}ml</p>

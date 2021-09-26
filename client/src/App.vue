@@ -24,7 +24,7 @@ export default {
   },
   watch: {
     login_id(new_id, old_id) {
-      this.$store.dispatch('login/doLogout',old_id)
+      this.$store.dispatch('login/doLogout',{ old_id:old_id, new_id:new_id })
       this.$store.dispatch('login/doFetchFavoriteDrinks',new_id)
       this.$store.dispatch('login/doFetchFavoriteShops',new_id)
     }

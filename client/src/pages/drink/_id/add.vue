@@ -49,7 +49,7 @@ export default {
       params.append('drink_id', drink_id)
       params.append('price', this.price_input)
       params.append('shop_id', this.shop_input)
-      console.log(params)
+      // console.log(params)
       axios.post('http://54.65.204.164:8082/price/add', params)
       .then(response => {
           if (response.status != 200) {

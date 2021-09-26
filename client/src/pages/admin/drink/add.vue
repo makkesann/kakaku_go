@@ -9,7 +9,7 @@
           <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
             <validation-provider
               name="商品名"
-              :rules="{ required: true, min: 3 }"
+              :rules="{ required: true, min: 2 }"
               v-slot="validationContext"
             >
               <b-form-group id="productname">
@@ -54,6 +54,74 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
+            <validation-provider
+              name="Janコード"
+              :rules="{ numeric, length: 13 }"
+              v-slot="validationContext"
+            >
+              <b-form-group id="Jancode">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="Jancode">Janコード：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-input
+                      id="Jancode"
+                      name="Jancode"
+                      v-model="Jancode"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="Jancode-live-feedback"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="Jancode-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
+            <validation-provider
+              name="画像ファイル名"
+              v-slot="validationContext"
+            >
+              <b-form-group id="img_file_name">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="img_file_name">画像ファイル名：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-input
+                      id="img_file_name"
+                      name="img_file_name"
+                      v-model="img_file_name"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="img_file_name-live-feedback"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="img_file_name-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
+            <validation-provider
+              name="内容量"
+              :rules="{numeric}"
+              v-slot="validationContext"
+            >
+              <b-form-group id="quantity">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="quantity">内容量（ml）：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-input
+                      id="quantity"
+                      name="quantity"
+                      v-model="quantity"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="quantity-live-feedback"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="quantity-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
             <b-button type="submit" variant="primary" @click="doAddDrink" :disabled="handleSubmit.invalid || !handleSubmit.validated">追加</b-button>
           </b-form>
         </validation-observer>
@@ -72,7 +140,10 @@ export default {
       productname: null,
       genre_id: null,
       genres: [],
-      error: null
+      Jancode: null,
+      img_file_name: null,
+      quantity: null,
+      error: null,
     }
   },
   created: function() {
@@ -96,14 +167,16 @@ export default {
       const params = new URLSearchParams()
       params.append('drink_name', this.productname)
       params.append('genre_id', this.genre_id)
+      params.append('jan', this.Jancode)
+      params.append('image', this.img_file_name)
+      params.append('quantity', this.quantity)
       axios.post('http://54.65.204.164:8082/drink/add', params)
-      .then(response => {
-          if (response.status != 200) {
-              throw new Error('レスポンスエラー')
-          } else {
-            //一覧ページに遷移する
-            this.$router.push('/drink')
-          }
+      .then(() => {
+        this.$router.go('/drink')
+      })
+      .catch(error => {
+        // handle error
+        this.error = error
       })
     },
     getValidationState({ dirty, validated, valid = null }) {
