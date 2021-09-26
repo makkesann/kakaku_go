@@ -172,7 +172,7 @@ export default {
       params.append('quantity', this.quantity)
       axios.post('http://54.65.204.164:8082/drink/add', params)
       .then(() => {
-        this.$router.go('/drink')
+        this.$router.push('/drink')
       })
       .catch(error => {
         // handle error

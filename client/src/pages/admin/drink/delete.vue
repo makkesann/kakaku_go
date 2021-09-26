@@ -67,7 +67,7 @@ export default {
               throw new Error('レスポンスエラー')
           } else {
             //一覧ページに遷移する
-            this.$router.go('/drink')
+            this.$router.push('/drink')
           }
       })
     },
