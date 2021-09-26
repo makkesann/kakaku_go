@@ -14,11 +14,11 @@
           </div>
           <div class="text-left genre_box">
             <h6 class="mb-0">内容量で絞る</h6><hr class="mb-3 mt-2">
-            <p class="hover mb-2" @click="ChangeGenreID(0)">リセット</p>
-            <p class="hover mb-2">~200ml</p>
-            <p class="hover mb-2">200ml~700ml</p>
-            <p class="hover mb-2">700ml~1L</p>
-            <p class="hover mb-2">1L~</p>
+            <p class="hover mb-2" @click="ChangeQuantity(0)">リセット</p>
+            <p class="hover mb-2" @click="ChangeQuantity(1)">~200ml</p>
+            <p class="hover mb-2" @click="ChangeQuantity(2)">200ml~700ml</p>
+            <p class="hover mb-2" @click="ChangeQuantity(3)">700ml~1L</p>
+            <p class="hover mb-2" @click="ChangeQuantity(4)">1L~</p>
           </div>
         </b-col>
         <b-col cols="10">
@@ -63,6 +63,7 @@ export default {
       drink_fields: ["画像", "商品名", "内容量", "お気に入り"],
       genre_id: 0,
       favorite_drinks: [],
+      quantity: 0,
     }
   },
   computed: {
@@ -76,11 +77,29 @@ export default {
       return this.$store.getters["drink/getDrinkGenres"]
     },
     serched_drinks(){
-      if (this.genre_id == 0){
-        return this.drinks
-      } else {
-        return this.drinks.filter((drink) => drink.DrinkGenreID == this.genre_id)
+      var result = this.drinks
+      if (this.genre_id != 0){
+        result = result.filter((drink) => drink.DrinkGenreID == this.genre_id)
       }
+      if (this.quantity == 0){
+        return result
+      }
+      else if (this.quantity == 1){
+        return result.filter((drink) => (drink.Quantity >0 && drink.Quantity <= 200))
+      }
+      else if (this.quantity == 2){
+        return result.filter((drink) => (drink.Quantity >200 && drink.Quantity <=700))
+      }
+      else if (this.quantity == 3){
+        return result.filter((drink) => (drink.Quantity >700 && drink.Quantity <=1000))
+      }
+      else if (this.quantity == 4){
+        return result.filter((drink) => drink.Quantity >1000)
+      }
+      else{
+        return result
+      }
+
     },
     favorite_drinks_id() {
       return this.$store.getters["login/getFavoriteDrink"]
@@ -120,6 +139,9 @@ export default {
   methods: {
     ChangeGenreID(genre_id) {
       this.genre_id = genre_id
+    },
+    ChangeQuantity(i) {
+      this.quantity = i
     },
     ReloadFavoriteDrink(favorite){
       for (const i in this.drinks){
