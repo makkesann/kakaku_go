@@ -39,7 +39,7 @@ export default {
     // ユーザー情報の取得
     doFetchFavoriteDrinks(context, user_id) {
       if (user_id != 0){
-        return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_drink')
+        return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_drink')
         .then(response => {
           context.commit('setFavoriteDrinks', response.data)
         })
@@ -51,7 +51,7 @@ export default {
     },
     doFetchFavoriteShops(context, user_id) {
       if (user_id != 0){
-        return axios.get('http://localhost:8082/user/'+ user_id + '/favorite_shop')
+        return axios.get('http://54.65.204.164:8082/user/'+ user_id + '/favorite_shop')
         .then(response => {
           context.commit('setFavoriteShops', response.data)
         })

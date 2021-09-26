@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     GetDrinkGenres(){
-      axios.get('http://localhost:8082/drink/genres')
+      axios.get('http://54.65.204.164:8082/drink/genres')
       .then(response => {
         this.genres = response.data
       })
@@ -59,7 +59,7 @@ export default {
     // 商品情報を削除する
     doDeleteDrinkGenre() {
       // サーバへ送信するパラメータ
-      axios.post('http://localhost:8082/drink/genre/' + this.drink_id + '/delete')
+      axios.post('http://54.65.204.164:8082/drink/genre/' + this.drink_id + '/delete')
       .then(() => {
         this.$router.push('/drink')
       })
