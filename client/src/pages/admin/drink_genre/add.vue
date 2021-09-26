@@ -9,7 +9,7 @@
           <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
             <validation-provider
               name="ジャンル名"
-              :rules="{ required: true, min: 3 }"
+              :rules="{ required: true }"
               v-slot="validationContext"
             >
               <b-form-group id="genrename">
