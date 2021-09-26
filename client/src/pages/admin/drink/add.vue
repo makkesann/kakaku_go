@@ -152,7 +152,7 @@ export default {
 
   methods: {
     GetGenres(){
-      axios.get('http://54.65.204.164:8082/drink/genres')
+      axios.get('http://localhost:8082/drink/genres')
       .then(response => {
         this.genres = response.data
       })
@@ -170,7 +170,7 @@ export default {
       params.append('jan', this.Jancode)
       params.append('image', this.img_file_name)
       params.append('quantity', this.quantity)
-      axios.post('http://54.65.204.164:8082/drink/add', params)
+      axios.post('http://localhost:8082/drink/add', params)
       .then(() => {
         this.$router.push('/drink')
       })

@@ -121,3 +121,13 @@ func DeleteDrink(c *gin.Context) {
 	db.Where("id = ?", id).Delete(&drink)
 	defer db.Close()
 }
+
+func DeleteDrinkGenre(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	drink := []model.Drink{}
+	db.Where("id = ?", id).Delete(&drink)
+	defer db.Close()
+}

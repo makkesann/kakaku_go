@@ -7,22 +7,22 @@
       <div>
         <validation-observer ref="observer" v-slot="handleSubmit">
           <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
-            <validation-provider name="商品名" :rules="{ required: true }" v-slot="validationContext">
-              <b-form-group id="drink_id" label="商品名" label-for="drink_id">
+            <validation-provider name="ジャンル名" :rules="{ required: true }" v-slot="validationContext">
+              <b-form-group id="genre_id" label="ジャンル名" label-for="genre_id">
                 <b-form-select
-                  id="drink_id"
-                  name="drink_id"
-                  v-model="drink_id"
-                  :options="drinks"
+                  id="genre_id"
+                  name="genre_id"
+                  v-model="genre_id"
+                  :options="genres"
                   text-field="name"
                   value-field="ID"
                   :state="getValidationState(validationContext)"
-                  aria-describedby="drink_id-live-feedback"
+                  aria-describedby="genre_id-live-feedback"
                 ></b-form-select>
-                <b-form-invalid-feedback id="drink_id-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                <b-form-invalid-feedback id="genre_id-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-            <b-button type="submit" variant="warning" @click="doDeleteDrink" :disabled="handleSubmit.invalid || !handleSubmit.validated">削除</b-button>
+            <b-button type="submit" variant="primary" @click="doDeleteDrinkGenre" :disabled="handleSubmit.invalid || !handleSubmit.validated">追加</b-button>
           </b-form>
         </validation-observer>
       </div>
@@ -37,20 +37,19 @@ export default {
   name: 'home',
   data() {
     return {
-      drink_id: null,
-      drinks: [],
-      error: null
+      genre_id: null,
+      genres: [],
+      error: null,
     }
   },
   created: function() {
-    this.GetDrinks()
+    this.GetDrinkGenres()
   },
-
   methods: {
-    GetDrinks(){
-      axios.get('http://localhost:8082/drinks')
+    GetDrinkGenres(){
+      axios.get('http://localhost:8082/drink/genres')
       .then(response => {
-        this.drinks = response.data
+        this.genres = response.data
       })
       .catch(error => {
         // handle error
@@ -58,16 +57,15 @@ export default {
       })
     },
     // 商品情報を削除する
-    doDeleteDrink() {
+    doDeleteDrinkGenre() {
       // サーバへ送信するパラメータ
-      axios.post('http://localhost:8082/drink/' + this.drink_id + '/delete')
-      .then(response => {
-          if (response.status != 200) {
-              throw new Error('レスポンスエラー')
-          } else {
-            //一覧ページに遷移する
-            this.$router.push('/drink')
-          }
+      axios.post('http://localhost:8082/drink/genre/' + this.drink_id + '/delete')
+      .then(() => {
+        this.$router.push('/drink')
+      })
+      .catch(error => {
+        // handle error
+        this.error = error.response
       })
     },
     getValidationState({ dirty, validated, valid = null }) {

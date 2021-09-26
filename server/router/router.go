@@ -13,9 +13,9 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.Use(cors.New(cors.Config{
 		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
-			"http://54.65.204.164:8083",
-			"http://54.65.204.164:8080",
-			"http://54.65.204.164:80",
+			"http://localhost:8083",
+			"http://localhost:8080",
+			"http://localhost:80",
 		},
 		AllowMethods: []string{
 			"POST",
@@ -30,6 +30,7 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.GET("/shops", controller.FetchAllShops)
 	r.GET("/drink/genres", controller.FetchAllDrinkGenres)
 	r.POST("/drink/genre/add", controller.AddDrinkGenre)
+	r.POST("/drink/genre/:id/delete", controller.DeleteDrinkGenre)
 	r.GET("/drinks/:id", controller.FetchDrink)
 	r.POST("/drink/add", controller.AddDrink)
 	r.POST("/drink/:id/delete", controller.DeleteDrink)

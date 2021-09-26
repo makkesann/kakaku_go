@@ -156,7 +156,7 @@ export default {
 
   methods: {
     GetDrinks(){
-      axios.get('http://54.65.204.164:8082/drinks')
+      axios.get('http://localhost:8082/drinks')
       .then(response => {
         this.drinks = response.data
       })
@@ -166,7 +166,7 @@ export default {
       })
     },
     GetGenres(){
-      axios.get('http://54.65.204.164:8082/drink/genres')
+      axios.get('http://localhost:8082/drink/genres')
       .then(response => {
         this.genres = response.data
       })
@@ -183,7 +183,7 @@ export default {
       params.append('genre_id', this.genre_id)
       params.append('jan', this.Jancode)
       params.append('image', this.img_file_name)
-      axios.post('http://54.65.204.164:8082/drink/' + this.drink_id + 'change')
+      axios.post('http://localhost:8082/drink/' + this.drink_id + 'change')
       .then(response => {
           if (response.status != 200) {
               throw new Error('レスポンスエラー')
