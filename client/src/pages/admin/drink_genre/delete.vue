@@ -5,8 +5,8 @@
     </b-alert>
     <b-container>
       <div>
-        <validation-observer ref="observer" v-slot="handleSubmit">
-          <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
+        <validation-observer ref="observer" v-slot="{handleSubmit}">
+          <b-form @submit.stop.prevent="handleSubmit(doDeleteDrinkGenre)">
             <validation-provider name="ジャンル名" :rules="{ required: true }" v-slot="validationContext">
               <b-form-group id="genre_id" label="ジャンル名" label-for="genre_id">
                 <b-form-select
@@ -22,7 +22,7 @@
                 <b-form-invalid-feedback id="genre_id-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-            <b-button type="submit" variant="primary" @click="doDeleteDrinkGenre" :disabled="handleSubmit.invalid || !handleSubmit.validated">追加</b-button>
+            <b-button type="submit" variant="primary">削除</b-button>
           </b-form>
         </validation-observer>
       </div>

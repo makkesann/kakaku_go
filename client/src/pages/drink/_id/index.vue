@@ -75,7 +75,8 @@ export default {
       prices: [],
       // favorite_shops: [],
       rakuten: [],
-      rakuten_fields:["商品名", "価格", "画像"]
+      rakuten_fields:["商品名", "価格", "画像"],
+      google: []
     }
   },
 
@@ -83,6 +84,7 @@ export default {
   created: function() {
     this.doFetchPrices()
     this.rakutenapi()
+    // this.googleapi()
   },
 
   computed: {
@@ -145,6 +147,17 @@ export default {
         // console.log("わろた")
 
       }
+    },
+    googleapi(){
+      axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&location=35.6987769,139.76471&radius=300&language=ja&keyword=公園OR広場OR駅')
+      .then(response => {
+        // console.log(response.data)
+        this.google = response.data
+      })
+      .catch(error => {
+        // handle error
+        console.log(error)
+      })
     },
     doFetchPrices() {
       let drink_id = this.$route.params.id
@@ -211,7 +224,8 @@ export default {
           console.log(error)
         })
       }
-    }
+    },
+
   },
 }
 </script>

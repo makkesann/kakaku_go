@@ -5,8 +5,8 @@
     </b-alert>
     <b-container>
       <div>
-        <validation-observer ref="observer" v-slot="handleSubmit">
-          <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
+        <validation-observer ref="observer" v-slot="{handleSubmit}">
+          <b-form @submit.stop.prevent="handleSubmit(doLogin)">
             <validation-provider
               name="ユーザー名"
               :rules="{ required: true, min: 3, my_alpha_dash }"
@@ -53,8 +53,7 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
-            <b-button type="submit" variant="primary" @click="doLogin" :disabled="handleSubmit.invalid || !handleSubmit.validated">ログイン</b-button>
-            <b-button class="ml-2" @click="resetForm()">フォームリセット</b-button>
+            <b-button type="submit" variant="primary">ログイン</b-button>
           </b-form>
         </validation-observer>
       </div>

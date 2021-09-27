@@ -5,8 +5,8 @@
     </b-alert>
     <b-container>
       <div>
-        <validation-observer ref="observer" v-slot="handleSubmit">
-          <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
+        <validation-observer ref="observer" v-slot="{handleSubmit}">
+          <b-form @submit.stop.prevent="handleSubmit(doAddDrink)">
             <validation-provider
               name="商品名"
               :rules="{ required: true, min: 2 }"
@@ -122,7 +122,7 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
-            <b-button type="submit" variant="primary" @click="doAddDrink" :disabled="handleSubmit.invalid || !handleSubmit.validated">追加</b-button>
+            <b-button type="submit" variant="primary">追加</b-button>
           </b-form>
         </validation-observer>
       </div>

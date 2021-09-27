@@ -5,32 +5,23 @@
     </b-alert>
     <b-container>
       <div>
-        <validation-observer ref="observer" v-slot="handleSubmit">
-          <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
-            <validation-provider name="変更する商品" v-slot="validationContext">
-              <b-form-group id="drink_id">
-                <b-row>
-                  <b-col cols="3" class="text-right">
-                    <label for="drink_id">変更する商品：</label>
-                  </b-col>
-                  <b-col cols="9">
-                    <b-form-select
-                      id="drink_id"
-                      name="drink_id"
-                      v-model="drink_id"
-                      :options="drinks"
-                      text-field="name"
-                      value-field="ID"
-                      :state="getValidationState(validationContext)"
-                      aria-describedby="drink_id-live-feedback"
-                    ></b-form-select>
-                    <b-form-invalid-feedback id="drink_id-live-feedback">
-                      {{ validationContext.errors[0] }}
-                    </b-form-invalid-feedback>
-                  </b-col>
-                </b-row>
-              </b-form-group>
-            </validation-provider>
+        <b-row class="mb-5">
+          <b-col cols="3" class="text-right">
+            <label for="drink_id">変更する商品：</label>
+          </b-col>
+          <b-col cols="9">
+            <b-form-select
+              id="drink_id"
+              name="drink_id"
+              v-model="drink_id"
+              :options="drinks"
+              text-field="name"
+              value-field="ID"
+            ></b-form-select>
+          </b-col>
+        </b-row>
+        <validation-observer ref="observer" v-slot="{handleSubmit}">
+          <b-form @submit.stop.prevent="handleSubmit(doChangeDrink)">
             <validation-provider
               name="商品名"
               :rules="{ required: true, min: 3 }"
@@ -54,6 +45,11 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
+            <b-button type="submit" variant="warning">変更</b-button>
+          </b-form>
+        </validation-observer>
+        <validation-observer ref="observer" v-slot="{handleSubmit}">
+          <b-form @submit.stop.prevent="handleSubmit(doChangeDrink)">
             <validation-provider name="ジャンル" v-slot="validationContext">
               <b-form-group id="genre_id">
                 <b-row>
@@ -78,6 +74,11 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
+            <b-button type="submit" variant="warning">変更</b-button>
+          </b-form>
+        </validation-observer>
+        <validation-observer ref="observer" v-slot="{handleSubmit}">
+          <b-form @submit.stop.prevent="handleSubmit(doChangeDrink)">
             <validation-provider
               name="Janコード"
               :rules="{ numeric, length: 3, length: 13 }"
@@ -101,6 +102,11 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
+            <b-button type="submit" variant="warning">変更</b-button>
+          </b-form>
+        </validation-observer>
+        <validation-observer ref="observer" v-slot="{handleSubmit}">
+          <b-form @submit.stop.prevent="handleSubmit(doChangeDrink)">
             <validation-provider
               name="画像ファイル名"
               v-slot="validationContext"
@@ -123,7 +129,7 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
-            <b-button type="submit" variant="warning" @click="doDeleteDrink" :disabled="handleSubmit.invalid || !handleSubmit.validated">変更</b-button>
+            <b-button type="submit" variant="warning">変更</b-button>
           </b-form>
         </validation-observer>
 
@@ -176,7 +182,7 @@ export default {
       })
     },
     // 商品情報を削除する
-    doAddDrink() {
+    doChangeDrink() {
       // サーバへ送信するパラメータ
       const params = new URLSearchParams()
       params.append('drink_name', this.productname)

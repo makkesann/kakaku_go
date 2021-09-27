@@ -10,5 +10,9 @@ module.exports = {
     autoRouting: {
       chunkNamePrefix: 'page-'
     }
-  }
+  },
+  devServer: {
+    port: 80,
+    disableHostCheck: true,
+},
 }
