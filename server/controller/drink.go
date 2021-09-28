@@ -61,10 +61,16 @@ func AddDrinkGenre(c *gin.Context) {
 	InsertDrinkGenre(&drink_genre)
 }
 
-func InsertDrink(registerDrink *model.Drink) {
+func InsertDrink(c *gin.Context, registerDrink *model.Drink) {
 	db := dbmod.SqlConnect()
 	// insert
-	db.Create(&registerDrink)
+	result := db.Create(&registerDrink)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 
@@ -88,7 +94,7 @@ func AddDrink(c *gin.Context) {
 		Quantity:     quantity,
 	}
 
-	InsertDrink(&drink)
+	InsertDrink(c, &drink)
 }
 
 func FindDrink(drinkID int) []model.Drink {
@@ -138,9 +144,17 @@ func UpdateDrinkName(c *gin.Context) {
 	idstr := c.Param("id")
 	id, _ = strconv.Atoi(idstr)
 	drink_name := c.PostForm("drink_name")
+	fmt.Print(drink_name)
+	fmt.Print("drink_name")
 
 	drink := []model.Drink{}
-	db.Model(&drink).Where("id = ?", id).Update("name", drink_name)
+	result := db.Model(&drink).Where("id = ?", id).Update("name", drink_name)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 func UpdateDrinkGenreID(c *gin.Context) {
@@ -152,7 +166,14 @@ func UpdateDrinkGenreID(c *gin.Context) {
 	genre_id64, _ := strconv.ParseUint(genre_id_str, 10, 64)
 	genre_id := uint(genre_id64)
 	drink := []model.Drink{}
-	db.Model(&drink).Where("id = ?", id).Update("genre_id", genre_id)
+	result := db.Model(&drink).Where("id = ?", id).Update("genre_id", genre_id)
+
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 func UpdateDrinkJan(c *gin.Context) {
@@ -164,7 +185,14 @@ func UpdateDrinkJan(c *gin.Context) {
 	jan64, _ := strconv.ParseUint(jan_str, 10, 64)
 
 	drink := []model.Drink{}
-	db.Model(&drink).Where("id = ?", id).Update("jan", jan64)
+	result := db.Model(&drink).Where("id = ?", id).Update("jan", jan64)
+
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 func UpdateDrinkImage(c *gin.Context) {
@@ -175,7 +203,13 @@ func UpdateDrinkImage(c *gin.Context) {
 	image := c.PostForm("image")
 
 	drink := []model.Drink{}
-	db.Model(&drink).Where("id = ?", id).Update("image", image)
+	result := db.Model(&drink).Where("id = ?", id).Update("image", image)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 func UpdateDrinkQuantity(c *gin.Context) {
@@ -187,7 +221,13 @@ func UpdateDrinkQuantity(c *gin.Context) {
 	quantity64, _ := strconv.ParseUint(quantity_str, 10, 64)
 	quantity := uint(quantity64)
 	drink := []model.Drink{}
-	db.Model(&drink).Where("id = ?", id).Update("quantity", quantity)
+	result := db.Model(&drink).Where("id = ?", id).Update("quantity", quantity)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 
@@ -198,6 +238,12 @@ func UpdateDrinkGenreName(c *gin.Context) {
 	id, _ = strconv.Atoi(idstr)
 	genre_name := c.PostForm("name")
 	drink_genre := []model.DrinkGenre{}
-	db.Model(&drink_genre).Where("id = ?", id).Update("name", genre_name)
+	result := db.Model(&drink_genre).Where("id = ?", id).Update("name", genre_name)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }

@@ -193,22 +193,22 @@ export default {
   methods: {
     GetDrinks(){
       axios.get('http://54.65.204.164:8082/drinks')
-      .then(() => {
-        this.$router.push('/drink')
+      .then((response) => {
+        this.drinks = response.data
       })
       .catch(error => {
         // handle error
-        this.error = error.response
+        this.error = error.response.data.Detail
       })
     },
     GetGenres(){
       axios.get('http://54.65.204.164:8082/drink/genres')
-      .then(() => {
-        this.$router.push('/drink')
+      .then((response) => {
+        this.genres = response.data
       })
       .catch(error => {
         // handle error
-        this.error = error.response
+        this.error = error.response.data.Detail
       })
     },
     doChangeDrinkName() {
@@ -217,17 +217,17 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('drink_name', this.productname)
-        axios.post('http://54.65.204.164:8082/drink/name' + this.drink_id + 'change')
-      .then(() => {
-        this.$router.push('/drink')
-      })
-      .catch(error => {
-        // handle error
-        this.error = error.response
-      })
-      } else{
-        this.error = ("変更する商品を選択してください")
-      }
+        axios.post('http://54.65.204.164:8082/drink/name/' + this.drink_id + '/change', params)
+        .then(() => {
+          this.$router.push('/drink')
+        })
+        .catch(error => {
+          // handle error
+          this.error = error.response.data.Detail
+        })
+        } else{
+          this.error = ("変更する商品を選択してください")
+        }
     },
     doChangeDrinkGenre() {
       if (this.drink_id!=null){
@@ -235,13 +235,13 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('genre_id', this.genre_id)
-        axios.post('http://54.65.204.164:8082/drink/genre' + this.drink_id + 'change')
+        axios.post('http://54.65.204.164:8082/drink/genre/' + this.drink_id + '/change', params)
       .then(() => {
         this.$router.push('/drink')
       })
       .catch(error => {
         // handle error
-        this.error = error.response
+        this.error = error.response.data.Detail
       })
       } else{
         this.error = ("変更する商品を選択してください")
@@ -253,13 +253,13 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('jan', this.Jancode)
-        axios.post('http://54.65.204.164:8082/drink/jan' + this.drink_id + 'change')
+        axios.post('http://54.65.204.164:8082/drink/jan/' + this.drink_id + '/change', params)
       .then(() => {
         this.$router.push('/drink')
       })
       .catch(error => {
         // handle error
-        this.error = error.response
+        this.error = error.response.data.Detail
       })
       } else{
         this.error = ("変更する商品を選択してください")
@@ -271,15 +271,14 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('image', this.img_file_name)
-        axios.post('http://54.65.204.164:8082/drink/iamge' + this.drink_id + 'change')
-        .then(response => {
-          if (response.status != 200) {
-            throw new Error('レスポンスエラー')
-            } else {
-              //一覧ページに遷移する
-              this.$router.push('/drink')
-            }
-        })
+        axios.post('http://54.65.204.164:8082/drink/iamge/' + this.drink_id + '/change', params)
+      .then(() => {
+        this.$router.push('/drink')
+      })
+      .catch(error => {
+        // handle error
+        this.error = error.response.data.Detail
+      })
       } else{
         this.error = ("変更する商品を選択してください")
       }
@@ -290,14 +289,13 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('quantity', this.quantity)
-        axios.post('http://54.65.204.164:8082/drink/quantity' + this.drink_id + 'change')
-        .then(response => {
-          if (response.status != 200) {
-            throw new Error('レスポンスエラー')
-            } else {
-              //一覧ページに遷移する
-              this.$router.push('/drink')
-            }
+        axios.post('http://54.65.204.164:8082/drink/quantity/' + this.drink_id + '/change', params)
+        .then(() => {
+          this.$router.push('/drink')
+        })
+        .catch(error => {
+          // handle error
+          this.error = error.response.data.Detail
         })
       } else{
         this.error = ("変更する商品を選択してください")

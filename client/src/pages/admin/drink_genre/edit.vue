@@ -60,7 +60,7 @@ export default {
   name: 'home',
   data() {
     return {
-      gnere_name: null,
+      genre_name: null,
       genre_id: null,
       genres: [],
       error: null,
@@ -73,12 +73,12 @@ export default {
   methods: {
     GetGenres(){
       axios.get('http://54.65.204.164:8082/drink/genres')
-      .then(() => {
-        this.$router.push('/drink')
+      .then((response) => {
+        this.genres = response.data
       })
       .catch(error => {
         // handle error
-        this.error = error.response
+        this.error = error.response.data.Detail
       })
     },
     doChangeDrinkGenreName() {
@@ -86,15 +86,14 @@ export default {
 
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
-        params.append('name', this.gnere_name)
-        axios.post('http://54.65.204.164:8082/drink/genre/name' + this.genre_id + 'change')
-        .then(response => {
-          if (response.status != 200) {
-            throw new Error('レスポンスエラー')
-            } else {
-              //一覧ページに遷移する
-              this.$router.push('/drink')
-            }
+        params.append('name', this.genre_name)
+        axios.post('http://54.65.204.164:8082/drink/genre/name/' + this.genre_id + '/change', params)
+        .then(() => {
+          this.$router.push('/drink')
+        })
+        .catch(error => {
+          // handle error
+          this.error = error.response.data.Detail
         })
       } else{
         this.error = ("変更するジャンル名を選択してください")

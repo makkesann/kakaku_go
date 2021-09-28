@@ -49,12 +49,12 @@ export default {
   methods: {
     GetDrinks(){
       axios.get('http://54.65.204.164:8082/drinks')
-      .then(() => {
-        this.$router.push('/drink')
+      .then((response) => {
+        this.drinks = response.data
       })
       .catch(error => {
         // handle error
-        this.error = error.response
+        this.error = error.response.data.Detail
       })
     },
     // 商品情報を削除する
@@ -66,7 +66,7 @@ export default {
       })
       .catch(error => {
         // handle error
-        this.error = error
+        this.error = error.response.data.Detail
       })
     },
     getValidationState({ dirty, validated, valid = null }) {

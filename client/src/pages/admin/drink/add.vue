@@ -153,12 +153,12 @@ export default {
   methods: {
     GetGenres(){
       axios.get('http://54.65.204.164:8082/drink/genres')
-      .then(() => {
-        this.$router.push('/drink')
+      .then((response) => {
+        this.genres = response.data
       })
       .catch(error => {
         // handle error
-        this.error = error.response
+        this.error = error.response.data.Detail
       })
     },
     // 商品情報を登録する
@@ -176,7 +176,7 @@ export default {
       })
       .catch(error => {
         // handle error
-        this.error = error
+        this.error = error.response.data.Detail
       })
     },
     getValidationState({ dirty, validated, valid = null }) {

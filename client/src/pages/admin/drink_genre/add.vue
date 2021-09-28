@@ -61,7 +61,7 @@ export default {
       })
       .catch(error => {
         // handle error
-        this.error = error.response
+        this.error = error.response.data.Detail
       })
     },
     getValidationState({ dirty, validated, valid = null }) {

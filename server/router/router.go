@@ -15,7 +15,8 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 		AllowOrigins: []string{
 			"http://54.65.204.164:8083",
 			"http://54.65.204.164:8080",
-			"http://54.65.204.164:80",
+			"http://54.65.204.164",
+			"http://54.65.204.164:81",
 			"http://ec2-54-65-204-164.ap-northeast-1.compute.amazonaws.com",
 		},
 		AllowMethods: []string{
@@ -37,6 +38,7 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.POST("/drink/:id/delete", controller.DeleteDrink)
 	r.POST("/drink/name/:id/change", controller.UpdateDrinkName)
 	r.POST("/drink/genre/:id/change", controller.UpdateDrinkGenreID)
+	r.POST("/drink/genre/name/:id/change", controller.UpdateDrinkGenreName)
 	r.POST("/drink/jan/:id/change", controller.UpdateDrinkJan)
 	r.POST("/drink/image/:id/change", controller.UpdateDrinkImage)
 	r.POST("/drink/quantity/:id/change", controller.UpdateDrinkQuantity)
