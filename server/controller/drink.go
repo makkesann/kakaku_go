@@ -131,3 +131,73 @@ func DeleteDrinkGenre(c *gin.Context) {
 	db.Where("id = ?", id).Delete(&drink)
 	defer db.Close()
 }
+
+func UpdateDrinkName(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	drink_name := c.PostForm("drink_name")
+
+	drink := []model.Drink{}
+	db.Model(&user).Where("id = ?", id).Update("name", drink_name)
+	defer db.Close()
+}
+func UpdateDrinkGenreID(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	genre_id_str := c.PostForm("genre_id")
+	genre_id64, _ := strconv.ParseUint(genre_id_str, 10, 64)
+	genre_id := uint(genre_id64)
+	drink := []model.Drink{}
+	db.Model(&user).Where("id = ?", id).Update("genre_id", genre_id)
+	defer db.Close()
+}
+func UpdateDrinkJan(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	jan_str := c.PostForm("jan")
+	jan64, _ := strconv.ParseUint(jan_str, 10, 64)
+
+	drink := []model.Drink{}
+	db.Model(&user).Where("id = ?", id).Update("jan", jan64)
+	defer db.Close()
+}
+func UpdateDrinkImage(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	image := c.PostForm("image")
+
+	drink := []model.Drink{}
+	db.Model(&user).Where("id = ?", id).Update("image", image)
+	defer db.Close()
+}
+func UpdateDrinkQuantity(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	quantity_str := c.PostForm("quantity")
+	quantity64, _ := strconv.ParseUint(quantity_str, 10, 64)
+	quantity := uint(quantity64)
+	drink := []model.Drink{}
+	db.Model(&user).Where("id = ?", id).Update("quantity", quantity)
+	defer db.Close()
+}
+
+func UpdateDrinkGenreName(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	genre_name := c.PostForm("name")
+	drink_genre := []model.DrinkGenre{}
+	db.Model(&user).Where("id = ?", id).Update("name", genre_name)
+	defer db.Close()
+}

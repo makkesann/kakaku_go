@@ -1,10 +1,16 @@
 @charset "utf-8";
+body{
+  // font-family: 'Hiragino Kaku Gothic ProN','Hiragino Sans',Meiryo,sans-serif;
+}
 .hover{
   cursor : pointer;
 }
 .row{
   margin-left: 0;
   margin-right: 0;
+}
+.bellow-error{
+  margin-top: 30px;
 }
 .kusa{
   // background-color: red;
@@ -78,5 +84,22 @@
     border-radius: 3px;
     background-color: #EEEEEE;
     padding: 20px 20px;
+  }
+  .search-box{
+    margin-bottom: 50px;
+  }
+}
+#header{
+  background-color: rgb(19,25,33);
+  #header-box{
+    // margin-bottom: 30px;
+    color: black;
+    .navbar-light .navbar-nav .nav-link{
+      color: white;
+    }
+    #nav-home{
+      margin-right: 20px;
+      font-size: 30px;
+    }
   }
 }

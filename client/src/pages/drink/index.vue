@@ -2,7 +2,8 @@
   <div class="drink">
     <b-container>
       
-      <h2>お気に入りの商品</h2>
+      <h2 class="search-box">どのような飲み物をお探しですか</h2>
+      <h2 v-if="serched_favorite_drinks.length != 0">お気に入りの商品</h2>
       <b-row>
         <b-col cols="2">
           <div class="text-left genre_box mb-4">

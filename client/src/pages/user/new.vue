@@ -4,7 +4,7 @@
       {{error}}
     </b-alert>
     <b-container>
-      <div>
+      <div class="bellow-error">
         <validation-observer ref="observer" v-slot="{handleSubmit}">
           <b-form @submit.stop.prevent="handleSubmit(doLogon)">
             <validation-provider
