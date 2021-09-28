@@ -73,12 +73,12 @@ export default {
   methods: {
     GetGenres(){
       axios.get('http://54.65.204.164:8082/drink/genres')
-      .then(response => {
-        this.genres = response.data
+      .then(() => {
+        this.$router.push('/drink')
       })
       .catch(error => {
         // handle error
-        console.log(error)
+        this.error = error.response
       })
     },
     doChangeDrinkGenreName() {

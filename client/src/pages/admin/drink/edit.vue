@@ -193,42 +193,24 @@ export default {
   methods: {
     GetDrinks(){
       axios.get('http://54.65.204.164:8082/drinks')
-      .then(response => {
-        this.drinks = response.data
+      .then(() => {
+        this.$router.push('/drink')
       })
       .catch(error => {
         // handle error
-        console.log(error)
+        this.error = error.response
       })
     },
     GetGenres(){
       axios.get('http://54.65.204.164:8082/drink/genres')
-      .then(response => {
-        this.genres = response.data
+      .then(() => {
+        this.$router.push('/drink')
       })
       .catch(error => {
         // handle error
-        console.log(error)
+        this.error = error.response
       })
     },
-    // 商品情報を削除する
-    // doChangeDrink() {
-    //   // サーバへ送信するパラメータ
-    //   const params = new URLSearchParams()
-    //   params.append('drink_name', this.productname)
-    //   params.append('genre_id', this.genre_id)
-    //   params.append('jan', this.Jancode)
-    //   params.append('image', this.img_file_name)
-    //   axios.post('http://54.65.204.164:8082/drink/' + this.drink_id + 'change')
-    //   .then(response => {
-    //       if (response.status != 200) {
-    //           throw new Error('レスポンスエラー')
-    //       } else {
-    //         //一覧ページに遷移する
-    //         this.$router.push('/drink')
-    //       }
-    //   })
-    // },
     doChangeDrinkName() {
       if (this.drink_id!=null){
 
@@ -236,14 +218,13 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_name', this.productname)
         axios.post('http://54.65.204.164:8082/drink/name' + this.drink_id + 'change')
-        .then(response => {
-            if (response.status != 200) {
-                throw new Error('レスポンスエラー')
-            } else {
-              //一覧ページに遷移する
-              this.$router.push('/drink')
-            }
-        })
+      .then(() => {
+        this.$router.push('/drink')
+      })
+      .catch(error => {
+        // handle error
+        this.error = error.response
+      })
       } else{
         this.error = ("変更する商品を選択してください")
       }
@@ -255,14 +236,13 @@ export default {
         const params = new URLSearchParams()
         params.append('genre_id', this.genre_id)
         axios.post('http://54.65.204.164:8082/drink/genre' + this.drink_id + 'change')
-        .then(response => {
-            if (response.status != 200) {
-                throw new Error('レスポンスエラー')
-            } else {
-              //一覧ページに遷移する
-              this.$router.push('/drink')
-            }
-        })
+      .then(() => {
+        this.$router.push('/drink')
+      })
+      .catch(error => {
+        // handle error
+        this.error = error.response
+      })
       } else{
         this.error = ("変更する商品を選択してください")
       }
@@ -274,14 +254,13 @@ export default {
         const params = new URLSearchParams()
         params.append('jan', this.Jancode)
         axios.post('http://54.65.204.164:8082/drink/jan' + this.drink_id + 'change')
-        .then(response => {
-            if (response.status != 200) {
-                throw new Error('レスポンスエラー')
-            } else {
-              //一覧ページに遷移する
-              this.$router.push('/drink')
-            }
-        })
+      .then(() => {
+        this.$router.push('/drink')
+      })
+      .catch(error => {
+        // handle error
+        this.error = error.response
+      })
       } else{
         this.error = ("変更する商品を選択してください")
       }

@@ -49,25 +49,24 @@ export default {
   methods: {
     GetDrinks(){
       axios.get('http://54.65.204.164:8082/drinks')
-      .then(response => {
-        this.drinks = response.data
+      .then(() => {
+        this.$router.push('/drink')
       })
       .catch(error => {
         // handle error
-        console.log(error)
+        this.error = error.response
       })
     },
     // 商品情報を削除する
     doDeleteDrink() {
       // サーバへ送信するパラメータ
       axios.post('http://54.65.204.164:8082/drink/' + this.drink_id + '/delete')
-      .then(response => {
-          if (response.status != 200) {
-              throw new Error('レスポンスエラー')
-          } else {
-            //一覧ページに遷移する
-            this.$router.push('/drink')
-          }
+      .then(() => {
+        this.$router.push('/drink')
+      })
+      .catch(error => {
+        // handle error
+        this.error = error
       })
     },
     getValidationState({ dirty, validated, valid = null }) {
