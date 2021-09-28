@@ -140,7 +140,7 @@ func UpdateDrinkName(c *gin.Context) {
 	drink_name := c.PostForm("drink_name")
 
 	drink := []model.Drink{}
-	db.Model(&user).Where("id = ?", id).Update("name", drink_name)
+	db.Model(&drink).Where("id = ?", id).Update("name", drink_name)
 	defer db.Close()
 }
 func UpdateDrinkGenreID(c *gin.Context) {
@@ -152,7 +152,7 @@ func UpdateDrinkGenreID(c *gin.Context) {
 	genre_id64, _ := strconv.ParseUint(genre_id_str, 10, 64)
 	genre_id := uint(genre_id64)
 	drink := []model.Drink{}
-	db.Model(&user).Where("id = ?", id).Update("genre_id", genre_id)
+	db.Model(&drink).Where("id = ?", id).Update("genre_id", genre_id)
 	defer db.Close()
 }
 func UpdateDrinkJan(c *gin.Context) {
@@ -164,7 +164,7 @@ func UpdateDrinkJan(c *gin.Context) {
 	jan64, _ := strconv.ParseUint(jan_str, 10, 64)
 
 	drink := []model.Drink{}
-	db.Model(&user).Where("id = ?", id).Update("jan", jan64)
+	db.Model(&drink).Where("id = ?", id).Update("jan", jan64)
 	defer db.Close()
 }
 func UpdateDrinkImage(c *gin.Context) {
@@ -175,7 +175,7 @@ func UpdateDrinkImage(c *gin.Context) {
 	image := c.PostForm("image")
 
 	drink := []model.Drink{}
-	db.Model(&user).Where("id = ?", id).Update("image", image)
+	db.Model(&drink).Where("id = ?", id).Update("image", image)
 	defer db.Close()
 }
 func UpdateDrinkQuantity(c *gin.Context) {
@@ -187,7 +187,7 @@ func UpdateDrinkQuantity(c *gin.Context) {
 	quantity64, _ := strconv.ParseUint(quantity_str, 10, 64)
 	quantity := uint(quantity64)
 	drink := []model.Drink{}
-	db.Model(&user).Where("id = ?", id).Update("quantity", quantity)
+	db.Model(&drink).Where("id = ?", id).Update("quantity", quantity)
 	defer db.Close()
 }
 
@@ -198,6 +198,6 @@ func UpdateDrinkGenreName(c *gin.Context) {
 	id, _ = strconv.Atoi(idstr)
 	genre_name := c.PostForm("name")
 	drink_genre := []model.DrinkGenre{}
-	db.Model(&user).Where("id = ?", id).Update("name", genre_name)
+	db.Model(&drink_genre).Where("id = ?", id).Update("name", genre_name)
 	defer db.Close()
 }
