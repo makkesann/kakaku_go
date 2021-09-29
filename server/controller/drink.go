@@ -165,6 +165,8 @@ func UpdateDrinkGenreID(c *gin.Context) {
 	genre_id_str := c.PostForm("genre_id")
 	genre_id64, _ := strconv.ParseUint(genre_id_str, 10, 64)
 	genre_id := uint(genre_id64)
+	fmt.Print(genre_id)
+	fmt.Print("genre_id")
 	drink := []model.Drink{}
 	result := db.Model(&drink).Where("id = ?", id).Update("genre_id", genre_id)
 
@@ -183,6 +185,8 @@ func UpdateDrinkJan(c *gin.Context) {
 	id, _ = strconv.Atoi(idstr)
 	jan_str := c.PostForm("jan")
 	jan64, _ := strconv.ParseUint(jan_str, 10, 64)
+	fmt.Print(jan64)
+	fmt.Print("jan64")
 
 	drink := []model.Drink{}
 	result := db.Model(&drink).Where("id = ?", id).Update("jan", jan64)
@@ -201,6 +205,8 @@ func UpdateDrinkImage(c *gin.Context) {
 	idstr := c.Param("id")
 	id, _ = strconv.Atoi(idstr)
 	image := c.PostForm("image")
+	fmt.Print(image)
+	fmt.Print("image")
 
 	drink := []model.Drink{}
 	result := db.Model(&drink).Where("id = ?", id).Update("image", image)
@@ -220,6 +226,8 @@ func UpdateDrinkQuantity(c *gin.Context) {
 	quantity_str := c.PostForm("quantity")
 	quantity64, _ := strconv.ParseUint(quantity_str, 10, 64)
 	quantity := uint(quantity64)
+	fmt.Print(quantity)
+	fmt.Print("quantity")
 	drink := []model.Drink{}
 	result := db.Model(&drink).Where("id = ?", id).Update("quantity", quantity)
 	err := result.Error
@@ -238,6 +246,8 @@ func UpdateDrinkGenreName(c *gin.Context) {
 	id, _ = strconv.Atoi(idstr)
 	genre_name := c.PostForm("name")
 	drink_genre := []model.DrinkGenre{}
+	fmt.Print(genre_name)
+	fmt.Print("genre_name")
 	result := db.Model(&drink_genre).Where("id = ?", id).Update("name", genre_name)
 	err := result.Error
 	if err != nil {
