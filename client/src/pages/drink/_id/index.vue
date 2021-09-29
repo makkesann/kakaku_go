@@ -238,7 +238,7 @@ export default {
     },
     doFetchPrices() {
       let drink_id = this.$route.params.id
-      axios.get('http://54.65.204.164:8082/drinks/' + drink_id + '/prices')
+      axios.get('https://54.65.204.164:8082/drinks/' + drink_id + '/prices')
       .then(response => {
         const resultDrinkPrices = response.data
         // console.log(resultDrinkPrices)
@@ -280,7 +280,7 @@ export default {
         const params = new URLSearchParams()
         params.append('shop_id', item.ShopID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_shop/add', params)
+        axios.post('https://54.65.204.164:8082/favorite_shop/add', params)
         .catch(error => {
           // handle error
           console.log(error)
@@ -295,7 +295,7 @@ export default {
         const params = new URLSearchParams()
         params.append('shop_id', item.ShopID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_shop/delete', params)
+        axios.post('https://54.65.204.164:8082/favorite_shop/delete', params)
         .catch(error => {
           // handle error
           console.log(error)

@@ -46,7 +46,7 @@ Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
-// axios.defaults.baseURL = 'http://54.65.204.164:8082'
+// axios.defaults.baseURL = 'https://54.65.204.164:8082'
  
 Vue.use(VueLazyload, {
   preLoad: 1.3,
