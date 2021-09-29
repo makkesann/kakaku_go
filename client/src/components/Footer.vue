@@ -1,5 +1,11 @@
 <template>
-  <h1>ふったー</h1>
+  <div id="footer">
+    <h2>アプリタイトル</h2>
+    <h3>作成者：まっけ</h3>
+    <h4>twitter</h4>
+    <h4>github</h4>
+    <h4>youtube</h4>
+  </div>
 </template>
 
 <script>
