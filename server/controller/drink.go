@@ -168,7 +168,7 @@ func UpdateDrinkGenreID(c *gin.Context) {
 	fmt.Print(genre_id)
 	fmt.Print("genre_id")
 	drink := []model.Drink{}
-	result := db.Model(&drink).Where("id = ?", id).Update("genre_id", genre_id)
+	result := db.Model(&drink).Where("id = ?", id).Update("drink_genre_id", genre_id)
 
 	err := result.Error
 	if err != nil {
