@@ -23,7 +23,7 @@
                   <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
                 </div>
                 <div class="w-40 d-inline-block">
-                  <b-button>このショップを探す</b-button>
+                  <b-button @click="googleapi(prices[0].Name)">このショップを探す</b-button>
                 </div>
               </b-col>
             </b-row>
@@ -59,12 +59,20 @@
           </template>
         </b-table>
       </b-row>
+      <div>
+        <b-alert v-if="map_error" variant="danger" show>
+          {{map_error}}
+        </b-alert>
+        <div id="map"></div>
+      </div>
+      <button @click="googleapi">わっしょい</button>
     </b-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import GoogleMapsApiLoader from 'google-maps-api-loader'
 import axios from 'axios'
 export default {
   name: 'home',
@@ -76,7 +84,7 @@ export default {
       // favorite_shops: [],
       rakuten: [],
       rakuten_fields:["商品名", "価格", "画像"],
-      google: []
+      map_error: null
     }
   },
 
@@ -86,6 +94,13 @@ export default {
     this.rakutenapi()
     // this.googleapi()
   },
+  async mounted() {
+    this.google = await GoogleMapsApiLoader({
+      apiKey: 'AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M'
+    });
+  },
+
+
 
   computed: {
     drink() {
@@ -148,16 +163,78 @@ export default {
 
       }
     },
-    googleapi(){
-      axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&location=35.6987769,139.76471&radius=300&language=ja&keyword=公園OR広場OR駅')
-      .then(response => {
-        // console.log(response.data)
-        this.google = response.data
-      })
-      .catch(error => {
-        // handle error
-        console.log(error)
-      })
+    googleapi(shop_name){
+      var place
+      var google = this.google
+      var self = this
+      // Geolocation APIに対応している
+      if (navigator.geolocation) {
+        // 現在地を取得
+        navigator.geolocation.getCurrentPosition(
+          // 取得成功した場合
+          function(position) {
+            // 緯度・経度を変数に格納?
+            axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&location=' + position.coords.latitude + ',' + position.coords.longitude + '&radius=5000&language=ja&keyword='+ shop_name)
+            .then(function(response)  {
+              if (response.status != 200) {
+                  throw new Error('レスポンスエラー')
+              } else {
+                // マーカーを追加
+                if (response.data.status == "ZERO_RESULTS"){
+                  self.map_error = "付近にこのお店は存在しません"
+                } else{
+                  place = response.data.results[0]
+                  console.log(place)
+                  let pingLatLng = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng)
+                  var marker =new google.maps.Marker({
+                    map : map,             // 対象の地図オブジェクト
+                    position : pingLatLng   // 緯度・経度
+                  });
+                  var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+                    content: '<div class="map_balloon">' + place.name + '</div>' // 吹き出しに表示する内容
+                  });
+                  marker.addListener('click', function() { // マーカーをクリックしたとき
+                    infoWindow.open(map, marker); // 吹き出しの表示
+                  });
+                }
+              }
+            })
+
+            var mapLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+            // マップオプションを変数に格納
+            var mapOptions = {
+              zoom : 14,          // 拡大倍率
+              center : mapLatLng  // 緯度・経度
+            };
+            // マップオブジェクト作成
+            var map = new google.maps.Map(
+              document.getElementById("map"), // マップを表示する要素
+              mapOptions         // マップオプション
+            );
+          },
+          // 取得失敗した場合
+          function(error) {
+            // エラーメッセージを表示
+            switch(error.code) {
+              case 1: // PERMISSION_DENIED
+                alert("位置情報の利用が許可されていません");
+                break;
+              case 2: // POSITION_UNAVAILABLE
+                alert("現在位置が取得できませんでした");
+                break;
+              case 3: // TIMEOUT
+                alert("タイムアウトになりました");
+                break;
+              default:
+                alert("その他のエラー(エラーコード:"+error.code+")");
+                break;
+            }
+          }
+        );
+      // Geolocation APIに対応していない
+      } else {
+        alert("この端末では位置情報が取得できません");
+      }
     },
     doFetchPrices() {
       let drink_id = this.$route.params.id

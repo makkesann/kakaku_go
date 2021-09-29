@@ -16,6 +16,8 @@ import {
   localize,
 } from "vee-validate"
 import * as rules from "vee-validate/dist/rules";
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 
 localize({
   ja: { messages: { ...ja.messages } },
@@ -51,6 +53,13 @@ Vue.use(VueLazyload, {
   error: 'https://dummyimage.com/64x64/ccc/999.png&text=Not+Found',
   loading: 'https://dummyimage.com/64x64/dcdcdc/999.png&text=Now loading',
   attempt: 1
+})
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: '{GoogleMapのAPIキー}',
+    libraries: 'places', 
+  },
 })
 
 new Vue({
