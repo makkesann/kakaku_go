@@ -13,6 +13,12 @@
         <router-link to="/admin/drink_genre/edit">ジャンル編集</router-link>
         <router-link to="/admin/drink_genre/delete">ジャンル削除</router-link>
       </b-row>
+      <h3 class="text-left">店舗</h3>
+      <b-row class="text-left ad-home-row">
+        <router-link to="/admin/shop/add">店舗追加</router-link>
+        <router-link to="/admin/shop/edit">店舗編集</router-link>
+        <router-link to="/admin/shop/delete">店舗削除</router-link>
+      </b-row>
       <h3 class="text-left">価格</h3>
       <b-row class="text-left ad-home-row">
         <router-link to="/admin/price/add">価格追加</router-link>

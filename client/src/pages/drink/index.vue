@@ -1,10 +1,17 @@
 <template>
   <div class="drink">
     <b-container>
-      
-      <h2 class="search-box">どのような飲み物をお探しですか</h2>
+      <div class="search-box">
+        <h2>どのような飲み物をお探しですか</h2>
+        <b-form-input v-model="keyword" placeholder="商品名を入れてください"></b-form-input>
+      </div>
+      <div v-if="keyworddrinks.length != 0">
+        <h2>検索結果</h2>
+        <b-table striped hover :items="keyworddrinks">
+        </b-table>
+      </div>
       <h2 v-if="serched_favorite_drinks.length != 0">お気に入りの商品</h2>
-      <b-row>
+      <b-row class="pc">
         <b-col cols="2">
           <div class="text-left genre_box mb-4">
             <h6 class="mb-0">ジャンルで絞る</h6><hr class="mb-3 mt-2">
@@ -47,6 +54,29 @@
           </b-table>
         </b-col>
       </b-row>
+      <b-row class="sp drinks-table">
+        <b-table v-if="serched_favorite_drinks.length != 0" striped hover :items="serched_favorite_drinks">
+        </b-table>
+        <b-table hover thead-class="d-none" :items="serched_drinks" :fields="drink_fields">
+          <template v-slot:cell(画像)="{item}">
+            <div class="test2 mx-auto">
+              <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
+            </div>
+          </template>
+          <template v-slot:cell(商品名)="{item}">
+            <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
+          <template v-slot:cell(内容量) ="{item}">
+            <p v-if="item.Quantity!=0">{{ item.Quantity }}ml</p>
+            <p v-else>- ml</p>
+          </template>
+          <template v-slot:cell(お気に入り)="{item}">
+            <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+            <b-icon v-else @click="doAddFavoriteDrink(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+          </template>
+        </b-table>
+      </b-row>
     </b-container>
   </div>
 
@@ -61,6 +91,7 @@ export default {
   },
   data(){
     return {
+      keyword: '',
       drink_fields: ["画像", "商品名", "内容量", "お気に入り"],
       genre_id: 0,
       favorite_drinks: [],
@@ -111,6 +142,26 @@ export default {
       } else {
         return this.favorite_drinks.filter((drink) => drink.DrinkGenreID == this.genre_id)
       }
+    },
+    keyworddrinks() {
+
+        var drinks = [];
+
+        for(var i in this.drinks) {
+
+            var drink = this.drinks[i];
+
+            if(drink.name.indexOf(this.keyword) !== -1 ||
+                drink.email.indexOf(this.keyword) !== -1) {
+
+                drinks.push(drink);
+
+            }
+
+        }
+
+        return drinks;
+
     },
   },
 

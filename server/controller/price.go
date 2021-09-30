@@ -17,7 +17,7 @@ func FindPrices(drinkID int) []model.DrinkPriceName {
 	db := dbmod.SqlConnect()
 	// select
 	// db.Order("price ASC").Where("drink_id = ?", drinkID).Find(&drinkprice)
-	db.Order("price ASC").Table("drink_price").Where("drink_id = ?", drinkID).Select("drink_price.shop_id, shop.name, drink_price.price").Joins("left join shop on shop.id = drink_price.shop_id").Scan(&drinkpricename)
+	db.Order("price ASC").Table("drink_price").Where("drink_id = ?", drinkID).Select("drink_price.id, drink_price.shop_id, shop.name, drink_price.price").Joins("left join shop on shop.id = drink_price.shop_id").Scan(&drinkpricename)
 	fmt.Println(drinkpricename)
 	defer db.Close()
 
