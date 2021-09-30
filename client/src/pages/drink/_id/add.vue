@@ -1,31 +1,79 @@
 <template>
-  <div class="home">
+  <div class="login">
+    <b-alert v-if="error" variant="danger" show>
+      {{error}}
+    </b-alert>
     <b-container>
-      <h2>お店</h2>{{ shop_input }}
-      <b-form-select v-model="shop_input" :options="shops" value-field="ID" text-field="Name"></b-form-select>
-      <h2>価格</h2>
-      <b-form-input v-model="price_input" placeholder="価格を入力してください" type="number"></b-form-input>
-      <b-row>
-        <b-button pill v-on:click="doAddPrice">送信</b-button>
-      </b-row>
+      <div class="bellow-error">
+        <validation-observer ref="observer" v-slot="{handleSubmit}">
+          <b-form @submit.stop.prevent="handleSubmit(doAddPrice)">
+            <validation-provider name="店名" v-slot="validationContext" :rules="{ required: true}">
+              <b-form-group id="shop_id">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="shop_id">店名：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-select
+                      id="shop_id"
+                      name="shop_id"
+                      v-model="shop_id"
+                      :options="shops"
+                      text-field="Name"
+                      value-field="ID"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="shop_id-live-feedback"
+                    ></b-form-select>
+                    <b-form-invalid-feedback id="shop_id-live-feedback">
+                      {{ validationContext.errors[0] }}
+                    </b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
+            <validation-provider
+              name="価格"
+              :rules="{ required, numeric }"
+              v-slot="validationContext"
+            >
+              <b-form-group id="price">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="price">価格：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-input
+                      id="price"
+                      name="price"
+                      v-model="price"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="price-live-feedback"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="price-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
+            <b-button type="submit" variant="primary">追加</b-button>
+          </b-form>
+        </validation-observer>
+      </div>
     </b-container>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 import axios from 'axios'
 export default {
   name: 'home',
-  data: function(){
+  data() {
     return {
-      shops: [],
-      price_input: 0,
-      shop_input: 0,
+      error: null,
+      shops:[],
+      shop_id:null,
+      price:null,
     }
   },
-
-  // インスタンス作成時の処理
   created: function() {
     this.GetShops()
   },
@@ -33,12 +81,12 @@ export default {
   methods: {
     GetShops(){
       axios.get('http://54.65.204.164:8082/shops')
-      .then(response => {
+      .then((response) => {
         this.shops = response.data
       })
       .catch(error => {
         // handle error
-        console.log(error)
+        this.error = error.response.data.Detail
       })
     },
     doAddPrice() {
@@ -47,8 +95,8 @@ export default {
       const params = new URLSearchParams()
       console.log(drink_id)
       params.append('drink_id', drink_id)
-      params.append('price', this.price_input)
-      params.append('shop_id', this.shop_input)
+      params.append('price', this.price)
+      params.append('shop_id', this.shop_id)
       // console.log(params)
       axios.post('http://54.65.204.164:8082/price/add', params)
       .then(response => {
@@ -60,6 +108,9 @@ export default {
           }
       })
     },
-  },
+    getValidationState({ dirty, validated, valid = null }) {
+      return dirty || validated ? valid : null;
+    },
+  }
 }
 </script>

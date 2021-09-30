@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     // 商品情報を登録する
-    doAddDrinkGenre() {
+    doAddDrinkShop() {
       // サーバへ送信するパラメータ
       const params = new URLSearchParams()
       params.append('shop_name', this.shopname)
