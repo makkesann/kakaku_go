@@ -81,7 +81,7 @@ export default {
 
   methods: {
     GetGenres(){
-      axios.get('http://localhost:8082/drink/genres')
+      axios.get('http://54.65.204.164:8082/drink/genres')
       .then((response) => {
         this.genres = response.data
       })
@@ -96,7 +96,7 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('name', this.genre_name)
-        axios.post('http://localhost:8082/drink/genre/name/' + this.genre_id + '/change', params)
+        axios.post('http://54.65.204.164:8082/drink/genre/name/' + this.genre_id + '/change', params)
         .then(() => {
           this.$router.push('/drink')
         })
