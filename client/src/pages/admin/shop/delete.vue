@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     GetShops(){
-      axios.get('http://54.65.204.164:8082/shops')
+      axios.get('http://localhost:8082/shops')
       .then((response) => {
         this.shop = response.data
       })
@@ -59,7 +59,7 @@ export default {
     // 商品情報を削除する
     doDeleteShop() {
       // サーバへ送信するパラメータ
-      axios.post('http://54.65.204.164:8082/shop/' + this.shop_id + '/delete')
+      axios.post('http://localhost:8082/shop/' + this.shop_id + '/delete')
       .then(() => {
         this.$router.push('/drink')
       })
