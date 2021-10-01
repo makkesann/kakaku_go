@@ -81,7 +81,7 @@ export default {
 
   methods: {
     GetShops(){
-      axios.get('http://localhost:8082/shops')
+      axios.get('http://54.65.204.164:8082/shops')
       .then((response) => {
         this.shops = response.data
       })
@@ -95,7 +95,7 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('name', this.shop_name)
-        axios.post('http://localhost:8082/shop/name/' + this.shop_id + '/change', params)
+        axios.post('http://54.65.204.164:8082/shop/name/' + this.shop_id + '/change', params)
         .then(() => {
           this.$router.push('/drink')
         })

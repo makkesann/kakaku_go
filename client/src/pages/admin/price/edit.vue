@@ -138,7 +138,7 @@ export default {
     drink_id:{
       handler(new_id){
         if (new_id != null){
-          axios.get('http://localhost:8082/drinks/' + new_id+ '/prices')
+          axios.get('http://54.65.204.164:8082/drinks/' + new_id+ '/prices')
           .then(response => {
             this.shops= response.data
           })
@@ -153,7 +153,7 @@ export default {
 
   methods: {
     GetDrinks(){
-      axios.get('http://localhost:8082/drinks')
+      axios.get('http://54.65.204.164:8082/drinks')
       .then((response) => {
         this.drinks = response.data
       })
@@ -163,7 +163,7 @@ export default {
       })
     },
     GetShops(){
-      axios.get('http://localhost:8082/shops')
+      axios.get('http://54.65.204.164:8082/shops')
       .then((response) => {
         this.shops = response.data
       })
@@ -179,7 +179,7 @@ export default {
         const params = new URLSearchParams()
         params.append('price', this.price)
         const price_id = this.price_id
-        axios.post('http://localhost:8082/price/price/'+ price_id + '/change', params)
+        axios.post('http://54.65.204.164:8082/price/price/'+ price_id + '/change', params)
         .then(() => {
           this.$router.push('/drink')
         })

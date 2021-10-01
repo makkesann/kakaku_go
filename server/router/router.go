@@ -13,10 +13,10 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.Use(cors.New(cors.Config{
 		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
-			"http://localhost:8083",
-			"http://localhost:8080",
-			"http://localhost",
-			"http://localhost:81",
+			"http://54.65.204.164:8083",
+			"http://54.65.204.164:8080",
+			"http://54.65.204.164",
+			"http://54.65.204.164:81",
 			"http://ec2-54-65-204-164.ap-northeast-1.compute.amazonaws.com",
 		},
 		AllowMethods: []string{

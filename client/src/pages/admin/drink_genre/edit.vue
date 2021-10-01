@@ -81,7 +81,7 @@ export default {
 
   methods: {
     GetGenres(){
-      axios.get('http://localhost:8082/drink/genres')
+      axios.get('http://54.65.204.164:8082/drink/genres')
       .then((response) => {
         this.genres = response.data
       })
@@ -97,7 +97,7 @@ export default {
         const params = new URLSearchParams()
         params.append('name', this.genre_name)
         const genre_id = this.genre_id
-        axios.post('http://localhost:8082/drink/genre/name/' + genre_id + '/change', params)
+        axios.post('http://54.65.204.164:8082/drink/genre/name/' + genre_id + '/change', params)
         .then(() => {
           this.$router.push('/drink')
         })
