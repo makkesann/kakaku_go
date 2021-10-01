@@ -27,40 +27,6 @@ func FetchAllDrinks(c *gin.Context) {
 	fmt.Print(resultDrinks)
 }
 
-func FindAllDrinkGenres() []model.DrinkGenre {
-	db := dbmod.SqlConnect()
-	drink_genres := []model.DrinkGenre{}
-
-	// select文
-	db.Order("ID asc").Find(&drink_genres)
-	defer db.Close()
-	return drink_genres
-}
-
-func FetchAllDrinkGenres(c *gin.Context) {
-	resultDrinkGenres := FindAllDrinkGenres()
-
-	// URLへのアクセスに対してJSONを返す
-	c.JSON(200, resultDrinkGenres)
-}
-
-func InsertDrinkGenre(registerDrink *model.DrinkGenre) {
-	db := dbmod.SqlConnect()
-	// insert
-	db.Create(&registerDrink)
-	defer db.Close()
-}
-
-func AddDrinkGenre(c *gin.Context) {
-	genre_name := c.PostForm("genre_name")
-
-	var drink_genre = model.DrinkGenre{
-		Name: genre_name,
-	}
-
-	InsertDrinkGenre(&drink_genre)
-}
-
 func InsertDrink(c *gin.Context, registerDrink *model.Drink) {
 	db := dbmod.SqlConnect()
 	// insert
@@ -119,16 +85,6 @@ func FetchDrink(c *gin.Context) {
 }
 
 func DeleteDrink(c *gin.Context) {
-	var id int
-	db := dbmod.SqlConnect()
-	idstr := c.Param("id")
-	id, _ = strconv.Atoi(idstr)
-	drink := []model.Drink{}
-	db.Where("id = ?", id).Delete(&drink)
-	defer db.Close()
-}
-
-func DeleteDrinkGenre(c *gin.Context) {
 	var id int
 	db := dbmod.SqlConnect()
 	idstr := c.Param("id")
@@ -230,25 +186,6 @@ func UpdateDrinkQuantity(c *gin.Context) {
 	fmt.Print("quantity")
 	drink := []model.Drink{}
 	result := db.Model(&drink).Where("id = ?", id).Update("quantity", quantity)
-	err := result.Error
-	if err != nil {
-		c.JSON(400, err)
-	} else {
-		c.JSON(200, result)
-	}
-	defer db.Close()
-}
-
-func UpdateDrinkGenreName(c *gin.Context) {
-	var id int
-	db := dbmod.SqlConnect()
-	idstr := c.Param("id")
-	id, _ = strconv.Atoi(idstr)
-	genre_name := c.PostForm("name")
-	drink_genre := []model.DrinkGenre{}
-	fmt.Print(genre_name)
-	fmt.Print("genre_name")
-	result := db.Model(&drink_genre).Where("id = ?", id).Update("name", genre_name)
 	err := result.Error
 	if err != nil {
 		c.JSON(400, err)

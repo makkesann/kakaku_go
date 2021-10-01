@@ -6,7 +6,7 @@
     <b-container>
       <div class="bellow-error">
         <validation-observer ref="observer" v-slot="{handleSubmit}">
-          <b-form @submit.stop.prevent="handleSubmit(doAddPrice)">
+          <b-form @submit.stop.prevent="handleSubmit(doDeletePrice)">
             <validation-provider name="商品名" v-slot="validationContext" :rules="{ required: true}">
               <b-form-group id="drink_id">
                 <b-row>
@@ -65,10 +65,10 @@
                     <b-form-select
                       id="price"
                       name="price"
-                      v-model="price"
+                      v-model="price_id"
                       :options="shops_prices"
                       text-field="Price"
-                      value-field="Price"
+                      value-field="ID"
                       :state="getValidationState(validationContext)"
                       aria-describedby="price-live-feedback"
                     ></b-form-select>
@@ -98,7 +98,7 @@ export default {
       shops:[],
       drink_id:null,
       shop_id:null,
-      price:null,
+      price_id:null,
     }
   },
   created: function() {
@@ -114,7 +114,7 @@ export default {
     drink_id:{
       handler(new_id){
         if (new_id != null){
-          axios.get('http://54.65.204.164:8082/drinks/' + new_id+ '/prices')
+          axios.get('http://localhost:8082/drinks/' + new_id+ '/prices')
           .then(response => {
             this.shops= response.data
           })
@@ -129,7 +129,7 @@ export default {
 
   methods: {
     GetDrinks(){
-      axios.get('http://54.65.204.164:8082/drinks')
+      axios.get('http://localhost:8082/drinks')
       .then((response) => {
         this.drinks = response.data
       })
@@ -139,7 +139,7 @@ export default {
       })
     },
     GetShops(){
-      axios.get('http://54.65.204.164:8082/shops')
+      axios.get('http://localhost:8082/shops')
       .then((response) => {
         this.shops = response.data
       })
@@ -148,15 +148,10 @@ export default {
         this.error = error.response.data.Detail
       })
     },
-    // 価格情報を登録する
-    doAddPrice() {
-      // サーバへ送信するパラメータ
-      const params = new URLSearchParams()
-      params.append('price', this.price)
-      params.append('drink_id', this.drink_id)
-      params.append('shop_id', this.shop_id)
-
-      axios.post('http://54.65.204.164:8082/price/add', params)
+    // 価格情報を削除する
+    doDeletePrice() {
+      const price_id = this.price_id
+      axios.post('http://localhost:8082/price/' + price_id + '/delete')
       .then(() => {
         this.$router.push('/drink')
       })

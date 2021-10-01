@@ -21,7 +21,7 @@ func InsertUser(c *gin.Context, registerUser *model.User, user_name string) {
 	db := dbmod.SqlConnect()
 	// insert
 	result := db.Create(&registerUser)
-	// user_back := []model.User{}
+	// user_back := model.User{}
 	// db.Where("name = ?", user_name).First(&user_back)
 	err := result.Error
 	if err != nil {

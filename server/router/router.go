@@ -13,10 +13,10 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.Use(cors.New(cors.Config{
 		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
-			"http://54.65.204.164:8083",
-			"http://54.65.204.164:8080",
-			"http://54.65.204.164",
-			"http://54.65.204.164:81",
+			"http://localhost:8083",
+			"http://localhost:8080",
+			"http://localhost",
+			"http://localhost:81",
 			"http://ec2-54-65-204-164.ap-northeast-1.compute.amazonaws.com",
 		},
 		AllowMethods: []string{
@@ -30,6 +30,9 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.POST("/user/new", controller.AddUser)
 	r.GET("/drinks", controller.FetchAllDrinks)
 	r.GET("/shops", controller.FetchAllShops)
+	r.POST("/shop/add", controller.AddShop)
+	r.POST("/shop/:id/delete", controller.DeleteShop)
+	r.POST("/shop/name/:id/change", controller.UpdateShopName)
 	r.GET("/drink/genres", controller.FetchAllDrinkGenres)
 	r.POST("/drink/genre/add", controller.AddDrinkGenre)
 	r.POST("/drink/genre/:id/delete", controller.DeleteDrinkGenre)
@@ -43,6 +46,8 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.POST("/drink/image/:id/change", controller.UpdateDrinkImage)
 	r.POST("/drink/quantity/:id/change", controller.UpdateDrinkQuantity)
 	r.POST("/price/add", controller.AddDrinkPrice)
+	r.POST("/price/:id/delete", controller.DeletePrice)
+	r.POST("/price/price/:id/change", controller.UpdatePricePrice)
 	r.GET("/drinks/:id/prices", controller.FetchPrices)
 	r.POST("/login", controller.UserLogin)
 	r.POST("/favorite_drink/add", controller.AddFavoriteDrink)

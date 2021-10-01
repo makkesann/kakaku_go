@@ -55,7 +55,7 @@ export default {
       // サーバへ送信するパラメータ
       const params = new URLSearchParams()
       params.append('genre_name', this.genrename)
-      axios.post('http://54.65.204.164:8082/drink/genre/add', params)
+      axios.post('http://localhost:8082/drink/genre/add', params)
       .then(() => {
         this.$router.push('/drink')
       })

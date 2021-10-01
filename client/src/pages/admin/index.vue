@@ -25,11 +25,11 @@
         <router-link to="/admin/price/edit">価格編集</router-link>
         <router-link to="/admin/price/delete">価格削除</router-link>
       </b-row>
-      <h3 class="text-left">ユーザー</h3>
+      <!-- <h3 class="text-left">ユーザー</h3>
       <b-row class="text-left ad-home-row">
 
         <router-link to="/admin/user/delete">ユーザー削除</router-link>
-      </b-row>
+      </b-row> -->
     </b-container>
   </div>
 </template>

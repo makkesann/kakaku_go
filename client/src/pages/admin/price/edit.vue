@@ -6,7 +6,7 @@
     <b-container>
       <div class="bellow-error">
         <validation-observer ref="observer" v-slot="{handleSubmit}">
-          <b-form @submit.stop.prevent="handleSubmit(doAddPrice)">
+          <b-form @submit.stop.prevent="handleSubmit(doChangePricePrice)">
             <validation-provider name="商品名" v-slot="validationContext" :rules="{ required: true}">
               <b-form-group id="drink_id">
                 <b-row>
@@ -56,19 +56,19 @@
               </b-form-group>
             </validation-provider>
             <validation-provider name="変更する価格" v-slot="validationContext" :rules="{ required: true}">
-              <b-form-group id="price">
+              <b-form-group id="price_id">
                 <b-row>
                   <b-col cols="3" class="text-right">
-                    <label for="price">変更する価格：</label>
+                    <label for="price_id">変更する価格：</label>
                   </b-col>
                   <b-col cols="9">
                     <b-form-select
-                      id="price"
-                      name="price"
-                      v-model="price"
+                      id="price_id"
+                      name="price_id"
+                      v-model="price_id"
                       :options="shops_prices"
                       text-field="Price"
-                      value-field="Price"
+                      value-field="ID"
                       :state="getValidationState(validationContext)"
                       aria-describedby="price-live-feedback"
                     ></b-form-select>
@@ -102,7 +102,7 @@
                 </b-row>
               </b-form-group>
             </validation-provider>
-            <b-button type="submit" variant="danger">削除</b-button>
+            <b-button type="submit" variant="warning">変更</b-button>
           </b-form>
         </validation-observer>
       </div>
@@ -122,6 +122,7 @@ export default {
       drink_id:null,
       shop_id:null,
       price:null,
+      price_id:null,
     }
   },
   created: function() {
@@ -137,7 +138,7 @@ export default {
     drink_id:{
       handler(new_id){
         if (new_id != null){
-          axios.get('http://54.65.204.164:8082/drinks/' + new_id+ '/prices')
+          axios.get('http://localhost:8082/drinks/' + new_id+ '/prices')
           .then(response => {
             this.shops= response.data
           })
@@ -152,7 +153,7 @@ export default {
 
   methods: {
     GetDrinks(){
-      axios.get('http://54.65.204.164:8082/drinks')
+      axios.get('http://localhost:8082/drinks')
       .then((response) => {
         this.drinks = response.data
       })
@@ -162,7 +163,7 @@ export default {
       })
     },
     GetShops(){
-      axios.get('http://54.65.204.164:8082/shops')
+      axios.get('http://localhost:8082/shops')
       .then((response) => {
         this.shops = response.data
       })
@@ -172,21 +173,23 @@ export default {
       })
     },
     // 価格情報を登録する
-    doAddPrice() {
-      // サーバへ送信するパラメータ
-      const params = new URLSearchParams()
-      params.append('price', this.price)
-      params.append('drink_id', this.drink_id)
-      params.append('shop_id', this.shop_id)
-
-      axios.post('http://54.65.204.164:8082/price/add', params)
-      .then(() => {
-        this.$router.push('/drink')
-      })
-      .catch(error => {
-        // handle error
-        this.error = error.response.data.Detail
-      })
+    doChangePricePrice() {
+      if (this.price_id!=null){
+        // サーバへ送信するパラメータ
+        const params = new URLSearchParams()
+        params.append('price', this.price)
+        const price_id = this.price_id
+        axios.post('http://localhost:8082/price/price/'+ price_id + '/change', params)
+        .then(() => {
+          this.$router.push('/drink')
+        })
+        .catch(error => {
+          // handle error
+          this.error = error.response.data.Detail
+        })
+      } else{
+        this.error = ("変更する商品・店舗を選択してください")
+      }
     },
     getValidationState({ dirty, validated, valid = null }) {
       return dirty || validated ? valid : null;

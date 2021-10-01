@@ -132,8 +132,12 @@ export default {
       genre_id: 0,
       favorite_drinks: [],
       quantity: 0,
+      // drinks:[]
     }
   },
+  // created(){
+  //   this.drinks = this.$store.getters["drink/getDrinks"]
+  // },
   computed: {
     drinks() {
       return this.$store.getters["drink/getDrinks"]
@@ -173,10 +177,27 @@ export default {
       return this.$store.getters["login/getFavoriteDrink"]
     },
     serched_favorite_drinks(){
-      if (this.genre_id == 0){
-        return this.favorite_drinks
-      } else {
-        return this.favorite_drinks.filter((drink) => drink.DrinkGenreID == this.genre_id)
+      var result = this.favorite_drinks
+      if (this.genre_id != 0){
+        result = result.filter((drink) => drink.DrinkGenreID == this.genre_id)
+      }
+      if (this.quantity == 0){
+        return result
+      }
+      else if (this.quantity == 1){
+        return result.filter((drink) => (drink.Quantity >0 && drink.Quantity <= 200))
+      }
+      else if (this.quantity == 2){
+        return result.filter((drink) => (drink.Quantity >200 && drink.Quantity <=700))
+      }
+      else if (this.quantity == 3){
+        return result.filter((drink) => (drink.Quantity >700 && drink.Quantity <=1000))
+      }
+      else if (this.quantity == 4){
+        return result.filter((drink) => drink.Quantity >1000)
+      }
+      else{
+        return result
       }
     },
     keyworddrinks() {
@@ -224,22 +245,25 @@ export default {
       this.quantity = i
     },
     ReloadFavoriteDrink(favorite){
-      for (const i in this.drinks){
-        this.$set(this.drinks[i], "favorite" , false)
-      }
-      let result = []
-      for (const i in favorite){
-        const drink = (drink) => drink.ID == favorite[i].DrinkID
-        if (this.drinks.some(drink)){
-          console.log( this.drinks.find(drink))
-          let name = this.drinks.find(drink).name
-          let quantity = this.drinks.find(drink).Quantity
-          let image = this.drinks.find(drink).Image
-          result.push({ID: favorite[i].DrinkID, name: name, Image: image, Quantity: quantity, favorite: true})
-          this.$set(this.drinks.find(drink), "favorite" , true)
+      if (this.drinks != null){        
+        console.log("うぇい")
+        for (const i in this.drinks){
+          this.$set(this.drinks[i], "favorite" , false)
         }
+        let result = []
+        for (const i in favorite){
+          const drink = (drink) => drink.ID == favorite[i].DrinkID
+          if (this.drinks.some(drink)){
+            console.log( this.drinks.find(drink))
+            let name = this.drinks.find(drink).name
+            let quantity = this.drinks.find(drink).Quantity
+            let image = this.drinks.find(drink).Image
+            result.push({ID: favorite[i].DrinkID, name: name, Image: image, Quantity: quantity, favorite: true})
+            this.$set(this.drinks.find(drink), "favorite" , true)
+          }
+        }
+        this.favorite_drinks = result
       }
-      this.favorite_drinks = result
     },
     doAddFavoriteDrink(item){
       // item.favorite = true
@@ -249,7 +273,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_drink/add', params)
+        axios.post('http://localhost:8082/favorite_drink/add', params)
         .catch(error => {
           // handle error
           console.log(error)
@@ -264,7 +288,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('http://54.65.204.164:8082/favorite_drink/delete', params)
+        axios.post('http://localhost:8082/favorite_drink/delete', params)
         .catch(error => {
           // handle error
           console.log(error)

@@ -19,7 +19,7 @@
                       name="shop_id"
                       v-model="shop_id"
                       :options="shops"
-                      text-field="name"
+                      text-field="Name"
                       value-field="ID"
                       :state="getValidationState(validationContext)"
                       aria-describedby="shop_id-live-feedback"
@@ -81,7 +81,7 @@ export default {
 
   methods: {
     GetShops(){
-      axios.get('http://54.65.204.164:8082/drink/shops')
+      axios.get('http://localhost:8082/shops')
       .then((response) => {
         this.shops = response.data
       })
@@ -90,13 +90,12 @@ export default {
         this.error = error.response.data.Detail
       })
     },
-    doChangeDrinkShopName() {
+    doChangeShopName() {
       if (this.shop_id!=null){
-
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('name', this.shop_name)
-        axios.post('http://54.65.204.164:8082/drink/shop/name/' + this.genre_id + '/change', params)
+        axios.post('http://localhost:8082/shop/name/' + this.shop_id + '/change', params)
         .then(() => {
           this.$router.push('/drink')
         })
