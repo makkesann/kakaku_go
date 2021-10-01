@@ -19,12 +19,12 @@
                 <h4 class="text-left mb-3">最安価格：{{ prices[0].Price }}円</h4>
               </b-col>
               <b-col cols="8" v-if="prices.length !=0">
-                <div class="pr-2 w-60 d-inline-block">
-                  <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
+                <div class="pr-2 d-inline-block">
+                  <h4 class="text-left">最安ショップ：{{ prices[0].Name }}</h4>
                 </div>
-                <div class="w-40 d-inline-block">
+                <!-- <div class="w-40 d-inline-block">
                   <b-button>このショップを探す</b-button>
-                </div>
+                </div> -->
               </b-col>
             </b-row>
             <a :href="rakuten.Items[0].itemUrl" target="_blank" v-if="this.rakuten!=null">
@@ -47,15 +47,29 @@
       </div>
       <b-row>
         <h2 v-if="favorite_shops.length != 0">お気に入りの店</h2>
-        <b-table v-if="favorite_shops.length != 0" striped hover :items="favorite_shops">
+        <b-table v-if="favorite_shops.length != 0" striped hover :items="favorite_shops" :fields="price_fields">
+          <template v-slot:cell(お店)="{item}">
+            <span>{{ item.Name }}&nbsp;&nbsp;</span>
+           <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+            <b-icon v-else @click="doAddFavoriteShop(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
+          <template v-slot:cell(価格)="{item}">
+            <span>{{ item.Price }}円</span>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
         </b-table>
         <router-link :to="{path: this.$route.path +'/add'}">価格の追加</router-link>
-        <b-table striped hover :items="prices">
-          <template v-slot:cell(Name)="{item}">
-            {{ item.Name }}
-            <!-- <p v-if="admin">削除</p> -->
-            <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+        <b-table striped hover :items="prices" :fields="price_fields">
+          <template v-slot:cell(お店)="{item}">
+            <span>{{ item.Name }}&nbsp;&nbsp;</span>
+           <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
             <b-icon v-else @click="doAddFavoriteShop(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
+          <template v-slot:cell(価格)="{item}">
+            <span>{{ item.Price }}円</span>
+            <!-- <p v-if="admin">削除</p> -->
           </template>
         </b-table>
       </b-row>
@@ -70,7 +84,7 @@ export default {
   name: 'home',
   data: function(){
     return {
-      drink_fields: ["name", "ID", "DrinkGenreID"],
+      price_fields: ["お店", "価格"],
       // drinks: [],
       prices: [],
       // favorite_shops: [],
@@ -147,17 +161,6 @@ export default {
         // console.log("わろた")
 
       }
-    },
-    googleapi(){
-      axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&location=35.6987769,139.76471&radius=300&language=ja&keyword=公園OR広場OR駅')
-      .then(response => {
-        // console.log(response.data)
-        this.google = response.data
-      })
-      .catch(error => {
-        // handle error
-        console.log(error)
-      })
     },
     doFetchPrices() {
       let drink_id = this.$route.params.id

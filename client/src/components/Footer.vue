@@ -1,10 +1,10 @@
 <template>
   <div id="footer">
-    <h2>アプリタイトル</h2>
-    <h3>作成者：まっけ</h3>
-    <h4>twitter</h4>
-    <h4>github</h4>
-    <h4>youtube</h4>
+    <h3>FindDrinks</h3>
+    <span>作成者情報&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="#">Twitter</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="#">YouTube</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="#">GitHub</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
   </div>
 </template>
 
