@@ -74,7 +74,7 @@ func DeletePrice(c *gin.Context) {
 	idstr := c.Param("id")
 	id, _ = strconv.Atoi(idstr)
 	drink_price := model.DrinkPrice{}
-	db.Where("id = ?", id).Delete(&drink_price)
+	db.Where("id = ?", id).Unscoped().Delete(&drink_price)
 	defer db.Close()
 }
 
