@@ -20,7 +20,7 @@
               </b-col>
               <b-col cols="8" v-if="prices.length !=0">
                 <div class="pr-2 d-inline-block w-60">
-                  <h4 class="text-left">最安ショップ：{{ prices[0].Name }}</h4>
+                  <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
                 </div>
                 <div class="w-40 d-inline-block">
                   <b-button @click="googleapi(prices[0].Name)">このショップを探す</b-button>
