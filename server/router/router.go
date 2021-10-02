@@ -18,6 +18,7 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 			"http://54.65.204.164",
 			"http://54.65.204.164:81",
 			"http://ec2-54-65-204-164.ap-northeast-1.compute.amazonaws.com",
+			"https://ec2-54-65-204-164.ap-northeast-1.compute.amazonaws.com",
 		},
 		AllowMethods: []string{
 			"POST",

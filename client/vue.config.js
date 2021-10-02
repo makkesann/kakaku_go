@@ -12,7 +12,8 @@ module.exports = {
     }
   },
   devServer: {
-    port: 80,
+    port: 443,
     disableHostCheck: true,
+    https: true
 },
 }

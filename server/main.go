@@ -6,5 +6,5 @@ import (
 
 func main() {
 	route := router.GetRouter()
-	route.Run(":8082")
+	route.RunTLS(":8082", "./Certificate/server.pem", "./Certificate/server.key")
 }

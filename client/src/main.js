@@ -16,6 +16,8 @@ import {
   localize,
 } from "vee-validate"
 import * as rules from "vee-validate/dist/rules";
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 
 localize({
   ja: { messages: { ...ja.messages } },
@@ -44,13 +46,20 @@ Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
-// axios.defaults.baseURL = 'http://54.65.204.164:8082'
+// axios.defaults.baseURL = 'https://54.65.204.164:8082'
  
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: 'https://dummyimage.com/64x64/ccc/999.png&text=Not+Found',
   loading: 'https://dummyimage.com/64x64/dcdcdc/999.png&text=Now loading',
   attempt: 1
+})
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: '{GoogleMapのAPIキー}',
+    libraries: 'places', 
+  },
 })
 
 new Vue({
