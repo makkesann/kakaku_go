@@ -90,7 +90,10 @@ body{
     padding: 20px 20px;
   }
   .search-box{
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 #header{
@@ -107,10 +110,34 @@ body{
     }
   }
 }
+#footer{
+  margin-top: 50px;
+  a{
+    color: #007bff;
+  }
+}
 .admin-home{
   .ad-home-row{
     >a{
      margin-right: 20px; 
+    }
+  }
+}
+@media screen and (min-width:500px) {
+  .sp{
+    display: none;
+  }
+
+}
+
+// スマホ用デザイン
+@media screen and (max-width:499px) {
+  .pc{
+    display: none;
+  }
+  .drink{
+    .drinks-table{
+      font-size: 16px;
     }
   }
 }

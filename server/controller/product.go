@@ -19,10 +19,16 @@ func FindAllProducts() []model.Product {
 	return products
 }
 
-func InsertProduct(registerProduct *model.Product) {
+func InsertProduct(c *gin.Context, registerProduct *model.Product) {
 	db := dbmod.SqlConnect()
 	// insert
-	db.Create(&registerProduct)
+	result := db.Create(&registerProduct)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 
@@ -42,5 +48,5 @@ func AddProduct(c *gin.Context) {
 		Name: product_name,
 	}
 
-	InsertProduct(&product)
+	InsertProduct(c, &product)
 }

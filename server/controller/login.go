@@ -53,10 +53,16 @@ func FetchFavoriteDrink(c *gin.Context) {
 }
 
 //addfavoritedrink
-func InsertFavoriteDrink(registerFavoriteDrink *model.FavoriteDrink) {
+func InsertFavoriteDrink(c *gin.Context, registerFavoriteDrink *model.FavoriteDrink) {
 	db := dbmod.SqlConnect()
 	// insert
-	db.Create(&registerFavoriteDrink)
+	result := db.Create(&registerFavoriteDrink)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 
@@ -72,13 +78,13 @@ func AddFavoriteDrink(c *gin.Context) {
 		UserID:  user_id,
 		DrinkID: drink_id,
 	}
-	InsertFavoriteDrink(&favorite_drink)
+	InsertFavoriteDrink(c, &favorite_drink)
 }
 
 //deletefavoritedrink
 func DeleteFavoriteDrink(c *gin.Context) {
 	db := dbmod.SqlConnect()
-	favorite_drink := []model.FavoriteDrink{}
+	favorite_drink := model.FavoriteDrink{}
 	drink_id_str := c.PostForm("drink_id")
 	user_id_str := c.PostForm("user_id")
 	drink_id64, _ := strconv.ParseUint(drink_id_str, 10, 64)
@@ -113,10 +119,16 @@ func FetchFavoriteShop(c *gin.Context) {
 	c.JSON(200, result)
 }
 
-func InsertFavoriteShop(registerFavoriteShop *model.FavoriteShop) {
+func InsertFavoriteShop(c *gin.Context, registerFavoriteShop *model.FavoriteShop) {
 	db := dbmod.SqlConnect()
 	// insert
-	db.Create(&registerFavoriteShop)
+	result := db.Create(&registerFavoriteShop)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 
@@ -132,13 +144,13 @@ func AddFavoriteShop(c *gin.Context) {
 		UserID: user_id,
 		ShopID: shop_id,
 	}
-	InsertFavoriteShop(&favorite_shop)
+	InsertFavoriteShop(c, &favorite_shop)
 }
 
 //deletefavoriteshop
 func DeleteFavoriteShop(c *gin.Context) {
 	db := dbmod.SqlConnect()
-	favorite_shop := []model.FavoriteShop{}
+	favorite_shop := model.FavoriteShop{}
 	shop_id_str := c.PostForm("shop_id")
 	user_id_str := c.PostForm("user_id")
 	shop_id64, _ := strconv.ParseUint(shop_id_str, 10, 64)

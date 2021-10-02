@@ -1,5 +1,11 @@
 <template>
-  <h1>ふったー</h1>
+  <div id="footer">
+    <h3>FindDrinks</h3>
+    <span>作成者情報&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="#">Twitter</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="#">YouTube</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a href="#">GitHub</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
 </template>
 
 <script>

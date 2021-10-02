@@ -1,17 +1,17 @@
 <template>
-  <div class="login">
+  <div class="edit">
     <b-alert v-if="error" variant="danger" show>
       {{error}}
     </b-alert>
     <b-container>
       <div class="bellow-error">
         <validation-observer ref="observer" v-slot="{handleSubmit}">
-          <b-form @submit.stop.prevent="handleSubmit(doAddPrice)">
-            <validation-provider name="店名" v-slot="validationContext" :rules="{ required: true}">
+          <b-form @submit.stop.prevent="handleSubmit(doChangeShopName)">
+            <validation-provider name="変更する店舗名" v-slot="validationContext" :rules="{ required: true }">
               <b-form-group id="shop_id">
                 <b-row>
                   <b-col cols="3" class="text-right">
-                    <label for="shop_id">店名：</label>
+                    <label for="shop_id">変更する店舗名：</label>
                   </b-col>
                   <b-col cols="9">
                     <b-form-select
@@ -32,35 +32,36 @@
               </b-form-group>
             </validation-provider>
             <validation-provider
-              name="価格"
-              :rules="{ required, numeric }"
+              name="変更後の店舗名"
+              :rules="{ required: true }"
               v-slot="validationContext"
             >
-              <b-form-group id="price">
+              <b-form-group id="shop_name">
                 <b-row>
                   <b-col cols="3" class="text-right">
-                    <label for="price">価格：</label>
+                    <label for="shop_name">変更後の店舗名：</label>
                   </b-col>
                   <b-col cols="9">
                     <b-form-input
-                      id="price"
-                      name="price"
-                      v-model="price"
+                      id="shop_name"
+                      name="shop_name"
+                      v-model="shop_name"
                       :state="getValidationState(validationContext)"
-                      aria-describedby="price-live-feedback"
+                      aria-describedby="shop_name-live-feedback"
                     ></b-form-input>
-                    <b-form-invalid-feedback id="price-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    <b-form-invalid-feedback id="shop_name-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                   </b-col>
                 </b-row>
               </b-form-group>
             </validation-provider>
-            <b-button type="submit" variant="primary">追加</b-button>
+            <b-button type="submit" variant="warning">変更</b-button>
           </b-form>
         </validation-observer>
       </div>
     </b-container>
   </div>
 </template>
+
 <script>
 // @ is an alias to /src
 import axios from 'axios'
@@ -68,10 +69,10 @@ export default {
   name: 'home',
   data() {
     return {
+      shop_name: null,
+      shop_id: null,
+      shops: [],
       error: null,
-      shops:[],
-      shop_id:null,
-      price:null,
     }
   },
   created: function() {
@@ -80,8 +81,8 @@ export default {
 
   methods: {
     GetShops(){
-      axios.get('https://54.65.204.164:8082/shops')
-      .then(response => {
+      axios.get('http://54.65.204.164:8082/shops')
+      .then((response) => {
         this.shops = response.data
       })
       .catch(error => {
@@ -89,24 +90,22 @@ export default {
         this.error = error.response.data.Detail
       })
     },
-    doAddPrice() {
-      // サーバへ送信するパラメータ
-      let drink_id = this.$route.params.id
-      const params = new URLSearchParams()
-      console.log(drink_id)
-      params.append('drink_id', drink_id)
-      params.append('price', this.price)
-      params.append('shop_id', this.shop_id)
-      // console.log(params)
-      axios.post('https://54.65.204.164:8082/price/add', params)
-      .then(response => {
-          if (response.status != 200) {
-              throw new Error('レスポンスエラー')
-          } else {
-            //一覧ページに遷移する
-            this.$router.push('/drink')
-          }
-      })
+    doChangeShopName() {
+      if (this.shop_id!=null){
+        // サーバへ送信するパラメータ
+        const params = new URLSearchParams()
+        params.append('name', this.shop_name)
+        axios.post('http://54.65.204.164:8082/shop/name/' + this.shop_id + '/change', params)
+        .then(() => {
+          this.$router.push('/drink')
+        })
+        .catch(error => {
+          // handle error
+          this.error = error.response.data.Detail
+        })
+      } else{
+        this.error = ("変更する店舗名を選択してください")
+      }
     },
     getValidationState({ dirty, validated, valid = null }) {
       return dirty || validated ? valid : null;

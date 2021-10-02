@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import Vue from 'vue'
+import Vue from 'vue'
 export default {
   namespaced: true,
   // 初期値
@@ -56,9 +56,9 @@ export default {
   mutations: {
     // 初期化処理
     setDrinks(state, resultDrinks) {
-      // for (const i in resultDrinks){
-      //   Vue.set(resultDrinks[i], 'favorite', false)
-      // }
+      for (const i in resultDrinks){
+        Vue.set(resultDrinks[i], 'favorite', false)
+      }
       state.drinks = resultDrinks
     },
     setDrinkGenre(state, resultDrinks) {

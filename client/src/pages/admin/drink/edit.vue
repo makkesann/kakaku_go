@@ -215,6 +215,7 @@ export default {
       if (this.drink_id!=null){
 
         // サーバへ送信するパラメータ
+        const drink_id = this.drink_id
         const params = new URLSearchParams()
         params.append('drink_name', this.productname)
         axios.post('https://54.65.204.164:8082/drink/name/' + this.drink_id + '/change', params)
@@ -271,7 +272,8 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('image', this.img_file_name)
-        axios.post('https://54.65.204.164:8082/drink/iamge/' + this.drink_id + '/change', params)
+        const drink_id = this.drink_id 
+       axios.post('https://54.65.204.164:8082/drink/iamge/' + drink_id + '/change', params)
       .then(() => {
         this.$router.push('/drink')
       })

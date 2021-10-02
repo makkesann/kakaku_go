@@ -59,7 +59,8 @@ export default {
     // 商品情報を削除する
     doDeleteDrinkGenre() {
       // サーバへ送信するパラメータ
-      axios.post('https://54.65.204.164:8082/drink/genre/' + this.drink_id + '/delete')
+      const genre_id = this.genre_id
+      axios.post('https://54.65.204.164:8082/drink/genre/' + genre_id + '/delete')
       .then(() => {
         this.$router.push('/drink')
       })

@@ -5,32 +5,41 @@
     </b-alert>
     <b-container>
       <div class="bellow-error">
-        <b-row class="mb-5">
-          <b-col cols="3" class="text-right">
-            <label for="genre_id">変更する商品：</label>
-          </b-col>
-          <b-col cols="9">
-            <b-form-select
-              id="genre_id"
-              name="genre_id"
-              v-model="genre_id"
-              :options="genres"
-              text-field="name"
-              value-field="ID"
-            ></b-form-select>
-          </b-col>
-        </b-row>
         <validation-observer ref="observer" v-slot="{handleSubmit}">
           <b-form @submit.stop.prevent="handleSubmit(doChangeDrinkGenreName)">
+            <validation-provider name="変更するジャンル" v-slot="validationContext">
+              <b-form-group id="genre_id">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="genre_id">変更するジャンル：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-select
+                      id="genre_id"
+                      name="genre_id"
+                      v-model="genre_id"
+                      :options="genres"
+                      text-field="name"
+                      value-field="ID"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="genre_id-live-feedback"
+                    ></b-form-select>
+                    <b-form-invalid-feedback id="genre_id-live-feedback">
+                      {{ validationContext.errors[0] }}
+                    </b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
             <validation-provider
-              name="ジャンル名"
+              name="変更後のジャンル名"
               :rules="{ required: true }"
               v-slot="validationContext"
             >
               <b-form-group id="genre_name">
                 <b-row>
                   <b-col cols="3" class="text-right">
-                    <label for="genre_name">ジャンル名：</label>
+                    <label for="genre_name">変更後のジャンル名：</label>
                   </b-col>
                   <b-col cols="9">
                     <b-form-input
@@ -87,7 +96,8 @@ export default {
         // サーバへ送信するパラメータ
         const params = new URLSearchParams()
         params.append('name', this.genre_name)
-        axios.post('https://54.65.204.164:8082/drink/genre/name/' + this.genre_id + '/change', params)
+        const genre_id = this.genre_id
+        axios.post('https://54.65.204.164:8082/drink/genre/name/' + genre_id + '/change', params)
         .then(() => {
           this.$router.push('/drink')
         })

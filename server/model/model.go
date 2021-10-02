@@ -12,6 +12,7 @@ type DrinkPrice struct {
 }
 
 type DrinkPriceName struct {
+	ID     int
 	ShopID uint
 	Name   string // name
 	Price  uint

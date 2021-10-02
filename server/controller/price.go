@@ -10,14 +10,14 @@ import (
 )
 
 func FindPrices(drinkID int) []model.DrinkPriceName {
-	// drinkprice := []model.DrinkPrice{}
+	// drinkprice := model.DrinkPrice{}
 
 	drinkpricename := []model.DrinkPriceName{}
 
 	db := dbmod.SqlConnect()
 	// select
 	// db.Order("price ASC").Where("drink_id = ?", drinkID).Find(&drinkprice)
-	db.Order("price ASC").Table("drink_price").Where("drink_id = ?", drinkID).Select("drink_price.shop_id, shop.name, drink_price.price").Joins("left join shop on shop.id = drink_price.shop_id").Scan(&drinkpricename)
+	db.Order("price ASC").Table("drink_price").Where("drink_id = ?", drinkID).Select("drink_price.id, drink_price.shop_id, shop.name, drink_price.price").Joins("left join shop on shop.id = drink_price.shop_id").Scan(&drinkpricename)
 	fmt.Println(drinkpricename)
 	defer db.Close()
 
@@ -34,11 +34,17 @@ func FetchPrices(c *gin.Context) {
 	c.JSON(200, result)
 }
 
-func InsertDrinkPrice(registerDrinkPrice *model.DrinkPrice) {
+func InsertDrinkPrice(c *gin.Context, registerDrinkPrice *model.DrinkPrice) {
 	db := dbmod.SqlConnect()
 	// insert
 
-	db.Create(&registerDrinkPrice)
+	result := db.Create(&registerDrinkPrice)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
 	defer db.Close()
 }
 
@@ -59,5 +65,35 @@ func AddDrinkPrice(c *gin.Context) {
 		ShopID:  shop_id,
 	}
 
-	InsertDrinkPrice(&drink_price)
+	InsertDrinkPrice(c, &drink_price)
+}
+
+func DeletePrice(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	drink_price := model.DrinkPrice{}
+	db.Where("id = ?", id).Unscoped().Delete(&drink_price)
+	defer db.Close()
+}
+
+func UpdatePricePrice(c *gin.Context) {
+	var id int
+	db := dbmod.SqlConnect()
+	idstr := c.Param("id")
+	id, _ = strconv.Atoi(idstr)
+	pricestr := c.PostForm("price")
+	price, _ := strconv.Atoi(pricestr)
+	drink_price := model.DrinkPrice{}
+	fmt.Print(price)
+	fmt.Print("price")
+	result := db.Model(&drink_price).Where("id = ?", id).Update("price", price)
+	err := result.Error
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, result)
+	}
+	defer db.Close()
 }
