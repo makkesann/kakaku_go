@@ -80,7 +80,7 @@ export default {
 
   methods: {
     GetShops(){
-      axios.get('https://54.65.204.164:8082/shops')
+      axios.get('https://kakaku-real-store.tk:8082/shops')
       .then(response => {
         this.shops = response.data
       })
@@ -98,7 +98,7 @@ export default {
       params.append('price', this.price)
       params.append('shop_id', this.shop_id)
       // console.log(params)
-      axios.post('https://54.65.204.164:8082/price/add', params)
+      axios.post('https://kakaku-real-store.tk:8082/price/add', params)
       .then(response => {
           if (response.status != 200) {
               throw new Error('レスポンスエラー')

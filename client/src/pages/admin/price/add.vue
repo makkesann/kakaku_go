@@ -107,7 +107,7 @@ export default {
 
   methods: {
     GetDrinks(){
-      axios.get('http://54.65.204.164:8082/drinks')
+      axios.get('http://kakaku-real-store.tk:8082/drinks')
       .then((response) => {
         this.drinks = response.data
       })
@@ -117,7 +117,7 @@ export default {
       })
     },
     GetShops(){
-      axios.get('http://54.65.204.164:8082/shops')
+      axios.get('http://kakaku-real-store.tk:8082/shops')
       .then((response) => {
         this.shops = response.data
       })
@@ -134,7 +134,7 @@ export default {
       params.append('drink_id', this.drink_id)
       params.append('shop_id', this.shop_id)
 
-      axios.post('http://54.65.204.164:8082/price/add', params)
+      axios.post('http://kakaku-real-store.tk:8082/price/add', params)
       .then(() => {
         this.$router.push('/drink')
       })

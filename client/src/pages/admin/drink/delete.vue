@@ -48,7 +48,7 @@ export default {
 
   methods: {
     GetDrinks(){
-      axios.get('https://54.65.204.164:8082/drinks')
+      axios.get('https://kakaku-real-store.tk:8082/drinks')
       .then((response) => {
         this.drinks = response.data
       })
@@ -61,7 +61,7 @@ export default {
     doDeleteDrink() {
       // サーバへ送信するパラメータ
       const drink_id = this.drink_id
-      axios.post('https://54.65.204.164:8082/drink/' + drink_id + '/delete')
+      axios.post('https://kakaku-real-store.tk:8082/drink/' + drink_id + '/delete')
       .then(() => {
         this.$router.push('/drink')
       })

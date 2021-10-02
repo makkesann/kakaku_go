@@ -25,7 +25,7 @@ export default {
 
   actions: {
     doFetchAllDrink(context) {
-      axios.get('https://54.65.204.164:8082/drinks')
+      axios.get('https://kakaku-real-store.tk:8082/drinks')
       .then(response => {
         context.commit('setDrinks', response.data)
         // console.log(response.data)
@@ -41,7 +41,7 @@ export default {
     },
     // 全てのジャンル情報を取得する
     doFetchAllDrinkGenre(context) {
-      axios.get('https://54.65.204.164:8082/drink/genres')
+      axios.get('https://kakaku-real-store.tk:8082/drink/genres')
       .then(response => {
         context.commit('setDrinkGenre', response.data)
       })
