@@ -19,7 +19,7 @@
                 <h4 class="text-left mb-3">最安価格：{{ prices[0].Price }}円</h4>
               </b-col>
               <b-col cols="8" v-if="prices.length !=0">
-                <div class="pr-2 d-inline-block">
+                <div class="pr-2 d-inline-block w-60">
                   <h4 class="text-left">最安ショップ：{{ prices[0].Name }}</h4>
                 </div>
                 <div class="w-40 d-inline-block">
@@ -79,7 +79,6 @@
         </b-alert>
         <div id="map"></div>
       </div>
-      <button @click="googleapi">わっしょい</button>
     </b-container>
   </div>
 </template>
@@ -188,7 +187,7 @@ export default {
           // 取得成功した場合
           function(position) {
             // 緯度・経度を変数に格納?
-            axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&location=' + position.coords.latitude + ',' + position.coords.longitude + '&radius=5000&language=ja&keyword='+ shop_name)
+            axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&location=' + position.coords.latitude + ',' + position.coords.longitude + '&radius=5000&language=ja&keyword='+ shop_name)
             .then(function(response)  {
               if (response.status != 200) {
                   throw new Error('レスポンスエラー')
