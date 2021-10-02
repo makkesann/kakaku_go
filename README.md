@@ -1,4 +1,6 @@
+# URLが変わりました
 
+## http://ec2-54-65-204-164.ap-northeast-1.compute.amazonaws.com/ → https://kakaku-real-store.tk/
 
 ## このアプリケーションについて
 このアプリは実店舗版価格.comの様なもので、飲み物の各店舗での販売価格を表すものです。
