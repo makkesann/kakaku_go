@@ -58,7 +58,7 @@
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
-          <template v-slot:cell()="{item}">
+          <template v-slot:cell(お店を探す)="{item}">
             <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
           </template>
         </b-table>
@@ -74,7 +74,7 @@
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
-          <template v-slot:cell()="{item}">
+          <template v-slot:cell(お店を探す)="{item}">
             <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
           </template>
         </b-table>
@@ -97,7 +97,7 @@ export default {
   name: 'home',
   data: function(){
     return {
-      price_fields: ["お店", "価格", ""],
+      price_fields: ["お店", "価格", "お店を探す"],
       // drinks: [],
       prices: [],
       // favorite_shops: [],
