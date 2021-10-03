@@ -193,7 +193,7 @@ export default {
           // 取得成功した場合
           function(position) {
             // 緯度・経度を変数に格納?
-            axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&rankby=distance&location=' + position.coords.latitude + ',' + position.coords.longitude + '&radius=5000&language=ja&keyword='+ shop_name)
+            axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&rankby=distance&location=' + position.coords.latitude + ',' + position.coords.longitude + '&language=ja&keyword='+ shop_name)
             .then(function(response)  {
               if (response.status != 200) {
                   throw new Error('レスポンスエラー')
