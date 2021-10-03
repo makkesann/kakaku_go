@@ -23,7 +23,7 @@
                   <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
                 </div>
                 <div class="w-40 d-inline-block">
-                  <b-button @click="googleapi(prices[0].Name)">このショップを探す</b-button>
+                  <b-button @click="googleapi(prices[0].Name)" href="#map-box">このショップを探す</b-button>
                 </div>
               </b-col>
             </b-row>
@@ -58,6 +58,9 @@
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
+          <template v-slot:cell()="{item}">
+            <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
+          </template>
         </b-table>
         <router-link :to="{path: this.$route.path +'/add'}">価格の追加</router-link>
         <b-table striped hover :items="prices" :fields="price_fields">
@@ -73,7 +76,7 @@
           </template>
         </b-table>
       </b-row>
-      <div>
+      <div id="map-box">
         <b-alert v-if="map_error" variant="danger" show>
           {{map_error}}
         </b-alert>
@@ -91,7 +94,7 @@ export default {
   name: 'home',
   data: function(){
     return {
-      price_fields: ["お店", "価格"],
+      price_fields: ["お店", "価格", ""],
       // drinks: [],
       prices: [],
       // favorite_shops: [],
