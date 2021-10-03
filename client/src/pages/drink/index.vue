@@ -69,7 +69,7 @@
               <b-icon v-else @click="doAddFavoriteDrink(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
             </template>
           </b-table>
-          <b-table hover :items="serched_drinks" :fields="drink_fields">
+          <b-table hover :items="getItems" :fields="drink_fields">
             <template v-slot:cell(画像)="{item}">
               <div class="test2 mx-auto">
                 <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
@@ -115,14 +115,23 @@
       </b-row>
       <b-row>
         <paginate
+          class="mx-auto page-nation"
           :page-count="getPageCount"
           :page-range="3"
           :margin-pages="2"
           :click-handler="clickCallback"
-          :prev-text="'＜'"
-          :next-text="'＞'"
+          :prev-text="'<'"
+          :next-text="'>'"
           :container-class="'pagination'"
-          :page-class="'page-item'">
+          :page-class="'page-item'"
+          :page-link-class="'page-link'"
+          :prev-class="'page-item'"
+          :prev-link-class="'page-link'"
+          :next-class="'page-item'"
+          :next-link-class="'page-link'"
+          :first-last-button="true"
+          :first-button-text="'<<'"
+          :last-button-text="'>>'">
         </paginate>
       </b-row>
     </b-container>
