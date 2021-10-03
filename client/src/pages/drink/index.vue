@@ -113,6 +113,18 @@
           </template>
         </b-table>
       </b-row>
+      <b-row>
+        <paginate
+          :page-count="getPageCount"
+          :page-range="3"
+          :margin-pages="2"
+          :click-handler="clickCallback"
+          :prev-text="'＜'"
+          :next-text="'＞'"
+          :container-class="'pagination'"
+          :page-class="'page-item'">
+        </paginate>
+      </b-row>
     </b-container>
   </div>
 
@@ -132,6 +144,8 @@ export default {
       genre_id: 0,
       favorite_drinks: [],
       quantity: 0,
+      parPage: 10,
+      currentPage: 1,
       // drinks:[]
     }
   },
@@ -211,6 +225,14 @@ export default {
           }
       }
       return drinks;
+    },
+    getItems: function() {
+      let current = this.currentPage * this.parPage;
+      let start = current - this.parPage;
+      return this.serched_drinks.slice(start, current);
+    },
+    getPageCount: function() {
+      return Math.ceil(this.serched_drinks.length / this.parPage);
     },
   },
 
@@ -294,6 +316,9 @@ export default {
           console.log(error)
         })
       }
+    },
+    clickCallback(pageNum) {
+       this.currentPage = Number(pageNum);
     },
     noImage(element){
       element.target.src = 'https://placehold.jp/600x300.png'

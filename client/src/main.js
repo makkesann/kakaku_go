@@ -5,6 +5,7 @@ import router from './router/index.js'
 import store from './store/index.js'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Paginate from 'vuejs-paginate'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import "@/assets/style/global.scss"
 import VueLazyload from 'vue-lazyload'
@@ -18,7 +19,7 @@ import {
 import * as rules from "vee-validate/dist/rules";
 import * as VueGoogleMaps from 'vue2-google-maps'
 
-
+Vue.component('paginate', Paginate)
 localize({
   ja: { messages: { ...ja.messages } },
 });
