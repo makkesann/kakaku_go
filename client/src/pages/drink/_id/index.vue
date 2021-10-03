@@ -79,7 +79,7 @@
           </template>
         </b-table>
       </b-row>
-      <div id="map-box">
+      <div id="map-box" v-if="map_show">
         <b-alert v-if="map_error" variant="danger" show>
           {{map_error}}
         </b-alert>
@@ -103,7 +103,8 @@ export default {
       // favorite_shops: [],
       rakuten: [],
       rakuten_fields:["商品名", "価格", "画像"],
-      map_error: null
+      map_error: null,
+      map_show: false,
     }
   },
 
@@ -183,6 +184,7 @@ export default {
       }
     },
     googleapi(shop_name){
+      this.map_show = true
       var place
       var google = this.google
       var self = this
