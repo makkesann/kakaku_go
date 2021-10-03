@@ -74,6 +74,9 @@
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
+          <template v-slot:cell()="{item}">
+            <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
+          </template>
         </b-table>
       </b-row>
       <div id="map-box">
