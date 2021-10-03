@@ -47,7 +47,8 @@ Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
-// axios.defaults.baseURL = 'https://kakaku-real-store.tk:8082'
+axios.defaults.baseURL = 'https://kakaku-real-store.tk'
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
  
 Vue.use(VueLazyload, {
   preLoad: 1.3,
