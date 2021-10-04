@@ -202,6 +202,7 @@ export default {
                 rankby: "distance"
               },
               function(results, status) {
+                console.log(results)
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                   new google.maps.Marker({
                     map: map,
