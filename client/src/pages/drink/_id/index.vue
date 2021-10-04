@@ -91,7 +91,6 @@
 
 <script>
 // @ is an alias to /src
-import GoogleMapsApiLoader from 'google-maps-api-loader'
 import axios from 'axios'
 export default {
   name: 'home',
@@ -113,11 +112,6 @@ export default {
     this.doFetchPrices()
     this.rakutenapi()
     // this.googleapi()
-  },
-  async mounted() {
-    this.google = await GoogleMapsApiLoader({
-      apiKey: 'AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M'
-    });
   },
 
 
@@ -168,7 +162,6 @@ export default {
           jan_code = drink.Jan
           axios.get('https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=1053675093689591225&formatVersion=2&sort=%2BitemPrice&hits=1&keyword=' + jan_code)
           .then(response => {
-            // console.log(response.data)
             this.rakuten = response.data
           })
           .catch(error => {
@@ -178,49 +171,17 @@ export default {
         }else{
           this.rakuten = null
         }
-        // console.log(jan_code)
-        // console.log("わろた")
-
       }
     },
     googleapi(shop_name){
       this.map_show = true
-      var place
-      var google = this.google
-      var self = this
+      var google = window.google
       // Geolocation APIに対応している
       if (navigator.geolocation) {
         // 現在地を取得
         navigator.geolocation.getCurrentPosition(
           // 取得成功した場合
           function(position) {
-            // 緯度・経度を変数に格納?
-            axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&types=shopping_mall%meal_takeaway%liquor_store%supermarket%food%convenience_store&rankby=distance&location=' + position.coords.latitude + ',' + position.coords.longitude + '&language=ja&keyword='+ shop_name)
-            .then(function(response)  {
-              if (response.status != 200) {
-                  throw new Error('レスポンスエラー')
-              } else {
-                // マーカーを追加
-                if (response.data.status == "ZERO_RESULTS"){
-                  self.map_error = "付近にこのお店は存在しません"
-                } else{
-                  place = response.data.results[0]
-                  console.log(place)
-                  let pingLatLng = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng)
-                  var marker =new google.maps.Marker({
-                    map : map,             // 対象の地図オブジェクト
-                    position : pingLatLng   // 緯度・経度
-                  });
-                  var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
-                    content: '<div class="map_balloon">' + place.name + '</div>' // 吹き出しに表示する内容
-                  });
-                  marker.addListener('click', function() { // マーカーをクリックしたとき
-                    infoWindow.open(map, marker); // 吹き出しの表示
-                  });
-                }
-              }
-            })
-
             var mapLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
             // マップオプションを変数に格納
             var mapOptions = {
@@ -232,6 +193,25 @@ export default {
               document.getElementById("map"), // マップを表示する要素
               mapOptions         // マップオプション
             );
+            // Places APIのnearbySearchを使用する。
+            let placeService = new google.maps.places.PlacesService(map)
+            placeService.nearbySearch(
+              {
+                location: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                keyword: shop_name,
+                rankedby: "distance"
+              },
+              function(results, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                  new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    title: results[0].name,
+                    id: results[0].place_id
+                  })
+                }
+              }
+            )
           },
           // 取得失敗した場合
           function(error) {
