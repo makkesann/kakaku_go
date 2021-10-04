@@ -199,7 +199,8 @@ export default {
               {
                 location: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                 keyword: shop_name,
-                rankby: "distance"
+                rankby: "distance",
+                radius: 5000
               },
               function(results, status) {
                 console.log(results)
