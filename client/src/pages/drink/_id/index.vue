@@ -205,12 +205,17 @@ export default {
               function(results, status) {
                 console.log(results)
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
-                  new google.maps.Marker({
+                  var marker = new google.maps.Marker({
                     map: map,
                     position: results[0].geometry.location,
-                    title: results[0].name,
                     id: results[0].place_id
                   })
+                  var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+                    content: '<div class="map_balloon">' + results[0].name + '</div>' // 吹き出しに表示する内容
+                  });
+                  marker.addListener('click', function() { // マーカーをクリックしたとき
+                    infoWindow.open(map, marker); // 吹き出しの表示
+                  });
                 }
               }
             )
