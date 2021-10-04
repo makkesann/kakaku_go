@@ -199,7 +199,7 @@ export default {
               {
                 location: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                 keyword: shop_name,
-                rankedby: "distance"
+                rankby: "distance"
               },
               function(results, status) {
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
