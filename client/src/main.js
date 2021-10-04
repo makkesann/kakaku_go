@@ -5,6 +5,7 @@ import router from './router/index.js'
 import store from './store/index.js'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Paginate from 'vuejs-paginate'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import "@/assets/style/global.scss"
 import VueLazyload from 'vue-lazyload'
@@ -18,7 +19,7 @@ import {
 import * as rules from "vee-validate/dist/rules";
 import * as VueGoogleMaps from 'vue2-google-maps'
 
-
+Vue.component('paginate', Paginate)
 localize({
   ja: { messages: { ...ja.messages } },
 });
@@ -46,7 +47,8 @@ Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
-// axios.defaults.baseURL = 'https://54.65.204.164:8082'
+axios.defaults.baseURL = 'https://kakaku-real-store.tk'
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
  
 Vue.use(VueLazyload, {
   preLoad: 1.3,
@@ -70,7 +72,7 @@ new Vue({
 
 module.exports = {
   devServer: {
-      proxy: 'http://54.65.204.164:8081/',
+      proxy: 'http://kakaku-real-store.tk:8081/',
       disableHostCheck: true,
   }
 }

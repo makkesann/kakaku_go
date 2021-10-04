@@ -40,10 +40,14 @@ body{
 }
 
 .product_detail{
+  .table th, .table td{
+    vertical-align: middle;
+  }
   #map{
     width: 100%;
     height: 500px;
   }
+
   .out-img{
     margin-left: -24px;
   }
@@ -95,6 +99,9 @@ body{
     padding-left: 15px;
     padding-right: 15px;
   }
+  .page-nation{
+    margin-top: 30px;
+  }
 }
 #header{
   background-color: rgb(19,25,33);
@@ -107,6 +114,9 @@ body{
     #nav-home{
       margin-right: 20px;
       font-size: 30px;
+    }
+    #navbar-toggle-collapse a{
+      color: white;
     }
   }
 }

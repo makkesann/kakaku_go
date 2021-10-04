@@ -19,11 +19,11 @@
                 <h4 class="text-left mb-3">最安価格：{{ prices[0].Price }}円</h4>
               </b-col>
               <b-col cols="8" v-if="prices.length !=0">
-                <div class="pr-2 d-inline-block">
-                  <h4 class="text-left">最安ショップ：{{ prices[0].Name }}</h4>
+                <div class="pr-2 d-inline-block w-60">
+                  <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
                 </div>
                 <div class="w-40 d-inline-block">
-                  <b-button @click="googleapi(prices[0].Name)">このショップを探す</b-button>
+                  <b-button @click="googleapi(prices[0].Name)" href="#map-box">このショップを探す</b-button>
                 </div>
               </b-col>
             </b-row>
@@ -58,6 +58,9 @@
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
+          <template v-slot:cell(お店を探す)="{item}">
+            <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
+          </template>
         </b-table>
         <router-link :to="{path: this.$route.path +'/add'}">価格の追加</router-link>
         <b-table striped hover :items="prices" :fields="price_fields">
@@ -71,34 +74,36 @@
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
+          <template v-slot:cell(お店を探す)="{item}">
+            <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
+          </template>
         </b-table>
       </b-row>
-      <div>
+      <div id="map-box" v-if="map_show">
         <b-alert v-if="map_error" variant="danger" show>
           {{map_error}}
         </b-alert>
         <div id="map"></div>
       </div>
-      <button @click="googleapi">わっしょい</button>
     </b-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import GoogleMapsApiLoader from 'google-maps-api-loader'
 import axios from 'axios'
 export default {
   name: 'home',
   data: function(){
     return {
-      price_fields: ["お店", "価格"],
+      price_fields: ["お店", "価格", "お店を探す"],
       // drinks: [],
       prices: [],
       // favorite_shops: [],
       rakuten: [],
       rakuten_fields:["商品名", "価格", "画像"],
-      map_error: null
+      map_error: null,
+      map_show: false,
     }
   },
 
@@ -107,11 +112,6 @@ export default {
     this.doFetchPrices()
     this.rakutenapi()
     // this.googleapi()
-  },
-  async mounted() {
-    this.google = await GoogleMapsApiLoader({
-      apiKey: 'AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M'
-    });
   },
 
 
@@ -162,7 +162,6 @@ export default {
           jan_code = drink.Jan
           axios.get('https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=1053675093689591225&formatVersion=2&sort=%2BitemPrice&hits=1&keyword=' + jan_code)
           .then(response => {
-            // console.log(response.data)
             this.rakuten = response.data
           })
           .catch(error => {
@@ -172,48 +171,17 @@ export default {
         }else{
           this.rakuten = null
         }
-        // console.log(jan_code)
-        // console.log("わろた")
-
       }
     },
     googleapi(shop_name){
-      var place
-      var google = this.google
-      var self = this
+      this.map_show = true
+      var google = window.google
       // Geolocation APIに対応している
       if (navigator.geolocation) {
         // 現在地を取得
         navigator.geolocation.getCurrentPosition(
           // 取得成功した場合
           function(position) {
-            // 緯度・経度を変数に格納?
-            axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyB8JS5diZ8zIEUkoapu9qp_fVAVihF1C_M&location=' + position.coords.latitude + ',' + position.coords.longitude + '&radius=5000&language=ja&keyword='+ shop_name)
-            .then(function(response)  {
-              if (response.status != 200) {
-                  throw new Error('レスポンスエラー')
-              } else {
-                // マーカーを追加
-                if (response.data.status == "ZERO_RESULTS"){
-                  self.map_error = "付近にこのお店は存在しません"
-                } else{
-                  place = response.data.results[0]
-                  console.log(place)
-                  let pingLatLng = new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng)
-                  var marker =new google.maps.Marker({
-                    map : map,             // 対象の地図オブジェクト
-                    position : pingLatLng   // 緯度・経度
-                  });
-                  var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
-                    content: '<div class="map_balloon">' + place.name + '</div>' // 吹き出しに表示する内容
-                  });
-                  marker.addListener('click', function() { // マーカーをクリックしたとき
-                    infoWindow.open(map, marker); // 吹き出しの表示
-                  });
-                }
-              }
-            })
-
             var mapLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
             // マップオプションを変数に格納
             var mapOptions = {
@@ -225,6 +193,32 @@ export default {
               document.getElementById("map"), // マップを表示する要素
               mapOptions         // マップオプション
             );
+            // Places APIのnearbySearchを使用する。
+            let placeService = new google.maps.places.PlacesService(map)
+            placeService.nearbySearch(
+              {
+                location: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                keyword: shop_name,
+                rankby: "distance",
+                radius: 5000
+              },
+              function(results, status) {
+                console.log(results)
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                  var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    id: results[0].place_id
+                  })
+                  var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+                    content: '<div class="map_balloon">' + results[0].name + '</div>' // 吹き出しに表示する内容
+                  });
+                  marker.addListener('click', function() { // マーカーをクリックしたとき
+                    infoWindow.open(map, marker); // 吹き出しの表示
+                  });
+                }
+              }
+            )
           },
           // 取得失敗した場合
           function(error) {
@@ -252,7 +246,7 @@ export default {
     },
     doFetchPrices() {
       let drink_id = this.$route.params.id
-      axios.get('https://54.65.204.164:8082/drinks/' + drink_id + '/prices')
+      axios.get('https://kakaku-real-store.tk:8082/drinks/' + drink_id + '/prices')
       .then(response => {
         const resultDrinkPrices = response.data
         // console.log(resultDrinkPrices)
@@ -294,7 +288,7 @@ export default {
         const params = new URLSearchParams()
         params.append('shop_id', item.ShopID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('https://54.65.204.164:8082/favorite_shop/add', params)
+        axios.post('https://kakaku-real-store.tk:8082/favorite_shop/add', params)
         .catch(error => {
           // handle error
           console.log(error)
@@ -309,7 +303,7 @@ export default {
         const params = new URLSearchParams()
         params.append('shop_id', item.ShopID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('https://54.65.204.164:8082/favorite_shop/delete', params)
+        axios.post('https://kakaku-real-store.tk:8082/favorite_shop/delete', params)
         .catch(error => {
           // handle error
           console.log(error)

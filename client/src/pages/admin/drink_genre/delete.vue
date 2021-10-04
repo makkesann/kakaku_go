@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     GetDrinkGenres(){
-      axios.get('https://54.65.204.164:8082/drink/genres')
+      axios.get('https://kakaku-real-store.tk:8082/drink/genres')
       .then((response) => {
         this.genres = response.data
       })
@@ -60,7 +60,7 @@ export default {
     doDeleteDrinkGenre() {
       // サーバへ送信するパラメータ
       const genre_id = this.genre_id
-      axios.post('https://54.65.204.164:8082/drink/genre/' + genre_id + '/delete')
+      axios.post('https://kakaku-real-store.tk:8082/drink/genre/' + genre_id + '/delete')
       .then(() => {
         this.$router.push('/drink')
       })

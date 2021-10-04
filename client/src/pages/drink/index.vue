@@ -69,7 +69,7 @@
               <b-icon v-else @click="doAddFavoriteDrink(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
             </template>
           </b-table>
-          <b-table hover :items="serched_drinks" :fields="drink_fields">
+          <b-table hover :items="getItems" :fields="drink_fields">
             <template v-slot:cell(画像)="{item}">
               <div class="test2 mx-auto">
                 <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
@@ -113,6 +113,27 @@
           </template>
         </b-table>
       </b-row>
+      <b-row>
+        <paginate
+          class="mx-auto page-nation"
+          :page-count="getPageCount"
+          :page-range="3"
+          :margin-pages="2"
+          :click-handler="clickCallback"
+          :prev-text="'<'"
+          :next-text="'>'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+          :page-link-class="'page-link'"
+          :prev-class="'page-item'"
+          :prev-link-class="'page-link'"
+          :next-class="'page-item'"
+          :next-link-class="'page-link'"
+          :first-last-button="true"
+          :first-button-text="'<<'"
+          :last-button-text="'>>'">
+        </paginate>
+      </b-row>
     </b-container>
   </div>
 
@@ -132,6 +153,8 @@ export default {
       genre_id: 0,
       favorite_drinks: [],
       quantity: 0,
+      parPage: 10,
+      currentPage: 1,
       // drinks:[]
     }
   },
@@ -212,6 +235,14 @@ export default {
       }
       return drinks;
     },
+    getItems: function() {
+      let current = this.currentPage * this.parPage;
+      let start = current - this.parPage;
+      return this.serched_drinks.slice(start, current);
+    },
+    getPageCount: function() {
+      return Math.ceil(this.serched_drinks.length / this.parPage);
+    },
   },
 
   watch: {
@@ -273,7 +304,7 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('https://54.65.204.164:8082/favorite_drink/add', params)
+        axios.post('https://kakaku-real-store.tk:8082/favorite_drink/add', params)
         .catch(error => {
           // handle error
           console.log(error)
@@ -288,12 +319,15 @@ export default {
         const params = new URLSearchParams()
         params.append('drink_id', item.ID)
         params.append('user_id', this.$store.state.login.id)
-        axios.post('https://54.65.204.164:8082/favorite_drink/delete', params)
+        axios.post('https://kakaku-real-store.tk:8082/favorite_drink/delete', params)
         .catch(error => {
           // handle error
           console.log(error)
         })
       }
+    },
+    clickCallback(pageNum) {
+       this.currentPage = Number(pageNum);
     },
     noImage(element){
       element.target.src = 'https://placehold.jp/600x300.png'
