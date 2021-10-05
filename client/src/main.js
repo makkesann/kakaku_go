@@ -69,7 +69,7 @@ new Vue({
 
 module.exports = {
   devServer: {
-      proxy: 'http://kakaku-real-store.tk:8081/',
+      proxy: 'http://kakaku-real-store.tk:8082/',
       disableHostCheck: true,
   }
 }
