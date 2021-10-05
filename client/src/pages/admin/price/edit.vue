@@ -8,7 +8,7 @@
         <validation-observer ref="observer" v-slot="{handleSubmit}">
           <b-form @submit.stop.prevent="handleSubmit(doChangePricePrice)">
             <validation-provider name="商品名" v-slot="validationContext" :rules="{ required: true}">
-              <b-form-group id="drink_id">
+              <b-form-group id="drink_id-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="drink_id">商品名：</label>
@@ -32,7 +32,7 @@
               </b-form-group>
             </validation-provider>
             <validation-provider name="店名" v-slot="validationContext" :rules="{ required: true}">
-              <b-form-group id="shop_id">
+              <b-form-group id="shop_id-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="shop_id">店名：</label>
@@ -56,7 +56,7 @@
               </b-form-group>
             </validation-provider>
             <validation-provider name="変更する価格" v-slot="validationContext" :rules="{ required: true}">
-              <b-form-group id="price_id">
+              <b-form-group id="price_id-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="price_id">変更する価格：</label>
@@ -84,7 +84,7 @@
               :rules="{ required, numeric }"
               v-slot="validationContext"
             >
-              <b-form-group id="price">
+              <b-form-group id="price-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="price">変更後の価格：</label>

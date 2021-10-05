@@ -12,7 +12,7 @@
               :rules="{ required: true, min: 3, my_alpha_dash }"
               v-slot="validationContext"
             >
-              <b-form-group id="username">
+              <b-form-group id="username-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="username">ユーザー名：</label>
@@ -31,11 +31,11 @@
               </b-form-group>
             </validation-provider>
             <validation-provider
-              name="パスワード"
+              name="user_pass"
               :rules="{ required: true, min: 3, my_alpha_dash }"
               v-slot="validationContext"
             >
-              <b-form-group id="user_pass">
+              <b-form-group id="user_pass-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="user_pass">パスワード：</label>
@@ -49,6 +49,32 @@
                       aria-describedby="user_pass-live-feedback"
                     ></b-form-input>
                     <b-form-invalid-feedback id="user_pass-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                  </b-col>
+                </b-row>
+              </b-form-group>
+            </validation-provider>
+            <validation-provider
+              name="パスワード確認入力"
+              :rules="{ required, min: 3, my_alpha_dash, confirmed: 'user_pass' }"
+              v-slot="validationContext"
+            >
+              <b-form-group id="user_pass_confirmed-box">
+                <b-row>
+                  <b-col cols="3" class="text-right">
+                    <label for="user_pass_confirmed">パスワード確認入力：</label>
+                  </b-col>
+                  <b-col cols="9">
+                    <b-form-input
+                      id="user_pass_confirmed"
+                      name="user_pass_confirmed"
+                      v-validate="{
+                        confirmed: 'user_pass' 
+                      }"
+                      v-model="user_pass_confirmed"
+                      :state="getValidationState(validationContext)"
+                      aria-describedby="user_pass_confirmed-live-feedback"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="user_pass_confirmed-live-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                   </b-col>
                 </b-row>
               </b-form-group>
@@ -70,7 +96,8 @@ export default {
     return {
       username: null,
       user_pass: null,
-      error: null
+      user_pass_confirmed: null,
+      error: null,
     }
   },
   beforeCreate() {

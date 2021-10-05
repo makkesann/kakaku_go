@@ -12,7 +12,7 @@
               :rules="{ required: true }"
               v-slot="validationContext"
             >
-              <b-form-group id="genrename">
+              <b-form-group id="genrename-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="genrename">ジャンル名：</label>

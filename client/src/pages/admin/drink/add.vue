@@ -12,7 +12,7 @@
               :rules="{ required: true, min: 2 }"
               v-slot="validationContext"
             >
-              <b-form-group id="productname">
+              <b-form-group id="productname-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="productname">商品名：</label>
@@ -31,7 +31,7 @@
               </b-form-group>
             </validation-provider>
             <validation-provider name="ジャンル" v-slot="validationContext">
-              <b-form-group id="genre_id">
+              <b-form-group id="genre_id-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="genre_id">ジャンル：</label>
@@ -59,7 +59,7 @@
               :rules="{ numeric, length: 13 }"
               v-slot="validationContext"
             >
-              <b-form-group id="Jancode">
+              <b-form-group id="Jancode-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="Jancode">Janコード：</label>
@@ -81,7 +81,7 @@
               name="画像ファイル名"
               v-slot="validationContext"
             >
-              <b-form-group id="img_file_name">
+              <b-form-group id="img_file_name-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="img_file_name">画像ファイル名：</label>
@@ -104,7 +104,7 @@
               :rules="{numeric}"
               v-slot="validationContext"
             >
-              <b-form-group id="quantity">
+              <b-form-group id="quantity-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="quantity">内容量（ml）：</label>

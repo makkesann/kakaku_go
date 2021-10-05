@@ -8,7 +8,7 @@
         <validation-observer ref="observer" v-slot="{handleSubmit}">
           <b-form @submit.stop.prevent="handleSubmit(doDeleteDrinkGenre)">
             <validation-provider name="ジャンル名" :rules="{ required: true }" v-slot="validationContext">
-              <b-form-group id="genre_id" label="ジャンル名" label-for="genre_id">
+              <b-form-group id="genre_id-box" label="ジャンル名" label-for="genre_id">
                 <b-form-select
                   id="genre_id"
                   name="genre_id"

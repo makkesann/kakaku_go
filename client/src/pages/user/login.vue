@@ -12,7 +12,7 @@
               :rules="{ required: true, min: 3, my_alpha_dash }"
               v-slot="validationContext"
             >
-              <b-form-group id="username">
+              <b-form-group id="username-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="username">ユーザー名：</label>
@@ -35,7 +35,7 @@
               :rules="{ required: true, min: 3, my_alpha_dash }"
               v-slot="validationContext"
             >
-              <b-form-group id="user_pass">
+              <b-form-group id="user_pass-box">
                 <b-row>
                   <b-col cols="3" class="text-right">
                     <label for="user_pass">パスワード：</label>

@@ -8,7 +8,7 @@
         <validation-observer ref="observer" v-slot="{handleSubmit}">
           <b-form @submit.stop.prevent="handleSubmit(doDeleteShop)">
             <validation-provider name="店舗名" :rules="{ required: true }" v-slot="validationContext">
-              <b-form-group id="shop_id" label="店舗名" label-for="shop_id">
+              <b-form-group id="shop_id-box" label="店舗名" label-for="shop_id">
                 <b-form-select
                   id="shop_id"
                   name="shop_id"
