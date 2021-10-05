@@ -205,7 +205,7 @@ export default {
               },
               function(results, status) {
                 console.log(results)
-                if (results.length ==0 || results.data.status == "ZERO_RESULTS"){
+                if (results.length ==0){
                   self.map_error = "付近にこのお店は存在しません"
                 } else{
                   if (status == google.maps.places.PlacesServiceStatus.OK) {
