@@ -13,16 +13,7 @@ func GetRouter() *gin.Engine { // *gin.Engineの表記は返り値の型
 	r.Use(cors.New(cors.Config{
 		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
-			"http://kakaku-real-store.tk:8083",
-			"http://kakaku-real-store.tk:8080",
-			"http://kakaku-real-store.tk",
-			"http://kakaku-real-store.tk:81",
-			"https://kakaku-real-store.tk:443",
-			"https://kakaku-real-store.tk:444",
-			"http://ec2-54-65-204-164.ap-northeast-1.compute.amazonaws.com",
-			"https://ec2-54-65-204-164.ap-northeast-1.compute.amazonaws.com",
 			"https://kakaku-real-store.tk",
-			"http://kakaku-real-store.tk",
 		},
 		AllowMethods: []string{
 			"POST",

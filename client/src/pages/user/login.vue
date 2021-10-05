@@ -32,7 +32,7 @@
             </validation-provider>
             <validation-provider
               name="パスワード"
-              :rules="{ required: true, min: 3 }"
+              :rules="{ required: true, min: 3, my_alpha_dash }"
               v-slot="validationContext"
             >
               <b-form-group id="user_pass">

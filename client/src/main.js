@@ -47,9 +47,6 @@ Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = true
 Vue.prototype.$axios = axios
-axios.defaults.baseURL = 'https://kakaku-real-store.tk'
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
- 
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: 'https://dummyimage.com/64x64/ccc/999.png&text=Not+Found',
