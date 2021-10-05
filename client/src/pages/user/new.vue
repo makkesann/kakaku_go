@@ -31,7 +31,7 @@
               </b-form-group>
             </validation-provider>
             <validation-provider
-              name="user_pass"
+              name="パスワード"
               :rules="{ required: true, min: 3, my_alpha_dash }"
               v-slot="validationContext"
             >
@@ -55,7 +55,7 @@
             </validation-provider>
             <validation-provider
               name="パスワード確認入力"
-              :rules="{ required, min: 3, my_alpha_dash, confirmed: 'user_pass' }"
+              :rules="{ required, min: 3, my_alpha_dash, confirmed: 'パスワード' }"
               v-slot="validationContext"
             >
               <b-form-group id="user_pass_confirmed-box">
