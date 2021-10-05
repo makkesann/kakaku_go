@@ -175,6 +175,7 @@ export default {
     },
     googleapi(shop_name){
       this.map_show = true
+      var self = this
       var google = window.google
       // Geolocation APIに対応している
       if (navigator.geolocation) {
@@ -204,18 +205,22 @@ export default {
               },
               function(results, status) {
                 console.log(results)
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                  var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location,
-                    id: results[0].place_id
-                  })
-                  var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
-                    content: '<div class="map_balloon">' + results[0].name + '</div>' // 吹き出しに表示する内容
-                  });
-                  marker.addListener('click', function() { // マーカーをクリックしたとき
-                    infoWindow.open(map, marker); // 吹き出しの表示
-                  });
+                if (results.length ==0 || results.data.status == "ZERO_RESULTS"){
+                  self.map_error = "付近にこのお店は存在しません"
+                } else{
+                  if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    var marker = new google.maps.Marker({
+                      map: map,
+                      position: results[0].geometry.location,
+                      id: results[0].place_id
+                    })
+                    var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+                      content: '<div class="map_balloon">' + results[0].name + '</div>' // 吹き出しに表示する内容
+                    });
+                    marker.addListener('click', function() { // マーカーをクリックしたとき
+                      infoWindow.open(map, marker); // 吹き出しの表示
+                    });
+                }
                 }
               }
             )
