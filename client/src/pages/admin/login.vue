@@ -86,8 +86,8 @@ export default {
       params.append('username', this.username)
       params.append('pass', this.user_pass)
       axios.post('https://kakaku-real-store.tk:8082/admin/login', params)
-      .then(response => {
-        this.$store.dispatch('login/doSetID',response.data.Value.ID)
+      .then(() => {
+        this.$store.dispatch('login/doAdminLogIn',true)
           //一覧ページに遷移する
         this.$router.push('/drink')
       })
