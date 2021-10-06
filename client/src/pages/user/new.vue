@@ -44,6 +44,7 @@
                     <b-form-input
                       id="user_pass"
                       name="user_pass"
+                      type="password"
                       v-model="user_pass"
                       :state="getValidationState(validationContext)"
                       aria-describedby="user_pass-live-feedback"
@@ -67,9 +68,7 @@
                     <b-form-input
                       id="user_pass_confirmed"
                       name="user_pass_confirmed"
-                      v-validate="{
-                        confirmed: 'user_pass' 
-                      }"
+                      type="password"
                       v-model="user_pass_confirmed"
                       :state="getValidationState(validationContext)"
                       aria-describedby="user_pass_confirmed-live-feedback"
