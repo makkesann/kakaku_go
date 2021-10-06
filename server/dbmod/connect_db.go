@@ -45,6 +45,7 @@ func SqlConnect() (database *gorm.DB) {
 		&model.Drink{},
 		&model.DrinkGenre{},
 		&model.User{},
+		&model.Admin{},
 		&model.DrinkPrice{},
 		&model.Shop{},
 		&model.FavoriteDrink{},
