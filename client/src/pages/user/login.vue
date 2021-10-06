@@ -75,7 +75,7 @@ export default {
     }
   },
   beforeCreate() {
-    if(this.$store.state.login.id != 0){
+    if(this.$store.state.login.admin == true){
       this.$router.push('/drink')
     }
   },
