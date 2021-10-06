@@ -50,7 +50,7 @@
             <h3 v-else>該当する商品がありません</h3>
           </div>
           <!-- <p v-if="admin">商品追加</p> -->
-          <b-table v-if="serched_favorite_drinks.length != 0" striped hover :items="serched_favorite_drinks" :fields="drink_fields">
+          <b-table v-if="serched_favorite_drinks.length != 0" hover :items="serched_favorite_drinks" :fields="drink_fields">
             <template v-slot:cell(画像)="{item}">
               <div class="test2 mx-auto">
                 <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">

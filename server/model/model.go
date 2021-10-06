@@ -49,6 +49,11 @@ type User struct {
 	Name string `json:"name" gorm:"unique;not null"`
 	Pass string `gorm:"not null"`
 }
+type Admin struct {
+	gorm.Model
+	Name string `json:"name" gorm:"unique;not null"`
+	Pass string `gorm:"not null"`
+}
 
 type FavoriteDrink struct {
 	UserID  uint `gorm:"not null;primary_key"`

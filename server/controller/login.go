@@ -12,10 +12,28 @@ import (
 func UserLogin(c *gin.Context) {
 	username := c.PostForm("username")
 	pass := c.PostForm("pass")
-	fmt.Println(username)
 	user := model.User{}
 	db := dbmod.SqlConnect()
 	found := db.Where("name = ? AND pass = ?", username, pass).First(&user)
+	err := found.Error
+	fmt.Print(err)
+	// fmt.Print(user)
+	if err != nil {
+		c.JSON(400, err)
+	} else {
+		c.JSON(200, found)
+	}
+	fmt.Println(found)
+	defer db.Close()
+	// c.Status(400)
+
+}
+func AdminLogin(c *gin.Context) {
+	username := c.PostForm("username")
+	pass := c.PostForm("pass")
+	admin := model.Admin{}
+	db := dbmod.SqlConnect()
+	found := db.Where("name = ? AND pass = ?", username, pass).First(&admin)
 	err := found.Error
 	fmt.Print(err)
 	// fmt.Print(user)
