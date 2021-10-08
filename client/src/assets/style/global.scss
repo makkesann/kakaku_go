@@ -138,6 +138,33 @@ body{
     display: none;
   }
 
+  .drink{
+    .table-image{
+      width: 20%;
+    }
+    .table-name{
+      width: 40%;
+    }
+    .table-quantity{
+      width: 20%;
+    }
+    .table-favorite{
+      width: 20%;
+    }
+  }
+
+  .product_detail{
+    .table-shop{
+      width: 40%;
+    }
+    .table-price{
+      width: 20%;
+    }
+    .table-search{
+      width: 40%;
+    }
+  }
+
 }
 
 // スマホ用デザイン

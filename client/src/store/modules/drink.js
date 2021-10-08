@@ -28,8 +28,6 @@ export default {
       axios.get('https://kakaku-real-store.tk:8082/drinks')
       .then(response => {
         context.commit('setDrinks', response.data)
-        // console.log(response.data)
-
       })
       .catch(error => {
         // handle error

@@ -48,33 +48,33 @@
       <b-row>
         <h2 v-if="favorite_shops.length != 0">お気に入りの店</h2>
         <b-table v-if="favorite_shops.length != 0" striped hover :items="favorite_shops" :fields="price_fields">
-          <template v-slot:cell(お店)="{item}">
+          <template v-slot:cell(お店)="{item}" class="table-shop">
             <span>{{ item.Name }}&nbsp;&nbsp;</span>
            <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
             <b-icon v-else @click="doAddFavoriteShop(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
             <!-- <p v-if="admin">削除</p> -->
           </template>
-          <template v-slot:cell(価格)="{item}">
+          <template v-slot:cell(価格)="{item}" class="table-price">
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
-          <template v-slot:cell(お店を探す)="{item}">
+          <template v-slot:cell(お店を探す)="{item}" class="table-search">
             <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
           </template>
         </b-table>
         <router-link :to="{path: this.$route.path +'/add'}">価格の追加</router-link>
         <b-table striped hover :items="prices" :fields="price_fields">
-          <template v-slot:cell(お店)="{item}">
+          <template v-slot:cell(お店)="{item}" class="table-shop">
             <span>{{ item.Name }}&nbsp;&nbsp;</span>
            <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
             <b-icon v-else @click="doAddFavoriteShop(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
             <!-- <p v-if="admin">削除</p> -->
           </template>
-          <template v-slot:cell(価格)="{item}">
+          <template v-slot:cell(価格)="{item}" class="table-price">
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
-          <template v-slot:cell(お店を探す)="{item}">
+          <template v-slot:cell(お店を探す)="{item}" class="table-search">
             <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
           </template>
         </b-table>
@@ -204,7 +204,6 @@ export default {
                 radius: 5000
               },
               function(results, status) {
-                console.log(results)
                 if (results.length ==0){
                   self.map_error = "付近にこのお店は存在しません"
                 } else{
@@ -254,7 +253,6 @@ export default {
       axios.get('https://kakaku-real-store.tk:8082/drinks/' + drink_id + '/prices')
       .then(response => {
         const resultDrinkPrices = response.data
-        // console.log(resultDrinkPrices)
         // サーバから取得した商品情報をdataに設定する
       for (const i in resultDrinkPrices){
         this.$set(resultDrinkPrices[i], 'favorite', false)

@@ -93,11 +93,9 @@ export default {
       // サーバへ送信するパラメータ
       let drink_id = this.$route.params.id
       const params = new URLSearchParams()
-      console.log(drink_id)
       params.append('drink_id', drink_id)
       params.append('price', this.price)
       params.append('shop_id', this.shop_id)
-      // console.log(params)
       axios.post('https://kakaku-real-store.tk:8082/price/add', params)
       .then(response => {
           if (response.status != 200) {
