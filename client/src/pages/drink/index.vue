@@ -170,7 +170,6 @@ export default {
     },
     serched_drinks(){
       var result = this.drinks
-      this.currentPage = 1
       if (this.genre_id != 0){
         result = result.filter((drink) => drink.DrinkGenreID == this.genre_id)
       }
@@ -261,9 +260,11 @@ export default {
   },
   methods: {
     ChangeGenreID(genre_id) {
+      this.currentPage = 1
       this.genre_id = genre_id
     },
     ChangeQuantity(i) {
+      this.currentPage = 1
       this.quantity = i
     },
     ReloadFavoriteDrink(favorite){
