@@ -11,18 +11,18 @@
         <b-col cols="2">
           <div class="text-left genre_box mb-4">
             <h6 class="mb-0">ジャンルで絞る</h6><hr class="mb-3 mt-2">
-            <p class="hover mb-2" @click="ChangeGenreID(0)">リセット</p>
+            <p class="hover mb-2" @click="ChangeGenreID(0); clickCallback(1)">リセット</p>
             <div v-for="genre in drink_genres" v-bind:key="genre.id">
-              <p @click="ChangeGenreID(genre.ID)" class="hover mb-2">{{ genre.name }}</p>
+              <p @click="ChangeGenreID(genre.ID); clickCallback(1)" class="hover mb-2">{{ genre.name }}</p>
             </div>
           </div>
           <div class="text-left genre_box">
             <h6 class="mb-0">内容量で絞る</h6><hr class="mb-3 mt-2">
-            <p class="hover mb-2" @click="ChangeQuantity(0)">リセット</p>
-            <p class="hover mb-2" @click="ChangeQuantity(1)">~200ml</p>
-            <p class="hover mb-2" @click="ChangeQuantity(2)">200ml~700ml</p>
-            <p class="hover mb-2" @click="ChangeQuantity(3)">700ml~1L</p>
-            <p class="hover mb-2" @click="ChangeQuantity(4)">1L~</p>
+            <p class="hover mb-2" @click="ChangeQuantity(0); clickCallback(1)">リセット</p>
+            <p class="hover mb-2" @click="ChangeQuantity(1); clickCallback(1)">~200ml</p>
+            <p class="hover mb-2" @click="ChangeQuantity(2); clickCallback(1)">200ml~700ml</p>
+            <p class="hover mb-2" @click="ChangeQuantity(3); clickCallback(1)">700ml~1L</p>
+            <p class="hover mb-2" @click="ChangeQuantity(4); clickCallback(1)">1L~</p>
           </div>
         </b-col>
         <b-col cols="10">
@@ -260,11 +260,9 @@ export default {
   },
   methods: {
     ChangeGenreID(genre_id) {
-      this.currentPage = Number(1)
       this.genre_id = genre_id
     },
     ChangeQuantity(i) {
-      this.currentPage = Number(1)
       this.quantity = i
     },
     ReloadFavoriteDrink(favorite){
