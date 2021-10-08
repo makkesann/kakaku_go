@@ -116,6 +116,7 @@
       <b-row>
         <paginate
           class="mx-auto page-nation"
+          v-model="currentPage"
           :page-count="getPageCount"
           :page-range="3"
           :margin-pages="2"
