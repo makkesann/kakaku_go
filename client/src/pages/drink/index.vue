@@ -116,7 +116,7 @@
       <b-row>
         <paginate
           class="mx-auto page-nation"
-          :page-count="currentPage"
+          :page-count="getPageCount"
           :page-range="3"
           :margin-pages="2"
           :click-handler="clickCallback"
