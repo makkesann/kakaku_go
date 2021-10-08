@@ -260,11 +260,11 @@ export default {
   },
   methods: {
     ChangeGenreID(genre_id) {
-      this.currentPage = 1
+      this.currentPage = Number(1)
       this.genre_id = genre_id
     },
     ChangeQuantity(i) {
-      this.currentPage = 1
+      this.currentPage = Number(1)
       this.quantity = i
     },
     ReloadFavoriteDrink(favorite){
