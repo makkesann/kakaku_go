@@ -158,9 +158,6 @@ export default {
       // drinks:[]
     }
   },
-  // created(){
-  //   this.drinks = this.$store.getters["drink/getDrinks"]
-  // },
   computed: {
     drinks() {
       return this.$store.getters["drink/getDrinks"]
@@ -173,6 +170,7 @@ export default {
     },
     serched_drinks(){
       var result = this.drinks
+      this.currentPage = 1
       if (this.genre_id != 0){
         result = result.filter((drink) => drink.DrinkGenreID == this.genre_id)
       }
