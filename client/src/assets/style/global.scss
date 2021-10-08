@@ -13,14 +13,9 @@ body{
   margin-top: 30px;
 }
 .kusa{
-  // background-color: red;
   width: 128px;
   height: 128px;
 }
-// img {
-//   width: auto;
-//   height: auto;
-// }
 
 .test2{
   width: 64px;
@@ -139,17 +134,19 @@ body{
   }
 
   .drink{
-    .table-image{
-      width: 20%;
-    }
-    .table-name{
-      width: 40%;
-    }
-    .table-quantity{
-      width: 20%;
-    }
-    .table-favorite{
-      width: 20%;
+    .drinks-table tr{
+      td:first-child{
+        width: 20%;
+      }
+      td:nth-child(2){
+        width: 40%;
+      }
+      td:nth-child(3){
+        width: 20%;
+      }
+      td:nth-child(4){
+        width: 20%;
+      }
     }
   }
 
@@ -162,6 +159,17 @@ body{
     }
     .table-search{
       width: 40%;
+    }
+    .prices-table tr{
+      td:first-child{
+        width: 40%;
+      }
+      td:nth-child(2){
+        width: 20%;
+      }
+      td:nth-child(3){
+        width: 40%;
+      }
     }
   }
 

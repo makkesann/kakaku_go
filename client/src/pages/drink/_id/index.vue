@@ -48,7 +48,7 @@
       <b-row>
         <h2 v-if="favorite_shops.length != 0">お気に入りの店</h2>
         <b-table v-if="favorite_shops.length != 0" striped hover :items="favorite_shops" :fields="price_fields">
-          <template v-slot:cell(お店)="{item}" class="table-shop">
+          <template v-slot:cell(お店)="{item}">
             <span>{{ item.Name }}&nbsp;&nbsp;</span>
            <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
             <b-icon v-else @click="doAddFavoriteShop(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
@@ -58,13 +58,13 @@
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
-          <template v-slot:cell(お店を探す)="{item}" class="table-search">
+          <template v-slot:cell(お店を探す)="{item}">
             <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
           </template>
         </b-table>
         <router-link :to="{path: this.$route.path +'/add'}">価格の追加</router-link>
         <b-table striped hover :items="prices" :fields="price_fields">
-          <template v-slot:cell(お店)="{item}" class="table-shop">
+          <template v-slot:cell(お店)="{item}">
             <span>{{ item.Name }}&nbsp;&nbsp;</span>
            <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
             <b-icon v-else @click="doAddFavoriteShop(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
@@ -74,7 +74,7 @@
             <span>{{ item.Price }}円</span>
             <!-- <p v-if="admin">削除</p> -->
           </template>
-          <template v-slot:cell(お店を探す)="{item}" class="table-search">
+          <template v-slot:cell(お店を探す)="{item}">
             <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
           </template>
         </b-table>
