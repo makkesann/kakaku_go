@@ -18,11 +18,11 @@
               <b-col cols="4" v-if="prices.length !=0">
                 <h4 class="text-left mb-3">最安価格：{{ prices[0].Price }}円</h4>
               </b-col>
-              <b-col cols="8" v-if="prices.length !=0" class="cheapest">
-                <div class="pr-2 d-inline-block w-60">
+              <b-col cols="8" v-if="prices.length !=0" class="cheapest d-table">
+                <div class="pr-2 d-table-cell">
                   <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
                 </div>
-                <div class="w-40 d-inline-block">
+                <div class="d-table-cell" id="serch-shop">
                   <b-button @click="googleapi(prices[0].Name)" href="#map-box">このショップを探す</b-button>
                 </div>
               </b-col>
