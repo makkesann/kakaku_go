@@ -47,7 +47,7 @@
       </div>
       <b-row>
         <h2 v-if="favorite_shops.length != 0">お気に入りの店</h2>
-        <b-table v-if="favorite_shops.length != 0" hover :items="favorite_shops" :fields="price_fields" class="prices-table">
+        <b-table v-if="favorite_shops.length != 0" striped hover :items="favorite_shops" :fields="price_fields" class="prices-table">
           <template v-slot:cell(お店)="{item}">
             <span>{{ item.Name }}&nbsp;&nbsp;</span>
            <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
@@ -63,7 +63,7 @@
           </template>
         </b-table>
         <router-link :to="{path: this.$route.path +'/add'}">価格の追加</router-link>
-        <b-table hover :items="prices" :fields="price_fields" class="prices-table">
+        <b-table striped hover :items="prices" :fields="price_fields" class="prices-table">
           <template v-slot:cell(お店)="{item}">
             <span>{{ item.Name }}&nbsp;&nbsp;</span>
            <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
