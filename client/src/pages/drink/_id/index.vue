@@ -18,7 +18,7 @@
               <b-col cols="4" v-if="prices.length !=0">
                 <h4 class="text-left mb-3">最安価格：{{ prices[0].Price }}円</h4>
               </b-col>
-              <b-col cols="8" v-if="prices.length !=0">
+              <b-col cols="8" v-if="prices.length !=0" class="cheapest">
                 <div class="pr-2 d-inline-block w-60">
                   <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
                 </div>
