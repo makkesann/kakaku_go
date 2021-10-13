@@ -90,40 +90,42 @@
       <div class="text-left">
         <router-link to="/drink">商品一覧に戻る</router-link>
       </div>
-      <h2 class="text-left">{{drink[0].name}}</h2><hr>
-      <b-row>
-        <b-col cols="5" class="py-4 px-2 out-img">
-          <div id="Imgbox" class="mx-auto">
-            <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/large/' + drink[0].Image">
-          </div>
-        </b-col>
-        <b-col cols="7" class="py-2 px-2 w-100">
-          <p v-if="prices.length ==0">価格が登録されていません</p>
-          <p v-if="prices.length !=0" class="text-left mb-1">最安価格：{{ prices[0].Price }}円</p>
-          <div v-if="prices.length !=0">
-            <p class="text-left mb-1">最安ショップ：<br>{{ prices[0].Name }}</p>
-          </div>
-          <div  id="serch-shop">
-            <b-button @click="googleapi(prices[0].Name)" href="#map-box">このショップを探す</b-button>
-          </div>
-        </b-col>
-      </b-row>
-      <b-row>          
-        <a :href="rakuten.Items[0].itemUrl" target="_blank" v-if="this.rakuten!=null">
-          <div class="rakuten">
-            <h5 class="text-left">楽天の参考価格</h5>
-            <b-row>
-              <b-col cols="4" class="p-0">
-                <img :src="rakuten.Items[0].smallImageUrls[0]">
-              </b-col>
-              <b-col cols="8" class="p-0">
-                <p class="text-left mb-1">{{ rakuten.Items[0].itemName }}</p>
-                <p class="text-left mb-0">{{ rakuten.Items[0].itemPrice }}円</p>
-              </b-col>
-            </b-row>
-          </div>
-        </a>
-      </b-row>
+      <div class="my-3">
+        <h3 class="text-left">{{drink[0].name}}</h3><hr class="m-0">
+        <b-row>
+          <b-col cols="5" class="py-4 px-2 out-img">
+            <div id="Imgbox" class="mx-auto">
+              <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/large/' + drink[0].Image">
+            </div>
+          </b-col>
+          <b-col cols="7" class="py-2 px-2 w-100">
+            <p v-if="prices.length ==0">価格が登録されていません</p>
+            <p v-if="prices.length !=0" class="text-left mb-1">最安価格：{{ prices[0].Price }}円</p>
+            <div v-if="prices.length !=0">
+              <p class="text-left mb-3">最安ショップ：<br>{{ prices[0].Name }}</p>
+            </div>
+            <div  id="serch-shop">
+              <b-button @click="googleapi(prices[0].Name)" href="#map-box">このショップを探す</b-button>
+            </div>
+          </b-col>
+        </b-row>
+        <b-row>          
+          <a :href="rakuten.Items[0].itemUrl" target="_blank" v-if="this.rakuten!=null">
+            <div class="rakuten">
+              <h5 class="text-left">楽天の参考価格</h5>
+              <b-row>
+                <b-col cols="4" class="p-0">
+                  <img :src="rakuten.Items[0].smallImageUrls[0]">
+                </b-col>
+                <b-col cols="8" class="p-0">
+                  <p class="text-left mb-1">{{ rakuten.Items[0].itemName }}</p>
+                  <p class="text-left mb-0">{{ rakuten.Items[0].itemPrice }}円</p>
+                </b-col>
+              </b-row>
+            </div>
+          </a>
+        </b-row>
+      </div>
 
       <b-row>
         <h2 v-if="favorite_shops.length != 0">お気に入りの店</h2>
