@@ -79,12 +79,6 @@
           </template>
         </b-table>
       </b-row>
-      <div id="map-box" v-if="map_show">
-        <b-alert v-if="map_error" variant="danger" show>
-          {{map_error}}
-        </b-alert>
-        <div id="map"></div>
-      </div>
     </b-container>
     <b-container class="sp">
       <div class="text-left">
@@ -161,6 +155,8 @@
           </template>
         </b-table>
       </b-row>
+    </b-container>
+    <b-container>
       <div id="map-box" v-if="map_show">
         <b-alert v-if="map_error" variant="danger" show>
           {{map_error}}
