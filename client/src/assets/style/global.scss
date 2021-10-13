@@ -128,6 +128,7 @@ body{
     }
   }
 }
+// PC用デザイン
 @media screen and (min-width:500px) {
   .sp{
     display: none;
@@ -168,6 +169,7 @@ body{
     #serch-shop{
       width: 170px;
     }
+
   }
 
 }
@@ -180,6 +182,11 @@ body{
   .drink{
     .drinks-table{
       font-size: 16px;
+    }
+  }
+  .product_detail{
+    #Imgbox{
+      width: auto;
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="product_detail">
-    <b-container>
+    <b-container class="pc">
       <div class="text-left">
         <router-link to="/drink">商品一覧に戻る</router-link>
       </div>
@@ -42,6 +42,88 @@
               </div>
             </a>
           </b-col>
+        </b-row>
+
+      </div>
+      <b-row>
+        <h2 v-if="favorite_shops.length != 0">お気に入りの店</h2>
+        <b-table v-if="favorite_shops.length != 0" striped hover :items="favorite_shops" :fields="price_fields" class="prices-table">
+          <template v-slot:cell(お店)="{item}">
+            <span>{{ item.Name }}&nbsp;&nbsp;</span>
+           <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+            <b-icon v-else @click="doAddFavoriteShop(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
+          <template v-slot:cell(価格)="{item}" class="table-price">
+            <span>{{ item.Price }}円</span>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
+          <template v-slot:cell(お店を探す)="{item}">
+            <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
+          </template>
+        </b-table>
+        <router-link :to="{path: this.$route.path +'/add'}">価格の追加</router-link>
+        <b-table striped hover :items="prices" :fields="price_fields" class="prices-table">
+          <template v-slot:cell(お店)="{item}">
+            <span>{{ item.Name }}&nbsp;&nbsp;</span>
+           <b-icon v-if="item.favorite" @click="doDeleteFavoriteShop(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+            <b-icon v-else @click="doAddFavoriteShop(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
+          <template v-slot:cell(価格)="{item}" class="table-price">
+            <span>{{ item.Price }}円</span>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
+          <template v-slot:cell(お店を探す)="{item}">
+            <b-button @click="googleapi(item.Name)" href="#map-box">このショップを探す</b-button>
+          </template>
+        </b-table>
+      </b-row>
+      <div id="map-box" v-if="map_show">
+        <b-alert v-if="map_error" variant="danger" show>
+          {{map_error}}
+        </b-alert>
+        <div id="map"></div>
+      </div>
+    </b-container>
+    <b-container class="sp">
+      <div class="text-left">
+        <router-link to="/drink">商品一覧に戻る</router-link>
+      </div>
+      <div class="box">
+        <h2 class="text-left">{{drink[0].name}}</h2><hr>
+        <b-row>
+          <b-col cols="5" class="py-4 px-2 out-img">
+            <div id="Imgbox" class="mx-auto">
+              <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/large/' + drink[0].Image">
+            </div>
+          </b-col>
+          <b-col cols="7" class="py-2 px-2 w-100">
+            <h2 v-if="prices.length ==0">価格が登録されていません</h2>
+            <h4 v-if="prices.length !=0" class="text-left mb-3">最安価格：{{ prices[0].Price }}円</h4>
+            <div v-if="prices.length !=0">
+              <h5 class="text-left">最安ショップ：{{ prices[0].Name }}</h5>
+            </div>
+            <div  id="serch-shop">
+              <b-button @click="googleapi(prices[0].Name)" href="#map-box">このショップを探す</b-button>
+            </div>
+          </b-col>
+        </b-row>
+        <b-row>          
+          <a :href="rakuten.Items[0].itemUrl" target="_blank" v-if="this.rakuten!=null">
+            <div class="rakuten">
+              <h4 class="text-left">楽天の参考価格:</h4>
+              <b-row>
+                <b-col cols="2">
+                  <img :src="rakuten.Items[0].smallImageUrls[0]">
+                </b-col>
+                <b-col cols="10">
+                  <h6 class="text-left">{{ rakuten.Items[0].itemName }}</h6>
+                  <h4 class="text-left">{{ rakuten.Items[0].itemPrice }}円</h4>
+                </b-col>
+              </b-row>
+            </div>
+          </a>
         </b-row>
 
       </div>
