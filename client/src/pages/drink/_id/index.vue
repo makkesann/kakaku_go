@@ -29,7 +29,7 @@
             </b-row>
             <a :href="rakuten.Items[0].itemUrl" target="_blank" v-if="this.rakuten!=null">
               <div class="rakuten">
-                <h4 class="text-left">楽天の参考価格:</h4>
+                <h4 class="text-left">楽天の参考価格</h4>
                 <b-row>
                   <b-col cols="2">
                     <img :src="rakuten.Items[0].smallImageUrls[0]">
@@ -99,7 +99,7 @@
         </b-col>
         <b-col cols="7" class="py-2 px-2 w-100">
           <p v-if="prices.length ==0">価格が登録されていません</p>
-          <p v-if="prices.length !=0" class="text-left mb-3">最安価格：{{ prices[0].Price }}円</p>
+          <p v-if="prices.length !=0" class="text-left mb-3">最安価格：<br>{{ prices[0].Price }}円</p>
           <div v-if="prices.length !=0">
             <p class="text-left">最安ショップ：{{ prices[0].Name }}</p>
           </div>
@@ -111,7 +111,7 @@
       <b-row>          
         <a :href="rakuten.Items[0].itemUrl" target="_blank" v-if="this.rakuten!=null">
           <div class="rakuten">
-            <h5 class="text-left">楽天の参考価格:</h5>
+            <h5 class="text-left">楽天の参考価格</h5>
             <b-row>
               <b-col cols="5">
                 <img :src="rakuten.Items[0].smallImageUrls[0]">
