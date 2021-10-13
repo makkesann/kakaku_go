@@ -99,9 +99,9 @@
         </b-col>
         <b-col cols="7" class="py-2 px-2 w-100">
           <p v-if="prices.length ==0">価格が登録されていません</p>
-          <p v-if="prices.length !=0" class="text-left mb-3">最安価格：{{ prices[0].Price }}円</p>
+          <p v-if="prices.length !=0" class="text-left mb-1">最安価格：{{ prices[0].Price }}円</p>
           <div v-if="prices.length !=0">
-            <p class="text-left">最安ショップ：<br>{{ prices[0].Name }}</p>
+            <p class="text-left mb-1">最安ショップ：<br>{{ prices[0].Name }}</p>
           </div>
           <div  id="serch-shop">
             <b-button @click="googleapi(prices[0].Name)" href="#map-box">このショップを探す</b-button>
