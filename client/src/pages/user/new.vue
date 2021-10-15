@@ -14,7 +14,7 @@
             >
               <b-form-group id="username-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="username">ユーザー名：</label>
                   </b-col>
                   <b-col cols="9">
@@ -37,7 +37,7 @@
             >
               <b-form-group id="user_pass-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="user_pass">パスワード：</label>
                   </b-col>
                   <b-col cols="9">
@@ -61,7 +61,7 @@
             >
               <b-form-group id="user_pass_confirmed-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="user_pass_confirmed">パスワード確認入力：</label>
                   </b-col>
                   <b-col cols="9">

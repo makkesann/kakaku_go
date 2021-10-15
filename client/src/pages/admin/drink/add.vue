@@ -14,7 +14,7 @@
             >
               <b-form-group id="productname-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="productname">商品名：</label>
                   </b-col>
                   <b-col cols="9">
@@ -33,7 +33,7 @@
             <validation-provider name="ジャンル" v-slot="validationContext">
               <b-form-group id="genre_id-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="genre_id">ジャンル：</label>
                   </b-col>
                   <b-col cols="9">
@@ -61,7 +61,7 @@
             >
               <b-form-group id="Jancode-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="Jancode">Janコード：</label>
                   </b-col>
                   <b-col cols="9">
@@ -83,7 +83,7 @@
             >
               <b-form-group id="img_file_name-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="img_file_name">画像ファイル名：</label>
                   </b-col>
                   <b-col cols="9">
@@ -106,7 +106,7 @@
             >
               <b-form-group id="quantity-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="quantity">内容量（ml）：</label>
                   </b-col>
                   <b-col cols="9">

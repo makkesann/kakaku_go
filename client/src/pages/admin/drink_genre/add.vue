@@ -14,7 +14,7 @@
             >
               <b-form-group id="genrename-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="genrename">ジャンル名：</label>
                   </b-col>
                   <b-col cols="9">

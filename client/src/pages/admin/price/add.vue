@@ -10,7 +10,7 @@
             <validation-provider name="商品名" v-slot="validationContext" :rules="{ required: true}">
               <b-form-group id="drink_id-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="drink_id">商品名：</label>
                   </b-col>
                   <b-col cols="9">
@@ -34,7 +34,7 @@
             <validation-provider name="店名" v-slot="validationContext" :rules="{ required: true}">
               <b-form-group id="shop_id-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="shop_id">店名：</label>
                   </b-col>
                   <b-col cols="9">
@@ -62,7 +62,7 @@
             >
               <b-form-group id="price-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="price">価格：</label>
                   </b-col>
                   <b-col cols="9">

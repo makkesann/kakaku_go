@@ -10,7 +10,7 @@
             <validation-provider name="変更するジャンル" v-slot="validationContext">
               <b-form-group id="genre_id-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="genre_id">変更するジャンル：</label>
                   </b-col>
                   <b-col cols="9">
@@ -38,7 +38,7 @@
             >
               <b-form-group id="genre_name-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="genre_name">変更後のジャンル名：</label>
                   </b-col>
                   <b-col cols="9">

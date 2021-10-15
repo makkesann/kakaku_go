@@ -10,7 +10,7 @@
             <validation-provider name="変更する店舗名" v-slot="validationContext" :rules="{ required: true }">
               <b-form-group id="shop_id-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="shop_id">変更する店舗名：</label>
                   </b-col>
                   <b-col cols="9">
@@ -38,7 +38,7 @@
             >
               <b-form-group id="shop_name-box">
                 <b-row>
-                  <b-col cols="3" class="text-right">
+                  <b-col cols="3" class="text-right text-left-sp">
                     <label for="shop_name">変更後の店舗名：</label>
                   </b-col>
                   <b-col cols="9">
