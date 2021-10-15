@@ -34,7 +34,7 @@
             <b-collapse id="navbar-toggle-collapse" is-nav>
               <b-nav-item class="d-flex align-items-center" @click="doAdminLogIn(false)" v-if="this.$store.state.login.admin">管理者ログアウト</b-nav-item>
               <b-nav-item class="d-flex align-items-center"  to="/admin" v-if="this.$store.state.login.admin">管理者ページ</b-nav-item>
-              <b-nav-item class="d-flex align-items-center" @click="doAdminLogIn(true)" v-if="!this.$store.state.login.admin">管理者ログイン</b-nav-item>
+              <b-nav-item class="d-flex align-items-center" to="/admin/login" v-if="!this.$store.state.login.admin">管理者ログイン</b-nav-item>
               <b-nav-item class="d-flex align-items-center" v-if="id == 0" to="/user/login">ログイン</b-nav-item>
               <b-nav-item class="d-flex align-items-center" v-if="id == 0" to="/user/new">アカウント作成</b-nav-item>
               <!-- <b-nav-item class="d-flex align-items-center" v-if="id != 0" :to="{name:'user-id',params:{id: id}}">マイページ</b-nav-item> -->

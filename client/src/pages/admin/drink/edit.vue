@@ -4,7 +4,7 @@
       {{error}}
     </b-alert>
     <b-container>
-      <div class="bellow-error">
+      <div class="bellow-error form">
         <b-row class="mb-5">
           <b-col cols="3" class="text-right">
             <label for="drink_id">変更する商品：</label>

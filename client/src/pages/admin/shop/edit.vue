@@ -4,7 +4,7 @@
       {{error}}
     </b-alert>
     <b-container>
-      <div class="bellow-error">
+      <div class="bellow-error form">
         <validation-observer ref="observer" v-slot="{handleSubmit}">
           <b-form @submit.stop.prevent="handleSubmit(doChangeShopName)">
             <validation-provider name="変更する店舗名" v-slot="validationContext" :rules="{ required: true }">
