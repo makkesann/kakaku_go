@@ -1,7 +1,7 @@
 <template>
   <div class="drink">
     <b-container>
-      <div class="search-box">
+      <div class="search-box pc">
         <h2>どのような飲み物をお探しですか</h2>
         <b-form-input v-model="keyword" placeholder="商品名を入れてください"></b-form-input>
       </div>
