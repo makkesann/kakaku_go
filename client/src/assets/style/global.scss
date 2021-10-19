@@ -205,6 +205,9 @@ body{
       }
       td:nth-child(2){
         width: 50%;
+        a{
+          font-size: 14px;
+        }
       }
       td:nth-child(3){
         width: 20%;
@@ -238,5 +241,19 @@ body{
         max-width: 100%;
       }
     }
+  }
+}
+@media screen and (max-width:350px) {
+  .non-super-sp{
+    display: none;
+  }
+  .page-link{
+    font-size: 13px;
+    padding: 0.5rem 0.4rem;
+  }
+}
+@media screen and (min-width:351px) {
+  .super-sp{
+    display: none;
   }
 }
