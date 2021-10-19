@@ -113,7 +113,29 @@
           </template>
         </b-table>
       </b-row>
-      <b-row>
+      <b-row class="non-super-sp">
+        <paginate
+          class="mx-auto page-nation"
+          v-model="currentPage"
+          :page-count="getPageCount"
+          :page-range="3"
+          :margin-pages="2"
+          :click-handler="clickCallback"
+          :prev-text="'<'"
+          :next-text="'>'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+          :page-link-class="'page-link'"
+          :prev-class="'page-item'"
+          :prev-link-class="'page-link'"
+          :next-class="'page-item'"
+          :next-link-class="'page-link'"
+          :first-last-button="true"
+          :first-button-text="'<<'"
+          :last-button-text="'>>'">
+        </paginate>
+      </b-row>
+      <b-row class="super-sp">
         <paginate
           class="mx-auto page-nation"
           v-model="currentPage"
