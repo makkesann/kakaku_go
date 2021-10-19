@@ -5,6 +5,10 @@
         <h2>どのような飲み物をお探しですか</h2>
         <b-form-input v-model="keyword" placeholder="商品名を入れてください"></b-form-input>
       </div>
+      <div class="search-box sp">
+        <h2>どのような飲み物をお探しですか</h2>
+        <b-form-input v-model="keyword" placeholder="商品名を入れてください"></b-form-input>
+      </div>
 
       <h2 v-if="serched_favorite_drinks.length != 0">お気に入りの商品</h2>
       <b-row class="pc">
@@ -91,9 +95,30 @@
         </b-col>
       </b-row>
       <b-row class="sp drinks-table">
-        <b-table v-if="serched_favorite_drinks.length != 0" striped hover :items="serched_favorite_drinks">
-        </b-table>
-        <b-table hover thead-class="d-none" :items="serched_drinks" :fields="drink_fields" class="drinks-table">
+        <div v-if="keyword != null && keyword !=''">
+          <h2>検索結果</h2>
+          <b-table v-if="keyworddrinks.length != 0" striped hover :items="keyworddrinks" :fields="drink_fields" class="drinks-table">
+            <template v-slot:cell(画像)="{item}">
+              <div class="test2 mx-auto">
+                <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
+              </div>
+            </template>
+            <template v-slot:cell(商品名)="{item}">
+              <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link>
+              <!-- <p v-if="admin">削除</p> -->
+            </template>
+            <template v-slot:cell(内容量) ="{item}">
+              <p v-if="item.Quantity!=0">{{ item.Quantity }}ml</p>
+              <p v-else>- ml</p>
+            </template>
+            <template v-slot:cell(お気に入り)="{item}">
+              <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+              <b-icon v-else @click="doAddFavoriteDrink(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+            </template>
+          </b-table>
+          <h3 v-else>該当する商品がありません</h3>
+        </div>
+        <b-table v-if="serched_favorite_drinks.length != 0" hover :items="serched_favorite_drinks" :fields="drink_fields" class="drinks-table">
           <template v-slot:cell(画像)="{item}">
             <div class="test2 mx-auto">
               <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
@@ -106,6 +131,25 @@
           <template v-slot:cell(内容量) ="{item}">
             <span v-if="item.Quantity!=0">{{ item.Quantity }}ml</span>
             <span v-else>- ml</span>
+          </template>
+          <template v-slot:cell(お気に入り)="{item}">
+            <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
+            <b-icon v-else @click="doAddFavoriteDrink(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
+          </template>
+        </b-table>
+        <b-table hover :items="getItems" :fields="drink_fields" class="drinks-table">
+          <template v-slot:cell(画像)="{item}">
+            <div class="test2 mx-auto">
+              <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
+            </div>
+          </template>
+          <template v-slot:cell(商品名)="{item}">
+            <router-link :to="{name:'drink-id',params:{id: item.ID}}">{{ item.name }}</router-link>
+            <!-- <p v-if="admin">削除</p> -->
+          </template>
+          <template v-slot:cell(内容量) ="{item}">
+            <p v-if="item.Quantity!=0">{{ item.Quantity }}ml</p>
+            <p v-else>- ml</p>
           </template>
           <template v-slot:cell(お気に入り)="{item}">
             <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
