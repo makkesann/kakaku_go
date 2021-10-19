@@ -191,6 +191,10 @@ body{
   .drink{
     .drinks-table{
       font-size: 16px;
+      table-layout: fixed;
+    }
+    .table th, .table td{
+      padding: 0.2rem;
     }
   }
   .product_detail{

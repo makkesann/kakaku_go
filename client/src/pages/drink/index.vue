@@ -61,8 +61,8 @@
               <!-- <p v-if="admin">削除</p> -->
             </template>
             <template v-slot:cell(内容量) ="{item}">
-              <p v-if="item.Quantity!=0">{{ item.Quantity }}ml</p>
-              <p v-else>- ml</p>
+              <span v-if="item.Quantity!=0">{{ item.Quantity }}ml</span>
+              <span v-else>- ml</span>
             </template>
             <template v-slot:cell(お気に入り)="{item}">
               <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
@@ -104,8 +104,8 @@
             <!-- <p v-if="admin">削除</p> -->
           </template>
           <template v-slot:cell(内容量) ="{item}">
-            <p v-if="item.Quantity!=0">{{ item.Quantity }}ml</p>
-            <p v-else>- ml</p>
+            <span v-if="item.Quantity!=0">{{ item.Quantity }}ml</span>
+            <span v-else>- ml</span>
           </template>
           <template v-slot:cell(お気に入り)="{item}">
             <b-icon v-if="item.favorite" @click="doDeleteFavoriteDrink(item)" icon="star-fill" aria-hidden="true" variant="warning"></b-icon>
