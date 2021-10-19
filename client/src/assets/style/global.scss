@@ -97,6 +97,9 @@ body{
   .page-nation{
     margin-top: 30px;
   }
+  .table th, .table td{
+    vertical-align: middle;
+  }
 }
 #header{
   background-color: rgb(19,25,33);
@@ -195,6 +198,20 @@ body{
     }
     .table th, .table td{
       padding: 0.2rem;
+    }
+    .drinks-table tr{
+      td:first-child{
+        width: 20%;
+      }
+      td:nth-child(2){
+        width: 50%;
+      }
+      td:nth-child(3){
+        width: 20%;
+      }
+      td:nth-child(4){
+        width: 10%;
+      }
     }
   }
   .product_detail{
