@@ -6,11 +6,11 @@
         <b-form-input v-model="keyword" placeholder="商品名を入れてください"></b-form-input>
       </div>
       <div class="search-box sp">
-        <h2>どのような飲み物をお探しですか</h2>
+        <h2 class="sp-serch-title">どのような飲み物をお探しですか</h2>
         <b-form-input v-model="keyword" placeholder="商品名を入れてください"></b-form-input>
       </div>
 
-      <h2 v-if="serched_favorite_drinks.length != 0">お気に入りの商品</h2>
+      <h2 v-if="serched_favorite_drinks.length != 0" class="favorite-title">お気に入りの商品</h2>
       <b-row class="pc">
         <b-col cols="2">
           <div class="text-left genre_box mb-4">
@@ -97,7 +97,7 @@
       <b-row class="sp drinks-table">
         <div v-if="keyword != null && keyword !=''">
           <h2>検索結果</h2>
-          <b-table v-if="keyworddrinks.length != 0" striped hover :items="keyworddrinks" :fields="drink_fields" class="drinks-table">
+          <b-table thead-class="d-none" v-if="keyworddrinks.length != 0" striped hover :items="keyworddrinks" :fields="drink_fields" class="drinks-table">
             <template v-slot:cell(画像)="{item}">
               <div class="test2 mx-auto">
                 <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
@@ -118,7 +118,7 @@
           </b-table>
           <h3 v-else>該当する商品がありません</h3>
         </div>
-        <b-table v-if="serched_favorite_drinks.length != 0" hover :items="serched_favorite_drinks" :fields="drink_fields" class="drinks-table">
+        <b-table thead-class="d-none" v-if="serched_favorite_drinks.length != 0" hover :items="serched_favorite_drinks" :fields="drink_fields" class="drinks-table">
           <template v-slot:cell(画像)="{item}">
             <div class="test2 mx-auto">
               <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
@@ -137,7 +137,7 @@
             <b-icon v-else @click="doAddFavoriteDrink(item)" icon="star" aria-hidden="true" variant="warning"></b-icon>
           </template>
         </b-table>
-        <b-table hover :items="getItems" :fields="drink_fields" class="drinks-table">
+        <b-table thead-class="d-none" hover :items="getItems" :fields="drink_fields" class="drinks-table">
           <template v-slot:cell(画像)="{item}">
             <div class="test2 mx-auto">
               <img v-lazy="'https://kakaku-go-product.s3.ap-northeast-1.amazonaws.com/small/' + item.Image">
